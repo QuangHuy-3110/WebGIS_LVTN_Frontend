@@ -16,10 +16,54 @@ export const AuthProvider = ({ children }) => {
       setToken(savedToken);
       setCurrentUser(JSON.parse(savedUser));
     }
+    // Sau khi kiểm tra xong thì tắt loading
     setLoading(false);
   }, []);
 
-  // 2. Hàm Login: Sửa để lưu thêm Refresh Token
+  // Hàm tiện ích: Xử lý đường dẫn Avatar
+  const getAvatarUrl = (url) => {
+    if (!url) return null;
+    if (url.startsWith('http') || url.startsWith('https')) {
+        return url;
+    }
+    return `http://127.0.0.1:8000${url}`;
+  };
+
+  const register = async (userData) => {
+    try {
+      const isFormData = userData instanceof FormData;
+      
+      const options = {
+        method: 'POST',
+        headers: {}, 
+      };
+
+      if (isFormData) {
+         options.body = userData;
+      } else {
+         options.headers['Content-Type'] = 'application/json';
+         options.body = JSON.stringify(userData);
+      }
+
+      const response = await fetch('http://127.0.0.1:8000/api/users/', options);
+      const data = await response.json();
+
+      if (response.ok) {
+        return { success: true };
+      } else {
+        let errorMsg = "Đăng ký thất bại.";
+        if (typeof data === 'object') {
+            const firstKey = Object.keys(data)[0];
+            if(firstKey) errorMsg = `${firstKey}: ${data[firstKey][0]}`; 
+        }
+        return { success: false, message: errorMsg };
+      }
+    } catch (error) {
+      console.error("Register error:", error);
+      return { success: false, message: "Lỗi kết nối server!" };
+    }
+  };
+
   const login = async (username, password) => {
     try {
       const res = await fetch('http://127.0.0.1:8000/api/token/', {
@@ -30,17 +74,17 @@ export const AuthProvider = ({ children }) => {
       const data = await res.json();
 
       if (res.ok) {
-        // Lưu Access Token
         localStorage.setItem('accessToken', data.access);
+        localStorage.setItem('refreshToken', data.refresh); 
         setToken(data.access);
 
-        // --- QUAN TRỌNG: Lưu Refresh Token ---
-        localStorage.setItem('refreshToken', data.refresh); 
-
-        // Lưu thông tin User
         const userConfig = { 
           username: data.username, 
           full_name: data.full_name,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          phone: data.phone,
           role: data.is_staff ? 'admin' : 'user',
           avatar: data.avatar
         };
@@ -55,51 +99,36 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateLoginState = (newData) => {
+      const updatedUser = { ...currentUser, ...newData };
+      setCurrentUser(updatedUser);
+      localStorage.setItem('userInfo', JSON.stringify(updatedUser));
+  };
+
   const logout = useCallback(() => {
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken'); // Xóa cả refresh token
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('userInfo');
     setToken(null);
     setCurrentUser(null);
-    // Có thể reload trang để reset sạch sẽ state
-    // window.location.reload(); 
   }, []);
 
-  // 3. Hàm gọi API thông minh (Tự động Refresh Token khi hết hạn)
   const authFetch = useCallback(async (url, options = {}) => {
     let currentToken = localStorage.getItem('accessToken');
-
-    // Tạo headers cơ bản
     const headers = {
         'Authorization': `Bearer ${currentToken}`,
         ...options.headers
     };
 
-    // --- SỬA LOGIC QUAN TRỌNG TẠI ĐÂY ---
     if (options.body instanceof FormData) {
-        // Nếu là FormData (Upload ảnh):
-        // BẮT BUỘC PHẢI XÓA Content-Type để trình duyệt tự điền boundary
-        if (headers['Content-Type']) {
-            delete headers['Content-Type'];
-        }
+        if (headers['Content-Type']) delete headers['Content-Type'];
     } else {
-        // Nếu là dữ liệu thường (JSON):
-        // Nếu chưa có Content-Type thì set mặc định là JSON
-        if (!headers['Content-Type']) {
-            headers['Content-Type'] = 'application/json';
-        }
+        if (!headers['Content-Type']) headers['Content-Type'] = 'application/json';
     }
-    // -------------------------------------
 
-    let response = await fetch(url, {
-        ...options,
-        headers: headers
-    });
+    let response = await fetch(url, { ...options, headers });
 
-    // Xử lý khi Token hết hạn (Refresh Token) - Logic này giữ nguyên
     if (response.status === 401) {
-      console.log("Token hết hạn! Đang thử Refresh...");
-      
       const refreshToken = localStorage.getItem('refreshToken');
       if (!refreshToken) {
         logout();
@@ -108,32 +137,39 @@ export const AuthProvider = ({ children }) => {
 
       const refreshRes = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }, // Riêng API này luôn là JSON
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refresh: refreshToken })
       });
 
       if (refreshRes.ok) {
         const refreshData = await refreshRes.json();
-        const newAccessToken = refreshData.access;
-        
-        localStorage.setItem('accessToken', newAccessToken);
-        setToken(newAccessToken);
-
-        // Gọi lại request ban đầu với Token mới
-        // Cần cập nhật lại Authorization header mới
-        headers['Authorization'] = `Bearer ${newAccessToken}`;
+        localStorage.setItem('accessToken', refreshData.access);
+        setToken(refreshData.access);
+        headers['Authorization'] = `Bearer ${refreshData.access}`;
         response = await fetch(url, { ...options, headers });
       } else {
         logout();
       }
     }
-
     return response;
   }, [logout]);
 
   return (
-    // Thêm 'token' vào danh sách value gửi đi
-    <AuthContext.Provider value={{ currentUser, token, login, logout, authFetch, loading }}>
+    <AuthContext.Provider value={{ 
+        currentUser, 
+        token,   // <--- KHẮC PHỤC WARNING 1: Truyền token ra ngoài
+        loading, // <--- KHẮC PHỤC WARNING 2: Truyền loading ra ngoài
+        login, 
+        logout, 
+        authFetch, 
+        register,        
+        getAvatarUrl,    
+        updateLoginState 
+    }}>
+      {/* KHẮC PHỤC WARNING 2 (Quan trọng): 
+        Chỉ render ứng dụng khi loading = false (đã load xong user từ localStorage).
+        Việc này giúp tránh lỗi giao diện bị nhảy khi F5.
+      */}
       {!loading && children}
     </AuthContext.Provider>
   );

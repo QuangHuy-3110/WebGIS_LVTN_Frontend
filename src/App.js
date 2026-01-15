@@ -69,6 +69,33 @@ const MainApp = () => {
     fetchStoreData();
   }, []);
 
+  const handleDirections = (store) => {
+    // 1. Set Điểm đến là tọa độ của quán đang xem
+    setEndPoint([store.lng, store.lat]);
+    
+    // 2. Set Điểm đi là null (để người dùng chọn) hoặc vị trí GPS nếu muốn
+    setStartPoint(null);
+
+    // 3. Chuyển bản đồ sang chế độ chờ người dùng chọn Điểm đi
+    setSelectingMode('start');
+
+    // 4. Đóng Panel thông tin quán để lộ bản đồ ra
+    setSelectedStore(null);
+
+    // 5. (Tuỳ chọn) Thông báo nhắc người dùng
+    // alert(`Đã chọn đích đến là "${store.name}".\nVui lòng chạm vào bản đồ để chọn vị trí xuất phát của bạn!`);
+  };
+
+  const getAvatarUrl = (url) => {
+      if (!url) return null;
+      // Nếu đường dẫn đã có http (ví dụ ảnh Google/Facebook) thì giữ nguyên
+      if (url.startsWith('http') || url.startsWith('https')) {
+          return url;
+      }
+      // Nếu là đường dẫn tương đối từ Django (/media/...), nối thêm domain server
+      return `http://127.0.0.1:8000${url}`;
+  };
+
   const fetchStoreData = () => {
     fetch('http://127.0.0.1:8000/api/stores/')
       .then(res => res.json())
@@ -96,7 +123,9 @@ const MainApp = () => {
           lat: feature.geometry.coordinates[1],
           type: feature.properties.category,
           describe: feature.properties.describe,
-          note: feature.properties.note // Nếu backend có trả về note
+          note: feature.properties.note, // Nếu backend có trả về note
+          phone: feature.properties.phone,
+          email: feature.properties.email,
         }));
         setStores(formattedStores);
       })
@@ -131,9 +160,38 @@ const MainApp = () => {
 
   // 4. Xử lý Click trên bản đồ (Chỉ dùng để chọn điểm đi/đến, KHÔNG dùng để thêm quán nữa)
   const handleMapClick = (coords) => {
+    // Nếu đang có Panel chi tiết quán thì đóng lại
     if (selectedStore) { setSelectedStore(null); return; }
-    if (selectingMode === 'start') { setStartPoint(coords); setSelectingMode(null); return; }
-    if (selectingMode === 'end') { setEndPoint(coords); setSelectingMode(null); return; }
+
+    if (selectingMode === 'start') {
+      setStartPoint(coords);
+      setSelectingMode(null); // Tắt chế độ chọn sau khi click
+      return;
+    }
+    if (selectingMode === 'end') {
+      setEndPoint(coords);
+      setSelectingMode(null); // Tắt chế độ chọn sau khi click
+      return;
+    }
+  };
+
+  const handleSelectStoreFromSearch = (store) => {
+    // A. Set điểm đến là tọa độ quán
+    setEndPoint([store.lng, store.lat]);
+    
+    // B. Nếu chưa có điểm đi, tự động bật chế độ chọn điểm đi
+    if (!startPoint) {
+        setSelectingMode('start');
+    }
+    
+    // C. Focus bản đồ vào quán đó (Tuỳ chọn, nếu MapComponent hỗ trợ)
+    // flyTo(store.lng, store.lat); 
+  };
+
+  const handleClearRoute = () => {
+      setStartPoint(null);
+      setEndPoint(null);
+      setSelectingMode(null);
   };
 
   // 5. Xử lý Click nút "Thêm cửa hàng mới"
@@ -179,19 +237,25 @@ const MainApp = () => {
       
       <div className="ui-overlay">
         {/* Góc Trái Trên: Tìm kiếm & Bộ lọc */}
-        <div className="top-left-area">
+        <div className="bottom-right-search">
           <SearchBar 
-             startPoint={startPoint} endPoint={endPoint}
-             onFocusStart={() => setSelectingMode('start')}
-             onFocusEnd={() => setSelectingMode('end')}
-             isSelecting={selectingMode}
+             stores={stores} // Truyền toàn bộ danh sách quán để tìm kiếm
+             onSelectStore={handleSelectStoreFromSearch} // Mode 1
+             onSetMode={setSelectingMode} // Mode 2 (Set thủ công)
+             startPoint={startPoint}
+             endPoint={endPoint}
+             onClearRoute={handleClearRoute}
           />
-          <FloatingControls 
-            categories={categories}
-            currentFilter={filterType}
-            onFilterChange={setFilterType}
-            currentUser={currentUser}
-          />
+          
+        </div>
+
+        <div className={`floating-controls-container ${selectedStore ? 'panel-open' : ''}`}>
+           <FloatingControls 
+              categories={categories}
+              currentFilter={filterType}
+              onFilterChange={setFilterType}
+              currentUser={currentUser}
+           />
         </div>
 
         {/* Góc Phải Trên: User & Nút Thêm */}
@@ -201,11 +265,19 @@ const MainApp = () => {
               <span onClick={() => setShowProfileModal(true)} style={{cursor: 'pointer'}}>
                  {/* Nếu có avatar thì hiện avatar nhỏ, không thì icon */}
                  {currentUser.avatar ? (
-                     <img src={currentUser.avatar} alt="avt" style={{width: 30, height: 30, borderRadius: '50%', verticalAlign: 'middle', marginRight: 5}}/>
+                     <img 
+                        src={getAvatarUrl(currentUser.avatar)}  // <--- SỬA DÒNG NÀY
+                        alt="avt" 
+                        style={{
+                            width: 30, height: 30, 
+                            borderRadius: '50%', objectFit: 'cover', // Thêm objectFit để ảnh tròn không bị méo
+                            verticalAlign: 'middle', marginRight: 5
+                        }}
+                     />
                  ) : (
                      <IoPersonCircle size={24} style={{verticalAlign: 'middle', marginRight: 5}}/>
                  )}
-                 Xin chào, <strong>{currentUser.last_name} {currentUser.first_name}</strong>
+                 Xin chào! <strong>{currentUser.last_name} {currentUser.first_name}</strong>
               </span>
               {currentUser.role === 'admin' && (
                 <button className="icon-btn" title="Quản trị" onClick={() => setShowAdminPanel(true)}>
@@ -230,7 +302,7 @@ const MainApp = () => {
         </div>
 
         {/* Góc Trái Dưới: Đổi lớp bản đồ */}
-        <div className="bottom-left-area">
+        <div className={`bottom-left-area ${selectedStore ? 'panel-open' : ''}`}>
            <LayerSwitcher currentType={mapType} onSwitch={setMapType} />
         </div>
 
@@ -243,6 +315,7 @@ const MainApp = () => {
                 onClose={() => setSelectedStore(null)}
                 isFavorite={favorites.some(f => f.store === selectedStore.id)}
                 onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
+                onDirections={() => handleDirections(selectedStore)}
             />
         )}
 

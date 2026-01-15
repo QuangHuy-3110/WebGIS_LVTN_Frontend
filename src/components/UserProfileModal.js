@@ -1,108 +1,106 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { IoClose, IoCamera, IoPerson, IoLockClosed, IoSave } from "react-icons/io5";
-
-// --- 1. ĐỊNH NGHĨA HÀM HELPER Ở ĐÂY ---
-const getFullImageUrl = (imagePath) => {
-    if (!imagePath) return null;
-    // Nếu ảnh đã có link tuyệt đối (http...) thì giữ nguyên
-    if (imagePath.startsWith('http')) return imagePath;
-    // Nếu là link tương đối từ Django (/media/...), nối thêm domain
-    return `http://127.0.0.1:8000${imagePath}`;
-};
-// --------------------------------------
+import { 
+    IoClose, IoPersonCircle, IoSaveOutline, 
+    IoKeyOutline, IoCloudUploadOutline, IoEye, IoEyeOff, 
+    IoPerson, IoMail, IoCall 
+} from "react-icons/io5";
 
 const UserProfileModal = ({ onClose }) => {
-    const { currentUser, authFetch, setUser } = useAuth(); 
-    
+    const { currentUser, authFetch } = useAuth(); 
     const [activeTab, setActiveTab] = useState('info');
     const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState({ type: '', content: '' });
 
+    // --- STATE DỮ LIỆU ---
     const [profileData, setProfileData] = useState({
-        first_name: '', last_name: '', phone: '', email: '', avatar: null
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: ''
     });
-    const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [avatarFile, setAvatarFile] = useState(null);
+    const [avatarPreview, setAvatarPreview] = useState(null);
 
     const [passData, setPassData] = useState({
-        old_password: '', new_password: '', confirm_password: ''
+        old_password: '',
+        new_password: '',
+        confirm_password: ''
     });
+    const [showPass, setShowPass] = useState(false);
 
-    // TỰ ĐỘNG ĐIỀN THÔNG TIN
+    // --- LOAD DỮ LIỆU ---
     useEffect(() => {
-        if (currentUser) {
-            setProfileData({
-                first_name: currentUser.first_name || '',
-                last_name: currentUser.last_name || '',
-                phone: currentUser.phone || '',
-                email: currentUser.email || '',
-                avatar: null
-            });
-
-            // Xử lý hiển thị avatar
-            if (currentUser.avatar) {
-                setPreviewAvatar(getFullImageUrl(currentUser.avatar));
-            } else {
-                setPreviewAvatar(null);
+        const fetchUserData = async () => {
+            try {
+                const res = await authFetch('http://127.0.0.1:8000/api/users/current-user/');
+                if (res.ok) {
+                    const data = await res.json();
+                    setProfileData({
+                        first_name: data.first_name || '',
+                        last_name: data.last_name || '',
+                        email: data.email || '',
+                        phone: data.phone || ''
+                    });
+                    if (data.avatar) {
+                        const avatarUrl = data.avatar.startsWith('http') ? data.avatar : `http://127.0.0.1:8000${data.avatar}`;
+                        setAvatarPreview(avatarUrl);
+                    }
+                }
+            } catch (error) {
+                console.error("Lỗi tải thông tin user:", error);
+                if (currentUser) { // Fallback
+                    setProfileData({
+                        first_name: currentUser.first_name || '',
+                        last_name: currentUser.last_name || '',
+                        email: currentUser.email || '',
+                        phone: currentUser.phone || ''
+                    });
+                    setAvatarPreview(currentUser.avatar);
+                }
             }
-        }
-    }, [currentUser]);
+        };
+        fetchUserData();
+    }, [authFetch, currentUser]);
 
+    // --- HANDLERS ---
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setProfileData({ ...profileData, avatar: file });
-            setPreviewAvatar(URL.createObjectURL(file));
+            setAvatarFile(file);
+            setAvatarPreview(URL.createObjectURL(file));
         }
     };
 
     const handleUpdateProfile = async () => {
         setIsLoading(true);
-        setMessage({ type: '', content: '' });
-        
         try {
             const formData = new FormData();
             formData.append('first_name', profileData.first_name);
             formData.append('last_name', profileData.last_name);
             formData.append('phone', profileData.phone);
-            if (profileData.avatar) {
-                formData.append('avatar', profileData.avatar);
-            }
+            if (avatarFile) formData.append('avatar', avatarFile);
 
-            const res = await authFetch('http://127.0.0.1:8000/api/profile/', {
-                method: 'PATCH',
-                body: formData
+            const res = await authFetch('http://127.0.0.1:8000/api/profile/update/', {
+                method: 'PATCH', body: formData 
             });
 
             if (res.ok) {
-                const updatedUser = await res.json();
-                
-                // Cập nhật context ngay lập tức
-                setUser(prev => ({ ...prev, ...updatedUser }));
-
-                setMessage({ type: 'success', content: 'Cập nhật thông tin thành công!' });
+                alert("Cập nhật thành công! Vui lòng tải lại trang.");
+                window.location.reload(); 
             } else {
-                setMessage({ type: 'error', content: 'Lỗi khi cập nhật thông tin.' });
+                alert("Lỗi cập nhật thông tin.");
             }
-        } catch (error) {
-            console.error(error);
-            setMessage({ type: 'error', content: 'Lỗi kết nối Server.' });
-        } finally {
-            setIsLoading(false);
-        }
+        } catch (error) { console.error(error); alert("Lỗi kết nối server."); } 
+        finally { setIsLoading(false); }
     };
 
     const handleChangePassword = async () => {
         if (passData.new_password !== passData.confirm_password) {
-            setMessage({ type: 'error', content: 'Mật khẩu xác nhận không khớp!' });
-            return;
+            alert("Mật khẩu xác nhận không khớp!"); return;
         }
-        
         setIsLoading(true);
-        setMessage({ type: '', content: '' });
-
         try {
-            const res = await authFetch('http://127.0.0.1:8000/api/change-password/', {
+            const res = await authFetch('http://127.0.0.1:8000/api/profile/change-password/', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -111,120 +109,139 @@ const UserProfileModal = ({ onClose }) => {
                 })
             });
 
-            const data = await res.json();
             if (res.ok) {
-                setMessage({ type: 'success', content: 'Đổi mật khẩu thành công!' });
+                alert("Đổi mật khẩu thành công!");
                 setPassData({ old_password: '', new_password: '', confirm_password: '' });
+                setActiveTab('info');
             } else {
-                const errorMsg = data.old_password ? data.old_password[0] : 'Đổi mật khẩu thất bại.';
-                setMessage({ type: 'error', content: errorMsg });
+                const data = await res.json();
+                if (data.old_password) alert(data.old_password[0]);
+                else if (data.new_password) alert(data.new_password[0]);
+                else alert("Lỗi đổi mật khẩu.");
             }
-        } catch (error) {
-            setMessage({ type: 'error', content: 'Lỗi kết nối Server.' });
-        } finally {
-            setIsLoading(false);
-        }
+        } catch (error) { console.error(error); alert("Lỗi kết nối."); } 
+        finally { setIsLoading(false); }
     };
 
     return (
         <div className="modal-overlay">
-            <div className="profile-modal-content">
-                <button className="btn-close-modal" onClick={onClose}><IoClose size={24}/></button>
+            {/* Override width để modal nhỏ gọn hơn (Profile không cần quá rộng) */}
+            <div className="edit-modal-content" style={{ width: '480px', height: 'auto', maxHeight: '90vh' }}>
                 
-                <div className="profile-sidebar">
-                    <div className="avatar-section">
-                        <div className="avatar-wrapper">
-                            {/* Fallback hình ảnh nếu lỗi */}
-                            <img 
-                                src={previewAvatar || "https://via.placeholder.com/150"} 
-                                alt="Avatar" 
-                                onError={(e) => { e.target.src = "https://via.placeholder.com/150"; }}
-                            />
-                            <label className="camera-icon">
-                                <IoCamera size={18} />
-                                <input type="file" accept="image/*" onChange={handleFileChange} hidden />
-                            </label>
-                        </div>
-                        <h3>{profileData.last_name} {profileData.first_name}</h3>
-                        <p>{profileData.email}</p>
-                    </div>
-
-                    <div className="menu-tabs">
-                        <button 
-                            className={activeTab === 'info' ? 'active' : ''} 
-                            onClick={() => { setActiveTab('info'); setMessage({type:'', content:''}); }}
-                        >
-                            <IoPerson /> Thông tin cá nhân
-                        </button>
-                        <button 
-                            className={activeTab === 'password' ? 'active' : ''} 
-                            onClick={() => { setActiveTab('password'); setMessage({type:'', content:''}); }}
-                        >
-                            <IoLockClosed /> Đổi mật khẩu
-                        </button>
-                    </div>
+                {/* HEADER */}
+                <div className="modal-header">
+                    <h2 style={{display: 'flex', alignItems: 'center', gap: 10}}>
+                        <IoPerson /> Hồ sơ cá nhân
+                    </h2>
+                    <button className="icon-btn" onClick={onClose}><IoClose size={24}/></button>
                 </div>
 
-                <div className="profile-main">
-                    <h2>{activeTab === 'info' ? 'Chỉnh sửa thông tin' : 'Đổi mật khẩu'}</h2>
+                {/* TABS */}
+                <div className="tabs">
+                    <button className={`tab-btn ${activeTab === 'info' ? 'active' : ''}`} onClick={() => setActiveTab('info')}>
+                        Thông tin chung
+                    </button>
+                    <button className={`tab-btn ${activeTab === 'security' ? 'active' : ''}`} onClick={() => setActiveTab('security')}>
+                        Bảo mật
+                    </button>
+                </div>
+
+                <div className="modal-body-scroll">
                     
-                    {message.content && (
-                        <div className={`alert-msg ${message.type}`}>{message.content}</div>
+                    {/* --- TAB 1: THÔNG TIN --- */}
+                    {activeTab === 'info' && (
+                        <div className="form-grid" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                            
+                            {/* Avatar Section (Tái sử dụng class từ AuthForm) */}
+                            <div className="avatar-upload-section">
+                                <div className="avatar-preview-box">
+                                    {avatarPreview ? (
+                                        <img src={avatarPreview} alt="Avatar" />
+                                    ) : (
+                                        <IoPersonCircle size={80} color="#ccc" />
+                                    )}
+                                </div>
+                                <label className="upload-label-btn">
+                                    <IoCloudUploadOutline size={18} /> Đổi ảnh đại diện
+                                    <input type="file" accept="image/*" onChange={handleFileChange} style={{display:'none'}} />
+                                </label>
+                            </div>
+
+                            <div style={{display: 'flex', gap: '10px'}}>
+                                <div className="form-group" style={{flex: 1}}>
+                                    <label>Họ</label>
+                                    <input value={profileData.last_name} onChange={(e) => setProfileData({...profileData, last_name: e.target.value})} />
+                                </div>
+                                <div className="form-group" style={{flex: 1}}>
+                                    <label>Tên</label>
+                                    <input value={profileData.first_name} onChange={(e) => setProfileData({...profileData, first_name: e.target.value})} />
+                                </div>
+                            </div>
+                            
+                            <div className="form-group">
+                                <label><IoCall size={14}/> Số điện thoại</label>
+                                <input value={profileData.phone} onChange={(e) => setProfileData({...profileData, phone: e.target.value})} placeholder="Thêm số điện thoại..." />
+                            </div>
+
+                            <div className="form-group">
+                                <label><IoMail size={14}/> Email (Không thể sửa)</label>
+                                <input value={profileData.email} disabled style={{backgroundColor: '#f1f3f4', color: '#666', cursor: 'not-allowed'}} />
+                            </div>
+                        </div>
                     )}
 
-                    {activeTab === 'info' ? (
-                        <div className="form-grid">
-                            <div className="form-group">
-                                <label>Họ (Last Name)</label>
-                                <input 
-                                    value={profileData.last_name} 
-                                    onChange={e => setProfileData({...profileData, last_name: e.target.value})} 
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Tên (First Name)</label>
-                                <input 
-                                    value={profileData.first_name} 
-                                    onChange={e => setProfileData({...profileData, first_name: e.target.value})} 
-                                />
-                            </div>
-                            <div className="form-group full-width">
-                                <label>Số điện thoại</label>
-                                <input 
-                                    value={profileData.phone} 
-                                    onChange={e => setProfileData({...profileData, phone: e.target.value})} 
-                                />
-                            </div>
-                            <div className="form-group full-width">
-                                <label>Email (Không thể sửa)</label>
-                                <input 
-                                    value={profileData.email} 
-                                    disabled 
-                                    className="input-disabled" 
-                                />
-                            </div>
-                            <button className="btn-save" onClick={handleUpdateProfile} disabled={isLoading}>
-                                <IoSave /> {isLoading ? 'Đang lưu...' : 'Lưu thay đổi'}
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="form-stack">
-                            <div className="form-group">
+                    {/* --- TAB 2: BẢO MẬT --- */}
+                    {activeTab === 'security' && (
+                        <div className="form-grid" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                             <div className="form-group">
                                 <label>Mật khẩu hiện tại</label>
-                                <input type="password" value={passData.old_password} onChange={e => setPassData({...passData, old_password: e.target.value})} />
+                                <div style={{position: 'relative'}}>
+                                    <input 
+                                        type={showPass ? "text" : "password"}
+                                        value={passData.old_password}
+                                        onChange={(e) => setPassData({...passData, old_password: e.target.value})}
+                                    />
+                                </div>
                             </div>
+                            
+                            <hr style={{border: 'none', borderTop: '1px solid #eee', margin: '5px 0'}} />
+
                             <div className="form-group">
                                 <label>Mật khẩu mới</label>
-                                <input type="password" value={passData.new_password} onChange={e => setPassData({...passData, new_password: e.target.value})} />
+                                <input 
+                                    type={showPass ? "text" : "password"}
+                                    value={passData.new_password}
+                                    onChange={(e) => setPassData({...passData, new_password: e.target.value})}
+                                />
                             </div>
+
                             <div className="form-group">
-                                <label>Xác nhận mật khẩu mới</label>
-                                <input type="password" value={passData.confirm_password} onChange={e => setPassData({...passData, confirm_password: e.target.value})} />
+                                <label>Nhập lại mật khẩu mới</label>
+                                <input 
+                                    type={showPass ? "text" : "password"}
+                                    value={passData.confirm_password}
+                                    onChange={(e) => setPassData({...passData, confirm_password: e.target.value})}
+                                />
                             </div>
-                            <button className="btn-save" onClick={handleChangePassword} disabled={isLoading}>
-                                <IoSave /> {isLoading ? 'Đang xử lý...' : 'Xác nhận đổi'}
-                            </button>
+
+                            <div style={{display: 'flex', alignItems: 'center', gap: 6, fontSize: '13px', cursor: 'pointer', userSelect: 'none', color: '#555'}} onClick={() => setShowPass(!showPass)}>
+                                {showPass ? <IoEyeOff /> : <IoEye />} 
+                                {showPass ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                            </div>
                         </div>
+                    )}
+                </div>
+
+                {/* FOOTER */}
+                <div className="modal-footer">
+                    {activeTab === 'info' ? (
+                        <button className="btn-submit" onClick={handleUpdateProfile} disabled={isLoading}>
+                            <IoSaveOutline /> {isLoading ? 'Đang lưu...' : 'Lưu thay đổi'}
+                        </button>
+                    ) : (
+                        <button className="btn-submit" onClick={handleChangePassword} disabled={isLoading} style={{backgroundColor: '#d93025'}}>
+                            <IoKeyOutline /> {isLoading ? 'Đang xử lý...' : 'Đổi mật khẩu'}
+                        </button>
                     )}
                 </div>
             </div>

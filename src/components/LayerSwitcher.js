@@ -1,48 +1,49 @@
 import React, { useState } from 'react';
-import { IoLayers, IoMap, IoImage } from "react-icons/io5";
+import { IoLayers, IoMap, IoImage, IoClose } from "react-icons/io5";
 
 const LayerSwitcher = ({ currentType, onSwitch }) => {
-  // Đổi state để quản lý việc mở/đóng
   const [isOpen, setIsOpen] = useState(false);
 
-  // Hàm xử lý khi chọn layer: gọi onSwitch rồi đóng menu lại
   const handleSelectLayer = (type) => {
     onSwitch(type);
-    setIsOpen(false);
+    // setIsOpen(false); // Có thể comment dòng này nếu muốn giữ menu mở sau khi chọn
   };
 
   return (
-    <div className="layer-switcher-container">
+    // Thêm class 'open' vào container cha nếu state isOpen = true
+    <div className={`layer-switcher-container ${isOpen ? 'open' : ''}`}>
       
-      {/* Nút chính: Click để Toggle (Bật/Tắt) */}
+      {/* Nút chính (Toggle) */}
       <div 
-        className={`layer-btn main ${isOpen ? 'expanded' : ''}`}
+        className={`layer-btn main ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)} 
+        title="Đổi lớp bản đồ"
       >
-        <IoLayers size={24} color="#5F6368" />
-        <span className="label">Lớp bản đồ</span>
+        {isOpen ? <IoClose size={24} color="#5F6368"/> : <IoLayers size={24} color="#5F6368" />}
       </div>
 
-      {/* Menu mở rộng: Chỉ hiện khi isOpen = true */}
-      {isOpen && (
-        <div className="layer-options">
-          <div 
-            className={`layer-option ${currentType === 'standard' ? 'active' : ''}`}
-            onClick={() => handleSelectLayer('standard')}
-          >
-            <div className="thumb standard"><IoMap size={20} /></div>
-            <span>Mặc định</span>
-          </div>
-          
-          <div 
-            className={`layer-option ${currentType === 'satellite' ? 'active' : ''}`}
-            onClick={() => handleSelectLayer('satellite')}
-          >
-            <div className="thumb satellite"><IoImage size={20} /></div>
-            <span>Vệ tinh</span>
-          </div>
+      {/* Menu trượt (Luôn render, ẩn hiện bằng CSS) */}
+      <div className="layer-options">
+        
+        {/* Option 1: Mặc định */}
+        <div 
+          className={`layer-option ${currentType === 'standard' ? 'active' : ''}`}
+          onClick={() => handleSelectLayer('standard')}
+        >
+          <div className="thumb standard"><IoMap size={18} /></div>
+          <span style={{fontSize: 10}}>Mặc định</span>
         </div>
-      )}
+        
+        {/* Option 2: Vệ tinh */}
+        <div 
+          className={`layer-option ${currentType === 'satellite' ? 'active' : ''}`}
+          onClick={() => handleSelectLayer('satellite')}
+        >
+          <div className="thumb satellite"><IoImage size={18} /></div>
+          <span style={{fontSize: 10}}>Vệ tinh</span>
+        </div>
+
+      </div>
     </div>
   );
 };
