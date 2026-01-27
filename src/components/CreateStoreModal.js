@@ -21,11 +21,14 @@ const LocationPicker = ({ setPos }) => {
     return null;
 };
 
+// Component giúp bản đồ tự động bay đến vị trí mới khi coordinates thay đổi
 const RecenterAutomatically = ({ lat, lng }) => {
     const map = useMap();
     useEffect(() => {
         setTimeout(() => { map.invalidateSize(); }, 200);
-        if (lat && lng) { map.setView([lat, lng], map.getZoom()); }
+        if (lat && lng) { 
+            map.flyTo([lat, lng], 16); // Dùng flyTo cho mượt
+        }
     }, [lat, lng, map]);
     return null;
 };
@@ -35,14 +38,13 @@ const CreateStoreModal = ({ onClose }) => {
     const [activeTab, setActiveTab] = useState('info');
     const [isSubmitting, setIsSubmitting] = useState(false);
     
-    // --- 1. STATE LƯU DANH SÁCH DANH MỤC ---
+    // State lưu danh mục
     const [categories, setCategories] = useState([]);
-    // ----------------------------------------
 
     const [formData, setFormData] = useState({
         name: '', phone: '', email: '', address: '',
         open_time: '', close_time: '', describe: '', 
-        category: '' // Để trống ban đầu
+        category: '' 
     });
 
     const [position, setPosition] = useState({ lat: 10.045, lng: 105.746 });
@@ -59,32 +61,73 @@ const CreateStoreModal = ({ onClose }) => {
         },
     }), []);
 
-    // --- 2. GỌI API LẤY DANH MỤC KHI MỞ MODAL ---
+    // Load danh mục
     useEffect(() => {
         fetch('http://127.0.0.1:8000/api/categories/')
             .then(res => res.json())
             .then(data => {
                 const result = data.results || data;
                 setCategories(result);
-                // Tự động chọn danh mục đầu tiên nếu có
                 if (result.length > 0) {
                     setFormData(prev => ({ ...prev, category: result[0].id }));
                 }
             })
             .catch(err => console.error("Lỗi tải danh mục:", err));
     }, []);
-    // ---------------------------------------------
 
     const [newImagesData, setNewImagesData] = useState([]);
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
     
-    const handleFileSelect = (e) => {
-        if (e.target.files) {
-            const newFiles = Array.from(e.target.files).map(file => ({ file, describe: "" }));
+    // --- [SỬA ĐỔI] HÀM XỬ LÝ CHỌN ẢNH VÀ TỰ ĐỘNG LẤY GPS ---
+    const handleFileSelect = async (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const files = Array.from(e.target.files);
+            
+            // 1. Thêm ảnh vào danh sách hiển thị (Logic cũ)
+            const newFiles = files.map(file => ({ file, describe: "" }));
             setNewImagesData([...newImagesData, ...newFiles]);
+
+            // 2. [MỚI] Lấy file đầu tiên để phân tích GPS
+            const firstFile = files[0];
+            
+            // Chỉ gọi API nếu chưa có địa chỉ hoặc người dùng muốn (để tránh ghi đè nếu họ đang nhập dở)
+            // Ở đây mình cứ gọi luôn để demo tính năng tự động
+            const data = new FormData();
+            data.append('image', firstFile);
+
+            try {
+                // Hiển thị loading nhẹ (tùy chọn)
+                console.log("⏳ Đang phân tích GPS từ ảnh...");
+                
+                // Gọi API backend chúng ta đã viết (AnalyzeImageView)
+                const response = await fetch('http://127.0.0.1:8000/api/utils/analyze-image/', {
+                    method: 'POST',
+                    body: data,
+                    // Lưu ý: Không cần headers Content-Type, trình duyệt tự gán boundary cho FormData
+                });
+
+                const result = await response.json();
+
+                if (result.latitude && result.longitude) {
+                    // Cập nhật Marker trên bản đồ
+                    setPosition({ lat: result.latitude, lng: result.longitude });
+                    
+                    // Cập nhật ô địa chỉ
+                    setFormData(prev => ({ 
+                        ...prev, 
+                        address: result.address || prev.address 
+                    }));
+
+                    alert(`📍 Đã tìm thấy vị trí từ ảnh!\nĐịa chỉ: ${result.address}`);
+                } 
+            } catch (error) {
+                console.error("Lỗi khi lấy GPS từ ảnh:", error);
+                // Không làm gì cả nếu lỗi, để người dùng nhập tay
+            }
         }
     };
+    // --------------------------------------------------------
     
     const handleImageDescribeChange = (index, text) => {
         const updated = [...newImagesData]; updated[index].describe = text; setNewImagesData(updated);
@@ -102,7 +145,7 @@ const CreateStoreModal = ({ onClose }) => {
             // Bước 1: Tạo Store
             const storePayload = {
                 ...formData,
-                category: parseInt(formData.category), // Đảm bảo gửi số nguyên
+                category: parseInt(formData.category), 
                 location: { type: "Point", coordinates: [position.lng, position.lat] }
             };
 
@@ -116,23 +159,17 @@ const CreateStoreModal = ({ onClose }) => {
             const newStore = await storeRes.json();
             const newStoreId = newStore.id;
 
-            // Bước 2: Upload Ảnh (Đã xóa dòng gửi state để Backend tự set private)
-            let newImageIds = [];
+            // Bước 2: Upload Ảnh
             if (newImagesData.length > 0) {
                 for (const item of newImagesData) {
                     const imgFormData = new FormData();
                     imgFormData.append('image', item.file);
                     imgFormData.append('store', newStoreId);
-                    // Không gửi state, để mặc định là 'private'
                     imgFormData.append('describe', item.describe || 'Hình ảnh đề xuất');
                     
-                    const imgRes = await authFetch('http://127.0.0.1:8000/api/store-images/', {
+                    await authFetch('http://127.0.0.1:8000/api/store-images/', {
                         method: 'POST', body: imgFormData
                     });
-                    if (imgRes.ok) {
-                        const imgData = await imgRes.json();
-                        newImageIds.push(imgData.id);
-                    }
                 }
             }
 
@@ -140,7 +177,7 @@ const CreateStoreModal = ({ onClose }) => {
             const noteData = {
                 action: "CREATE_NEW",
                 store_name: formData.name,
-                category_name: categories.find(c => c.id == formData.category)?.name || "N/A", // Lưu tên danh mục để Admin dễ xem
+                category_name: categories.find(c => c.id == formData.category)?.name || "N/A",
                 created_at: new Date().toISOString()
             };
 
@@ -176,9 +213,9 @@ const CreateStoreModal = ({ onClose }) => {
                 </div>
 
                 <div className="tabs">
+                    <button className={`tab-btn ${activeTab === 'images' ? 'active' : ''}`} onClick={() => setActiveTab('images')}>Hình ảnh</button>
                     <button className={`tab-btn ${activeTab === 'info' ? 'active' : ''}`} onClick={() => setActiveTab('info')}>Thông tin</button>
                     <button className={`tab-btn ${activeTab === 'location' ? 'active' : ''}`} onClick={() => setActiveTab('location')}>Vị trí</button>
-                    <button className={`tab-btn ${activeTab === 'images' ? 'active' : ''}`} onClick={() => setActiveTab('images')}>Hình ảnh</button>
                 </div>
 
                 <div className="modal-body-scroll">
@@ -190,7 +227,6 @@ const CreateStoreModal = ({ onClose }) => {
                                 <input name="name" value={formData.name} onChange={handleChange} placeholder="VD: Cà phê View Sông..." />
                             </div>
 
-                            {/* --- 3. THÊM Ô CHỌN DANH MỤC --- */}
                             <div className="form-group">
                                 <label>Loại hình (*)</label>
                                 <select 
@@ -210,11 +246,21 @@ const CreateStoreModal = ({ onClose }) => {
                                     ))}
                                 </select>
                             </div>
-                            {/* ------------------------------- */}
 
                             <div className="form-group"><label>Số điện thoại</label><input name="phone" value={formData.phone} onChange={handleChange} /></div>
                             <div className="form-group full-width"><label>Email</label><input name="email" value={formData.email} onChange={handleChange} /></div>
-                            <div className="form-group full-width"><label>Địa chỉ (*)</label><input name="address" value={formData.address} onChange={handleChange} /></div>
+                            
+                            {/* Ô ĐỊA CHỈ SẼ TỰ ĐỘNG ĐIỀN */}
+                            <div className="form-group full-width">
+                                <label>Địa chỉ (*)</label>
+                                <input 
+                                    name="address" 
+                                    value={formData.address} 
+                                    onChange={handleChange} 
+                                    placeholder="Chọn ảnh có GPS ở tab Hình ảnh để tự động điền..."
+                                />
+                            </div>
+                            
                             <div className="form-group"><label>Giờ mở cửa</label><input type="time" name="open_time" value={formData.open_time} onChange={handleChange} /></div>
                             <div className="form-group"><label>Giờ đóng cửa</label><input type="time" name="close_time" value={formData.close_time} onChange={handleChange} /></div>
                             <div className="form-group full-width"><label>Mô tả / Giới thiệu</label><textarea rows="3" name="describe" value={formData.describe} onChange={handleChange} /></div>
@@ -223,10 +269,11 @@ const CreateStoreModal = ({ onClose }) => {
 
                     {activeTab === 'location' && (
                         <div className="location-edit-tab">
-                             <p style={{marginBottom: 10, color: '#d93025'}}>* Kéo thả ghim đỏ đến vị trí chính xác.</p>
+                             <p style={{marginBottom: 10, color: '#d93025'}}>* Kéo thả ghim đỏ đến vị trí chính xác (Hoặc upload ảnh để tự định vị).</p>
                             <div className="mini-map-container" style={{height: '350px'}}>
                                 <MapContainer center={[position.lat, position.lng]} zoom={15} style={{ height: '100%' }}>
                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                    {/* Component tự động recenter khi position thay đổi */}
                                     <RecenterAutomatically lat={position.lat} lng={position.lng} />
                                     <Marker position={position} draggable={true} eventHandlers={eventHandlers} ref={markerRef} />
                                     <LocationPicker setPos={setPosition} />
@@ -243,8 +290,12 @@ const CreateStoreModal = ({ onClose }) => {
                             <div className="upload-zone">
                                 <label className="upload-btn-label">
                                     <IoCloudUploadOutline size={24} /> <span>Tải ảnh lên (Minh chứng)</span>
+                                    {/* Input file gọi handleFileSelect */}
                                     <input type="file" multiple onChange={handleFileSelect} style={{display:'none'}} />
                                 </label>
+                                <p style={{fontSize: '0.9em', color: '#666', marginTop: '5px'}}>
+                                    * Mẹo: Chọn ảnh chụp tại quán (có bật GPS) để tự động điền vị trí và địa chỉ.
+                                </p>
                                 <div className="new-images-list">
                                     {newImagesData.map((item, index) => (
                                         <div key={index} className="new-img-row">

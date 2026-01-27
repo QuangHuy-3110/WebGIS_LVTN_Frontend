@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import 'ol/ol.css';
 import Map from 'ol/Map';
+import { LineString } from 'ol/geom';
 import View from 'ol/View';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { XYZ, TileWMS, Vector as VectorSource } from 'ol/source';
@@ -125,6 +126,33 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
                     dataProjection: 'EPSG:4326', // Backend trả về Kinh/Vĩ độ
                     featureProjection: 'EPSG:3857' // Map dùng Mercator
                 });
+
+                if (features.length > 0) {
+                    // 1. Lấy tọa độ điểm đầu và cuối của lộ trình (đã convert sang 3857)
+                    const routeStartCoord = features[0].getGeometry().getFirstCoordinate();
+                    const routeEndCoord = features[features.length - 1].getGeometry().getLastCoordinate();
+
+                    // 2. Tạo đường nối từ Marker ĐI -> Đầu lộ trình
+                    const startConnector = new Feature({
+                        geometry: new LineString([fromLonLat(startPoint), routeStartCoord])
+                    });
+                    // Style cho đường nối (Ví dụ: Nét đứt màu xám để phân biệt)
+                    startConnector.setStyle(new Style({
+                        stroke: new Stroke({ color: '#1A73E8', width: 4, lineDash: [10, 10] }) 
+                    }));
+
+                    // 3. Tạo đường nối từ Cuối lộ trình -> Marker ĐẾN
+                    const endConnector = new Feature({
+                        geometry: new LineString([routeEndCoord, fromLonLat(endPoint)])
+                    });
+                    endConnector.setStyle(new Style({
+                        stroke: new Stroke({ color: '#1A73E8', width: 4, lineDash: [10, 10] })
+                    }));
+
+                    // 4. Thêm vào bản đồ
+                    routeSource.addFeature(startConnector);
+                    routeSource.addFeature(endConnector);
+                }
 
                 routeSource.addFeatures(features);
 
