@@ -111,6 +111,11 @@ const MainApp = () => {
           id: feature.id || feature.properties.id,
           name: feature.properties.name,
           category: feature.properties.category,
+          
+          // --- THÊM DÒNG QUAN TRỌNG NÀY ---
+          category_detail: feature.properties.category_detail, 
+          // -------------------------------
+
           category_name: feature.properties.category_detail?.name,
           address: feature.properties.address,
           images: feature.properties.images,
@@ -123,7 +128,7 @@ const MainApp = () => {
           lat: feature.geometry.coordinates[1],
           type: feature.properties.category,
           describe: feature.properties.describe,
-          note: feature.properties.note, // Nếu backend có trả về note
+          note: feature.properties.note,
           phone: feature.properties.phone,
           email: feature.properties.email,
         }));
