@@ -177,7 +177,7 @@ const CreateStoreModal = ({ onClose }) => {
             const noteData = {
                 action: "CREATE_NEW",
                 store_name: formData.name,
-                category_name: categories.find(c => c.id == formData.category)?.name || "N/A",
+                category_name: categories.find(c => c.id === formData.category)?.name || "N/A",
                 created_at: new Date().toISOString()
             };
 

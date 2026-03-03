@@ -16,7 +16,7 @@ import './App.css';
 
 const MainApp = () => {
   const { currentUser, logout, authFetch } = useAuth();
-  
+
   // --- States quản lý dữ liệu ---
   const [stores, setStores] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -34,14 +34,35 @@ const MainApp = () => {
   const [endPoint, setEndPoint] = useState(null);
   const [selectingMode, setSelectingMode] = useState(null); // 'start' hoặc 'end' (để tìm đường)
   const [filterType, setFilterType] = useState('all');
+  const [currentLocation, setCurrentLocation] = useState(null); // [lng, lat]
 
   const [showProfileModal, setShowProfileModal] = useState(false);
 
+  // Theo dõi vị trí hiện tại qua Geolocation API
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        const lng = pos.coords.longitude;
+        const lat = pos.coords.latitude;
+        const coords = [lng, lat];
+        setCurrentLocation(coords);
+        // Lần đầu tiên nhận được vị trí → tự động set điểm đi nếu chưa có
+        setStartPoint(prev => prev === null ? coords : prev);
+      },
+      (err) => console.warn('Geolocation error:', err.message),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+    );
+
+    return () => navigator.geolocation.clearWatch(watchId);
+  }, []);
+
   // 1. Tải danh sách yêu thích (Dùng useCallback để tránh warning)
   const fetchFavorites = useCallback(() => {
-    if (!currentUser) { 
-        setFavorites([]); 
-        return; 
+    if (!currentUser) {
+      setFavorites([]);
+      return;
     }
     authFetch('http://127.0.0.1:8000/api/favorites/')
       .then(res => res.json())
@@ -72,7 +93,7 @@ const MainApp = () => {
   const handleDirections = (store) => {
     // 1. Set Điểm đến là tọa độ của quán đang xem
     setEndPoint([store.lng, store.lat]);
-    
+
     // 2. Set Điểm đi là null (để người dùng chọn) hoặc vị trí GPS nếu muốn
     setStartPoint(null);
 
@@ -87,13 +108,13 @@ const MainApp = () => {
   };
 
   const getAvatarUrl = (url) => {
-      if (!url) return null;
-      // Nếu đường dẫn đã có http (ví dụ ảnh Google/Facebook) thì giữ nguyên
-      if (url.startsWith('http') || url.startsWith('https')) {
-          return url;
-      }
-      // Nếu là đường dẫn tương đối từ Django (/media/...), nối thêm domain server
-      return `http://127.0.0.1:8000${url}`;
+    if (!url) return null;
+    // Nếu đường dẫn đã có http (ví dụ ảnh Google/Facebook) thì giữ nguyên
+    if (url.startsWith('http') || url.startsWith('https')) {
+      return url;
+    }
+    // Nếu là đường dẫn tương đối từ Django (/media/...), nối thêm domain server
+    return `http://127.0.0.1:8000${url}`;
   };
 
   const fetchStoreData = () => {
@@ -111,9 +132,9 @@ const MainApp = () => {
           id: feature.id || feature.properties.id,
           name: feature.properties.name,
           category: feature.properties.category,
-          
+
           // --- THÊM DÒNG QUAN TRỌNG NÀY ---
-          category_detail: feature.properties.category_detail, 
+          category_detail: feature.properties.category_detail,
           // -------------------------------
 
           category_name: feature.properties.category_detail?.name,
@@ -124,7 +145,7 @@ const MainApp = () => {
           open_time: feature.properties.open_time,
           close_time: feature.properties.close_time,
           state: feature.properties.state,
-          lng: feature.geometry.coordinates[0], 
+          lng: feature.geometry.coordinates[0],
           lat: feature.geometry.coordinates[1],
           type: feature.properties.category,
           describe: feature.properties.describe,
@@ -140,26 +161,26 @@ const MainApp = () => {
   // 3. Xử lý Thêm/Xóa Yêu thích
   const handleToggleFavorite = async (storeId) => {
     if (!currentUser) {
-        alert("Vui lòng đăng nhập để lưu địa điểm này!");
-        setShowAuthForm(true);
-        return;
+      alert("Vui lòng đăng nhập để lưu địa điểm này!");
+      setShowAuthForm(true);
+      return;
     }
 
     const existingFav = favorites.find(f => f.store === storeId);
 
     if (existingFav) {
-        // Xóa tim
-        const res = await authFetch(`http://127.0.0.1:8000/api/favorites/${existingFav.id}/`, { method: 'DELETE' });
-        if (res.ok) setFavorites(prev => prev.filter(f => f.id !== existingFav.id));
+      // Xóa tim
+      const res = await authFetch(`http://127.0.0.1:8000/api/favorites/${existingFav.id}/`, { method: 'DELETE' });
+      if (res.ok) setFavorites(prev => prev.filter(f => f.id !== existingFav.id));
     } else {
-        // Thêm tim
-        const res = await authFetch(`http://127.0.0.1:8000/api/favorites/`, {
-            method: 'POST', body: JSON.stringify({ store: storeId })
-        });
-        if (res.ok) {
-            const newFav = await res.json();
-            setFavorites(prev => [...prev, newFav]);
-        }
+      // Thêm tim
+      const res = await authFetch(`http://127.0.0.1:8000/api/favorites/`, {
+        method: 'POST', body: JSON.stringify({ store: storeId })
+      });
+      if (res.ok) {
+        const newFav = await res.json();
+        setFavorites(prev => [...prev, newFav]);
+      }
     }
   };
 
@@ -183,20 +204,26 @@ const MainApp = () => {
   const handleSelectStoreFromSearch = (store) => {
     // A. Set điểm đến là tọa độ quán
     setEndPoint([store.lng, store.lat]);
-    
+
     // B. Nếu chưa có điểm đi, tự động bật chế độ chọn điểm đi
     if (!startPoint) {
-        setSelectingMode('start');
+      setSelectingMode('start');
     }
-    
+
     // C. Focus bản đồ vào quán đó (Tuỳ chọn, nếu MapComponent hỗ trợ)
     // flyTo(store.lng, store.lat); 
   };
 
   const handleClearRoute = () => {
-      setStartPoint(null);
-      setEndPoint(null);
-      setSelectingMode(null);
+    setStartPoint(null);
+    setEndPoint(null);
+    setSelectingMode(null);
+  };
+
+  // Callback từ SearchBar tab "Từ ảnh" sau khi trích xuất GPS thành công
+  const handleSetCoords = (type, lat, lng) => {
+    if (type === 'start') setStartPoint([lng, lat]);
+    else setEndPoint([lng, lat]);
   };
 
   // 5. Xử lý Click nút "Thêm cửa hàng mới"
@@ -220,9 +247,9 @@ const MainApp = () => {
   // 6. Logic lọc hiển thị
   const displayedStores = stores.filter(store => {
     if (filterType === 'favorites') {
-        if (!currentUser) return false;
-        const favStoreIds = favorites.map(f => f.store);
-        return favStoreIds.includes(store.id);
+      if (!currentUser) return false;
+      const favStoreIds = favorites.map(f => f.store);
+      return favStoreIds.includes(store.id);
     }
     if (filterType === 'all') return true;
     return store.category === parseInt(filterType);
@@ -230,7 +257,7 @@ const MainApp = () => {
 
   return (
     <div className="app-container">
-      <MapComponent 
+      <MapComponent
         mapType={mapType}
         selectingMode={selectingMode}
         startPoint={startPoint}
@@ -238,51 +265,56 @@ const MainApp = () => {
         onMapClick={handleMapClick}
         onStoreClick={handleStoreClick}
         stores={displayedStores}
+        selectedStore={selectedStore}
+        currentLocation={currentLocation}
       />
-      
+
       <div className="ui-overlay">
         {/* Góc Trái Trên: Tìm kiếm & Bộ lọc */}
         <div className="bottom-right-search">
-          <SearchBar 
-             stores={stores} // Truyền toàn bộ danh sách quán để tìm kiếm
-             onSelectStore={handleSelectStoreFromSearch} // Mode 1
-             onSetMode={setSelectingMode} // Mode 2 (Set thủ công)
-             startPoint={startPoint}
-             endPoint={endPoint}
-             onClearRoute={handleClearRoute}
+          <SearchBar
+            stores={stores}
+            onSelectStore={handleSelectStoreFromSearch}
+            onSetMode={setSelectingMode}
+            onSetCoords={handleSetCoords}
+            onUseCurrentLocation={() => { if (currentLocation) setStartPoint(currentLocation); }}
+            currentLocation={currentLocation}
+            startPoint={startPoint}
+            endPoint={endPoint}
+            onClearRoute={handleClearRoute}
           />
-          
+
         </div>
 
         <div className={`floating-controls-container ${selectedStore ? 'panel-open' : ''}`}>
-           <FloatingControls 
-              categories={categories}
-              currentFilter={filterType}
-              onFilterChange={setFilterType}
-              currentUser={currentUser}
-           />
+          <FloatingControls
+            categories={categories}
+            currentFilter={filterType}
+            onFilterChange={setFilterType}
+            currentUser={currentUser}
+          />
         </div>
 
         {/* Góc Phải Trên: User & Nút Thêm */}
         <div className="top-right-user">
           {currentUser ? (
             <div className="user-badge">
-              <span onClick={() => setShowProfileModal(true)} style={{cursor: 'pointer'}}>
-                 {/* Nếu có avatar thì hiện avatar nhỏ, không thì icon */}
-                 {currentUser.avatar ? (
-                     <img 
-                        src={getAvatarUrl(currentUser.avatar)}  // <--- SỬA DÒNG NÀY
-                        alt="avt" 
-                        style={{
-                            width: 30, height: 30, 
-                            borderRadius: '50%', objectFit: 'cover', // Thêm objectFit để ảnh tròn không bị méo
-                            verticalAlign: 'middle', marginRight: 5
-                        }}
-                     />
-                 ) : (
-                     <IoPersonCircle size={24} style={{verticalAlign: 'middle', marginRight: 5}}/>
-                 )}
-                 Xin chào! <strong>{currentUser.last_name} {currentUser.first_name}</strong>
+              <span onClick={() => setShowProfileModal(true)} style={{ cursor: 'pointer' }}>
+                {/* Nếu có avatar thì hiện avatar nhỏ, không thì icon */}
+                {currentUser.avatar ? (
+                  <img
+                    src={getAvatarUrl(currentUser.avatar)}  // <--- SỬA DÒNG NÀY
+                    alt="avt"
+                    style={{
+                      width: 30, height: 30,
+                      borderRadius: '50%', objectFit: 'cover', // Thêm objectFit để ảnh tròn không bị méo
+                      verticalAlign: 'middle', marginRight: 5
+                    }}
+                  />
+                ) : (
+                  <IoPersonCircle size={24} style={{ verticalAlign: 'middle', marginRight: 5 }} />
+                )}
+                Xin chào! <strong>{currentUser.last_name} {currentUser.first_name}</strong>
               </span>
               {currentUser.role === 'admin' && (
                 <button className="icon-btn" title="Quản trị" onClick={() => setShowAdminPanel(true)}>
@@ -296,8 +328,8 @@ const MainApp = () => {
             </div>
           ) : (
             <div className="guest-controls" style={{ display: 'flex', gap: '10px' }}>
-               <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
-                 <IoAddCircle size={20} color="#5F6368" />
+              <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
+                <IoAddCircle size={20} color="#5F6368" />
               </button>
               <button className="btn-login" onClick={() => setShowAuthForm(true)}>
                 <IoPersonCircle size={20} /> Đăng nhập
@@ -308,38 +340,38 @@ const MainApp = () => {
 
         {/* Góc Trái Dưới: Đổi lớp bản đồ */}
         <div className={`bottom-left-area ${selectedStore ? 'panel-open' : ''}`}>
-           <LayerSwitcher currentType={mapType} onSwitch={setMapType} />
+          <LayerSwitcher currentType={mapType} onSwitch={setMapType} />
         </div>
 
         {/* --- CÁC PANEL & MODAL --- */}
-        
+
         {/* Panel Chi tiết Quán */}
         {selectedStore && (
-            <LocationPanel 
-                location={selectedStore} 
-                onClose={() => setSelectedStore(null)}
-                isFavorite={favorites.some(f => f.store === selectedStore.id)}
-                onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
-                onDirections={() => handleDirections(selectedStore)}
-            />
+          <LocationPanel
+            location={selectedStore}
+            onClose={() => setSelectedStore(null)}
+            isFavorite={favorites.some(f => f.store === selectedStore.id)}
+            onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
+            onDirections={() => handleDirections(selectedStore)}
+          />
         )}
 
         {/* Form Đăng nhập */}
         {showAuthForm && <AuthForm onClose={() => setShowAuthForm(false)} />}
-        
+
         {/* Dashboard Admin */}
         {showAdminPanel && <AdminDashboard onClose={() => setShowAdminPanel(false)} />}
-        
+
         {/* Modal Thêm Cửa Hàng Mới */}
         {showCreateStoreModal && (
-            <CreateStoreModal 
-                onClose={() => setShowCreateStoreModal(false)} 
-            />
+          <CreateStoreModal
+            onClose={() => setShowCreateStoreModal(false)}
+          />
         )}
         {showProfileModal && <UserProfileModal onClose={() => setShowProfileModal(false)} />};
       </div>
     </div>
-    
+
   );
 };
 
@@ -349,7 +381,7 @@ function App() {
       <MainApp />
     </AuthProvider>
   );
-  
+
 }
 
 export default App;
