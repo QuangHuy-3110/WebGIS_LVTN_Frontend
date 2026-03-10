@@ -79,6 +79,7 @@ html,
   position: absolute;
   top: 20px;
   left: 20px;
+  max-width: calc(100vw - 150px);
   z-index: var(--z-controls);
   transition: left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
@@ -87,12 +88,15 @@ html,
 .floating-controls-container.panel-open {
   left: 420px;
   /* 400px Panel + 20px Margin */
+  max-width: calc(100vw - 420px - 150px);
 }
 
 .quick-filters {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
+  /* Cho phép rớt dòng nếu còn dài trên màn nhỏ */
 }
 
 .pill-btn {
@@ -110,6 +114,7 @@ html,
   gap: 6px;
   transition: all 0.2s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .pill-btn:hover {
@@ -132,6 +137,50 @@ html,
 
 .pill-btn.clear {
   border-style: dashed;
+}
+
+/* Dropdown mục Thêm */
+.more-categories-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: var(--bg-white);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 4px;
+  padding: 8px;
+  z-index: 101;
+}
+
+.dropdown-item-btn {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 14px;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.dropdown-item-btn:hover {
+  background: var(--bg-hover);
+  color: var(--primary);
+}
+
+.dropdown-item-btn.active-dropdown-item {
+  color: var(--primary);
+  font-weight: 600;
+  background: #e8f0fe;
 }
 
 /* =========================================
@@ -1777,16 +1826,7 @@ html,
 /* =========================================
    5. SEARCH BAR (Góc Phải Dưới) - PRO UI
    ========================================= */
-.bottom-right-search {
-  position: absolute;
-  bottom: 30px;
-  right: 20px;
-  width: 380px;
-  z-index: var(--z-controls);
-  display: flex;
-  flex-direction: column-reverse;
-  /* Input nằm dưới, gợi ý bay lên */
-}
+
 
 .search-bar-container {
   background: white;
@@ -2231,7 +2271,7 @@ html,
 .algorithm-selector-card {
   position: absolute;
   top: 90px;
-  right: 50px;
+  right: 10px;
   /* Dời sang trái để không che nút Sign-in */
   z-index: var(--z-controls);
   background: white;
@@ -2544,10 +2584,6 @@ html,
 
 /* Nút "Về vị trí của tôi" - góc phải dưới bản đồ */
 .fly-to-location-btn {
-  position: absolute;
-  bottom: 100px;
-  right: 20px;
-  z-index: 200;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2562,6 +2598,8 @@ html,
   cursor: pointer;
   transition: 0.2s;
   white-space: nowrap;
+  pointer-events: auto;
+  margin-bottom: 12px;
 }
 
 .fly-to-location-btn:hover {
@@ -2569,4 +2607,97 @@ html,
   border-color: var(--primary);
   color: var(--primary);
   box-shadow: var(--shadow-md);
+}
+
+/* =========================================
+   9. INITIAL LOADING SCREEN
+   ========================================= */
+.initial-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.85);
+  /* nền trắng mờ */
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  /* Luôn nổi lên trên cùng */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s, backdrop-filter 1s ease-out;
+}
+
+.initial-loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: floatUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.loader-logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+  animation: pulseLogo 2s infinite ease-in-out;
+}
+
+.loader-title {
+  color: var(--primary);
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeInText 0.8s ease forwards 0.3s;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseLogo {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

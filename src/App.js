@@ -33,10 +33,27 @@ const MainApp = () => {
   const [startPoint, setStartPoint] = useState(null);
   const [endPoint, setEndPoint] = useState(null);
   const [selectingMode, setSelectingMode] = useState(null); // 'start' hoặc 'end' (để tìm đường)
-  const [filterType, setFilterType] = useState('all');
+  const [activeFilters, setActiveFilters] = useState([]); // [] means 'all'
   const [currentLocation, setCurrentLocation] = useState(null); // [lng, lat]
 
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [triggerFlyTo, setTriggerFlyTo] = useState(0);
+
+  // --- States quản lý Loading Screen ---
+  const [appLoading, setAppLoading] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  // Hiển thị Animation loading ban đầu
+  useEffect(() => {
+    // Để loading screen hiển thị trong khoảng 1 giây
+    const timer = setTimeout(() => {
+      setIsFadingOut(true); // Bắt đầu hiệu ứng mờ dần
+      // Chờ CSS transition (1s) xong thì mới unmount
+      setTimeout(() => setAppLoading(false), 1000);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Theo dõi vị trí hiện tại qua Geolocation API
   useEffect(() => {
@@ -244,133 +261,176 @@ const MainApp = () => {
     setSelectedStore(storeData);
   };
 
-  // 6. Logic lọc hiển thị
+  // 6. Logic lọc hiển thị (Cho phép lọc nhiều mục)
   const displayedStores = stores.filter(store => {
-    if (filterType === 'favorites') {
-      if (!currentUser) return false;
+    if (activeFilters.length === 0) return true;
+
+    const isFavSelected = activeFilters.includes('favorites');
+    let isFavoriteStore = false;
+    if (isFavSelected && currentUser) {
       const favStoreIds = favorites.map(f => f.store);
-      return favStoreIds.includes(store.id);
+      isFavoriteStore = favStoreIds.includes(store.id);
     }
-    if (filterType === 'all') return true;
-    return store.category === parseInt(filterType);
+
+    // Lấy các category ID được chọn (loại bỏ 'favorites' ra khỏi list)
+    const categoryFilters = activeFilters.filter(f => f !== 'favorites').map(f => parseInt(f));
+
+    // Nếu chỉ lọc mỗi "Yêu thích"
+    if (activeFilters.length === 1 && isFavSelected) {
+      return isFavoriteStore;
+    }
+
+    // Hàm check category
+    const matchCategory = categoryFilters.length > 0 ? categoryFilters.includes(store.category) : true;
+
+    // Nếu lọc cả "yêu thích" VÀ "danh mục", ta kết hợp cả 2 điều kiện (yêu thích nằm trong danh mục đó)
+    if (isFavSelected && categoryFilters.length > 0) {
+      return isFavoriteStore && matchCategory;
+    }
+
+    return matchCategory;
   });
 
   return (
-    <div className="app-container">
-      <MapComponent
-        mapType={mapType}
-        selectingMode={selectingMode}
-        startPoint={startPoint}
-        endPoint={endPoint}
-        onMapClick={handleMapClick}
-        onStoreClick={handleStoreClick}
-        stores={displayedStores}
-        selectedStore={selectedStore}
-        currentLocation={currentLocation}
-      />
-
-      <div className="ui-overlay">
-        {/* Góc Trái Trên: Tìm kiếm & Bộ lọc */}
-        <div className="bottom-right-search">
-          <SearchBar
-            stores={stores}
-            onSelectStore={handleSelectStoreFromSearch}
-            onSetMode={setSelectingMode}
-            onSetCoords={handleSetCoords}
-            onUseCurrentLocation={() => { if (currentLocation) setStartPoint(currentLocation); }}
-            currentLocation={currentLocation}
-            startPoint={startPoint}
-            endPoint={endPoint}
-            onClearRoute={handleClearRoute}
-          />
-
+    <>
+      {/* Loading Screen */}
+      {appLoading && (
+        <div className={`initial-loader ${isFadingOut ? 'fade-out' : ''}`}>
+          <div className="loader-content">
+            <img src="/icon_map.png" alt="Map Logo" className="loader-logo" />
+            <h2 className="loader-title">Cần Thơ Map</h2>
+          </div>
         </div>
+      )}
 
-        <div className={`floating-controls-container ${selectedStore ? 'panel-open' : ''}`}>
-          <FloatingControls
-            categories={categories}
-            currentFilter={filterType}
-            onFilterChange={setFilterType}
-            currentUser={currentUser}
-          />
-        </div>
+      <div className="app-container">
+        <MapComponent
+          mapType={mapType}
+          selectingMode={selectingMode}
+          startPoint={startPoint}
+          endPoint={endPoint}
+          onMapClick={handleMapClick}
+          onStoreClick={handleStoreClick}
+          stores={displayedStores}
+          selectedStore={selectedStore}
+          currentLocation={currentLocation}
+          triggerFlyTo={triggerFlyTo}
+        />
 
-        {/* Góc Phải Trên: User & Nút Thêm */}
-        <div className="top-right-user">
-          {currentUser ? (
-            <div className="user-badge">
-              <span onClick={() => setShowProfileModal(true)} style={{ cursor: 'pointer' }}>
-                {/* Nếu có avatar thì hiện avatar nhỏ, không thì icon */}
-                {currentUser.avatar ? (
-                  <img
-                    src={getAvatarUrl(currentUser.avatar)}  // <--- SỬA DÒNG NÀY
-                    alt="avt"
-                    style={{
-                      width: 30, height: 30,
-                      borderRadius: '50%', objectFit: 'cover', // Thêm objectFit để ảnh tròn không bị méo
-                      verticalAlign: 'middle', marginRight: 5
-                    }}
-                  />
-                ) : (
-                  <IoPersonCircle size={24} style={{ verticalAlign: 'middle', marginRight: 5 }} />
+        <div className="ui-overlay">
+          {/* Góc Trái Trên: Tìm kiếm & Bộ lọc */}
+          <div className="bottom-right-search">
+            {/* Nút "Về vị trí của tôi" bám trên SearchBar */}
+            {currentLocation && (
+              <button
+                className="fly-to-location-btn filter-fly-btn"
+                title="Về vị trí hiện tại"
+                onClick={() => setTriggerFlyTo(prev => prev + 1)}
+              >
+                📍 Về vị trí của tôi
+              </button>
+            )}
+
+            <SearchBar
+              stores={stores}
+              onSelectStore={handleSelectStoreFromSearch}
+              onSetMode={setSelectingMode}
+              onSetCoords={handleSetCoords}
+              onUseCurrentLocation={() => { if (currentLocation) setStartPoint(currentLocation); }}
+              currentLocation={currentLocation}
+              startPoint={startPoint}
+              endPoint={endPoint}
+              onClearRoute={handleClearRoute}
+            />
+
+          </div>
+
+          <div className={`floating-controls-container ${selectedStore ? 'panel-open' : ''}`}>
+            <FloatingControls
+              categories={categories}
+              activeFilters={activeFilters}
+              onFilterChange={setActiveFilters}
+              currentUser={currentUser}
+            />
+          </div>
+
+          {/* Góc Phải Trên: User & Nút Thêm */}
+          <div className="top-right-user">
+            {currentUser ? (
+              <div className="user-badge">
+                <span onClick={() => setShowProfileModal(true)} style={{ cursor: 'pointer' }}>
+                  {/* Nếu có avatar thì hiện avatar nhỏ, không thì icon */}
+                  {currentUser.avatar ? (
+                    <img
+                      src={getAvatarUrl(currentUser.avatar)}  // <--- SỬA DÒNG NÀY
+                      alt="avt"
+                      style={{
+                        width: 30, height: 30,
+                        borderRadius: '50%', objectFit: 'cover', // Thêm objectFit để ảnh tròn không bị méo
+                        verticalAlign: 'middle', marginRight: 5
+                      }}
+                    />
+                  ) : (
+                    <IoPersonCircle size={24} style={{ verticalAlign: 'middle', marginRight: 5 }} />
+                  )}
+                  Xin chào! <strong>{currentUser.last_name} {currentUser.first_name}</strong>
+                </span>
+                {currentUser.role === 'admin' && (
+                  <button className="icon-btn" title="Quản trị" onClick={() => setShowAdminPanel(true)}>
+                    <IoSettingsSharp size={20} />
+                  </button>
                 )}
-                Xin chào! <strong>{currentUser.last_name} {currentUser.first_name}</strong>
-              </span>
-              {currentUser.role === 'admin' && (
-                <button className="icon-btn" title="Quản trị" onClick={() => setShowAdminPanel(true)}>
-                  <IoSettingsSharp size={20} />
+                <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
+                  <IoAddCircle size={20} color="#5F6368" />
                 </button>
-              )}
-              <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
-                <IoAddCircle size={20} color="#5F6368" />
-              </button>
-              <button className="btn-logout" onClick={logout}>Đăng xuất</button>
-            </div>
-          ) : (
-            <div className="guest-controls" style={{ display: 'flex', gap: '10px' }}>
-              <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
-                <IoAddCircle size={20} color="#5F6368" />
-              </button>
-              <button className="btn-login" onClick={() => setShowAuthForm(true)}>
-                <IoPersonCircle size={20} /> Đăng nhập
-              </button>
-            </div>
+                <button className="btn-logout" onClick={logout}>Đăng xuất</button>
+              </div>
+            ) : (
+              <div className="guest-controls" style={{ display: 'flex', gap: '10px' }}>
+                <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
+                  <IoAddCircle size={20} color="#5F6368" />
+                </button>
+                <button className="btn-login" onClick={() => setShowAuthForm(true)}>
+                  <IoPersonCircle size={20} /> Đăng nhập
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Góc Trái Dưới: Đổi lớp bản đồ */}
+          <div className={`bottom-left-area ${selectedStore ? 'panel-open' : ''}`}>
+            <LayerSwitcher currentType={mapType} onSwitch={setMapType} />
+          </div>
+
+          {/* --- CÁC PANEL & MODAL --- */}
+
+          {/* Panel Chi tiết Quán */}
+          {selectedStore && (
+            <LocationPanel
+              location={selectedStore}
+              onClose={() => setSelectedStore(null)}
+              isFavorite={favorites.some(f => f.store === selectedStore.id)}
+              onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
+              onDirections={() => handleDirections(selectedStore)}
+            />
           )}
+
+          {/* Form Đăng nhập */}
+          {showAuthForm && <AuthForm onClose={() => setShowAuthForm(false)} />}
+
+          {/* Dashboard Admin */}
+          {showAdminPanel && <AdminDashboard onClose={() => setShowAdminPanel(false)} />}
+
+          {/* Modal Thêm Cửa Hàng Mới */}
+          {showCreateStoreModal && (
+            <CreateStoreModal
+              onClose={() => setShowCreateStoreModal(false)}
+            />
+          )}
+          {showProfileModal && <UserProfileModal onClose={() => setShowProfileModal(false)} />};
         </div>
-
-        {/* Góc Trái Dưới: Đổi lớp bản đồ */}
-        <div className={`bottom-left-area ${selectedStore ? 'panel-open' : ''}`}>
-          <LayerSwitcher currentType={mapType} onSwitch={setMapType} />
-        </div>
-
-        {/* --- CÁC PANEL & MODAL --- */}
-
-        {/* Panel Chi tiết Quán */}
-        {selectedStore && (
-          <LocationPanel
-            location={selectedStore}
-            onClose={() => setSelectedStore(null)}
-            isFavorite={favorites.some(f => f.store === selectedStore.id)}
-            onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
-            onDirections={() => handleDirections(selectedStore)}
-          />
-        )}
-
-        {/* Form Đăng nhập */}
-        {showAuthForm && <AuthForm onClose={() => setShowAuthForm(false)} />}
-
-        {/* Dashboard Admin */}
-        {showAdminPanel && <AdminDashboard onClose={() => setShowAdminPanel(false)} />}
-
-        {/* Modal Thêm Cửa Hàng Mới */}
-        {showCreateStoreModal && (
-          <CreateStoreModal
-            onClose={() => setShowCreateStoreModal(false)}
-          />
-        )}
-        {showProfileModal && <UserProfileModal onClose={() => setShowProfileModal(false)} />};
       </div>
-    </div>
+    </>
 
   );
 };

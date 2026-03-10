@@ -43,7 +43,7 @@ function buildOverlayFeatures(lonLatRing) {
     return [borderFeature];
 }
 
-const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick, onStoreClick, stores, selectedStore, currentLocation }) => {
+const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo }) => {
     const mapRef = useRef();
     const mapInstance = useRef(null);
     const [algorithm, setAlgorithm] = useState('dijkstra');
@@ -170,7 +170,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
         feature.setStyle(new Style({
             image: new Icon({
                 src: '/currentnode.png',
-                scale: 0.03,
+                scale: 0.02,
                 anchor: [0.5, 0.5],
                 crossOrigin: 'anonymous',
             })
@@ -216,7 +216,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
 
             const iconSrc = getIconSrc(props);
             const isSelected = selectedId && (props.id === selectedId);
-            const scale = isSelected ? 0.15 : 0.08;
+            const scale = isSelected ? 0.10 : 0.05;
 
             feature.setStyle(new Style({
                 image: new Icon({
@@ -363,27 +363,20 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
         }
     }, [mapType]);
 
+    // 7. EFFECT: FLY TO LOCATION
+    useEffect(() => {
+        if (triggerFlyTo > 0 && mapInstance.current && currentLocation) {
+            mapInstance.current.getView().animate({
+                center: fromLonLat(currentLocation),
+                zoom: 15,
+                duration: 800,
+            });
+        }
+    }, [triggerFlyTo, currentLocation]);
+
     return (
         <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
             <div ref={mapRef} style={{ width: '100%', height: '100%', position: 'absolute' }} />
-
-            {/* Nút "Về vị trí của tôi" */}
-            {currentLocation && (
-                <button
-                    className="fly-to-location-btn"
-                    title="Về vị trí hiện tại"
-                    onClick={() => {
-                        if (!mapInstance.current) return;
-                        mapInstance.current.getView().animate({
-                            center: fromLonLat(currentLocation),
-                            zoom: 15,
-                            duration: 800,
-                        });
-                    }}
-                >
-                    📍 Về vị trí của tôi
-                </button>
-            )}
 
             {/* UI Chọn Thuật Toán */}
             <div className="algorithm-selector-card">
