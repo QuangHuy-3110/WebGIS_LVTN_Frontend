@@ -9,7 +9,7 @@ import {
   IoInformationCircleOutline, IoCreateOutline, IoMailOutline
 } from "react-icons/io5";
 
-const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDirections }) => {
+const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDirections, hasRoute, onAddWaypoint, onSetAsDestination }) => {
   const { currentUser, authFetch } = useAuth();
 
   // --- STATES ---
@@ -172,13 +172,34 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
         </p>
 
         {/* --- PHẦN 3: NÚT HÀNH ĐỘNG --- */}
-        <div className="actions-row">
-          <div className="action-item" onClick={onDirections}> 
-            <button className="circle-btn blue">
-                <IoNavigate color="#fff" />
+        
+        {/* Nút routing đặt riêng một hàng ngang nổi bật */}
+        {hasRoute && (
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+            <button 
+              onClick={onAddWaypoint}
+              style={{ flex: 1, padding: '10px', background: '#e8f0fe', color: '#1A73E8', border: 'none', borderRadius: '8px', fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
+            >
+              <IoNavigate size={18} /> Thêm điểm dừng
             </button>
-            <span>Đường đi</span>
+            <button 
+              onClick={onSetAsDestination}
+              style={{ flex: 1, padding: '10px', background: '#1A73E8', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
+            >
+              <IoLocationOutline size={18} /> Điểm đến mới
+            </button>
           </div>
+        )}
+
+        <div className="actions-row">
+          {!hasRoute && (
+            <div className="action-item" onClick={onDirections}> 
+              <button className="circle-btn blue">
+                  <IoNavigate color="#fff" />
+              </button>
+              <span>Đường đi</span>
+            </div>
+          )}
 
           <div className="action-item">
              <button className="circle-btn"><IoCallOutline color="#1A73E8" /></button>

@@ -32,6 +32,7 @@ const MainApp = () => {
   const [mapType, setMapType] = useState('standard');
   const [startPoint, setStartPoint] = useState(null);
   const [endPoint, setEndPoint] = useState(null);
+  const [waypoints, setWaypoints] = useState([]); // Mảng các điểm dừng
   const [selectingMode, setSelectingMode] = useState(null); // 'start' hoặc 'end' (để tìm đường)
   const [activeFilters, setActiveFilters] = useState([]); // [] means 'all'
   const [currentLocation, setCurrentLocation] = useState(null); // [lng, lat]
@@ -113,6 +114,7 @@ const MainApp = () => {
 
     // 2. Set Điểm đi là null (để người dùng chọn) hoặc vị trí GPS nếu muốn
     setStartPoint(null);
+    setWaypoints([]); // Xoá điểm dừng cũ nếu có
 
     // 3. Chuyển bản đồ sang chế độ chờ người dùng chọn Điểm đi
     setSelectingMode('start');
@@ -234,6 +236,7 @@ const MainApp = () => {
   const handleClearRoute = () => {
     setStartPoint(null);
     setEndPoint(null);
+    setWaypoints([]);
     setSelectingMode(null);
   };
 
@@ -309,12 +312,14 @@ const MainApp = () => {
           selectingMode={selectingMode}
           startPoint={startPoint}
           endPoint={endPoint}
+          waypoints={waypoints}
           onMapClick={handleMapClick}
           onStoreClick={handleStoreClick}
           stores={displayedStores}
           selectedStore={selectedStore}
           currentLocation={currentLocation}
           triggerFlyTo={triggerFlyTo}
+          activeFilters={activeFilters}
         />
 
         <div className="ui-overlay">
@@ -412,6 +417,18 @@ const MainApp = () => {
               isFavorite={favorites.some(f => f.store === selectedStore.id)}
               onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
               onDirections={() => handleDirections(selectedStore)}
+              hasRoute={!!(startPoint && endPoint)}
+              onAddWaypoint={() => {
+                setWaypoints(prev => [...prev, [selectedStore.lng, selectedStore.lat]]);
+                setSelectedStore(null);
+              }}
+              onSetAsDestination={() => {
+                if (endPoint) {
+                  setWaypoints(prev => [...prev, endPoint]);
+                }
+                setEndPoint([selectedStore.lng, selectedStore.lat]);
+                setSelectedStore(null);
+              }}
             />
           )}
 

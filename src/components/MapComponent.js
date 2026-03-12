@@ -43,7 +43,7 @@ function buildOverlayFeatures(lonLatRing) {
     return [borderFeature];
 }
 
-const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo }) => {
+const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints, activeFilters, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo }) => {
     const mapRef = useRef();
     const mapInstance = useRef(null);
     const [algorithm, setAlgorithm] = useState('dijkstra');
@@ -141,9 +141,9 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
         const overlayLayer = new VectorLayer({ source: overlaySource, zIndex: 50 });
 
         // Các lớp Vector
-        const routeLayer = new VectorLayer({ source: routeSourceRef.current, zIndex: 998, style: routeStyleFunction });
-        const markerLayer = new VectorLayer({ source: markerSourceRef.current, zIndex: 999 });
-        const storeLayer = new VectorLayer({ source: storeSourceRef.current, zIndex: 500 });
+        const routeLayer = new VectorLayer({ source: routeSourceRef.current, zIndex: 500, style: routeStyleFunction }); // Hạ zIndex của đường đi xuống
+        const markerLayer = new VectorLayer({ source: markerSourceRef.current, zIndex: 1000, declutter: true });
+        const storeLayer = new VectorLayer({ source: storeSourceRef.current, zIndex: 998, declutter: true }); // Z-Index cao hơn đường đi
         const currentLocLayer = new VectorLayer({ source: currentLocSourceRef.current, zIndex: 1001 });
         storeLayerRef.current = storeLayer;
 
@@ -151,7 +151,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
             target: mapRef.current,
             controls: defaultControls({ zoom: false }).extend([new ScaleLine()]),
             layers: [standardBase, satelliteBase, roadsLayer, boundaryLayer, overlayLayer, routeLayer, markerLayer, storeLayer, currentLocLayer],
-            view: new View({ center: canThoCenter, zoom: 13, extent: mapExtent, minZoom: 10, maxZoom: 18 }),
+            view: new View({ center: canThoCenter, zoom: 13, extent: mapExtent, minZoom: 10, maxZoom: 21 }),
         });
 
         mapInstance.current = map;
@@ -195,6 +195,21 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
 
         const selectedId = selectedStore ? (selectedStore.id || selectedStore.ID) : null;
 
+        // Chọn 1 đại diện ổn định (ngẫu nhiên theo ID) cho mỗi danh mục để đảm bảo ít nhất 1 cửa hàng luôn hiển thị
+        const categoryRepresentatives = {};
+        stores.forEach(store => {
+            const props = store.properties || store;
+            const categoryId = props.category_detail ? props.category_detail.id : (props.category || 1);
+            if (!categoryRepresentatives[categoryId]) {
+                categoryRepresentatives[categoryId] = props.id;
+            } else {
+                // Pseudo-random ổn định dựa vào ID (tránh bị thay đổi cửa hàng liên tục khi di chuyển bản đồ)
+                if ((props.id * 17) % 13 > (categoryRepresentatives[categoryId] * 17) % 13) {
+                    categoryRepresentatives[categoryId] = props.id;
+                }
+            }
+        });
+
         stores.forEach(store => {
             const props = store.properties || store;
 
@@ -215,88 +230,213 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
             });
 
             const iconSrc = getIconSrc(props);
-            const isSelected = selectedId && (props.id === selectedId);
-            const scale = isSelected ? 0.10 : 0.05;
 
-            feature.setStyle(new Style({
-                image: new Icon({
-                    src: iconSrc,
-                    scale,
-                    anchor: [0.5, 1],
-                    crossOrigin: 'anonymous',
-                })
-            }));
+            feature.setStyle((_, resolution) => {
+                const mapInstanceObj = mapInstance.current;
+                const mapZoom = mapInstanceObj ? mapInstanceObj.getView().getZoomForResolution(resolution) : 13;
+
+                const ratingCount = props.rating_count || 0;
+                const ratingAvg = props.rating_avg || 0;
+                const isHighQuality = ratingAvg >= 3.5 && ratingCount >= 1; // Điều chỉnh ngưỡng vừa phải
+                const categoryId = props.category_detail ? props.category_detail.id : (props.category || 1);
+
+                const selectedStoreId = selectedStore ? (selectedStore.id || selectedStore.ID) : null;
+                const isSelected = selectedStoreId && (props.id === selectedStoreId);
+                const isRepresentative = categoryRepresentatives[categoryId] === props.id;
+
+                // Phân loại nhóm để gán mức ưu tiên xuất hiện & Z-Index
+                const categoryName = props.category_detail ? (props.category_detail.name || '').toLowerCase() : '';
+
+                let visibilityLevel = 4;
+
+                // Level 1: Nhóm thiết yếu & công cộng (Luôn ưu tiên hiển thị nhất)
+                if (categoryName.includes('y tế') || categoryName.includes('giáo dục') || categoryName.includes('vận tải') || categoryName.includes('ẩm thực') || categoryName.includes('nhà hàng') || categoryName.includes('quán')) {
+                    visibilityLevel = 1;
+                }
+                // Level 2: Nhóm tiện ích & sinh hoạt
+                else if (categoryName.includes('siêu thị') || categoryName.includes('hành chính') || categoryName.includes('tài chính') || categoryName.includes('đồ uống') || categoryName.includes('lưu trú') || categoryName.includes('cafe')) {
+                    visibilityLevel = 2;
+                }
+                // Level 3: Nhóm thương mại, công nghệ & giải trí
+                else if (categoryName.includes('mua sắm') || categoryName.includes('công nghệ') || categoryName.includes('xe cộ') || categoryName.includes('giải trí')) {
+                    visibilityLevel = 3;
+                }
+                // Level 4: Nhóm dịch vụ cá nhân, tôn giáo, xây dựng, nông nghiệp...
+                else {
+                    visibilityLevel = 4;
+                }
+
+                let isVisible = true;
+
+                // Kiểm tra xem store này có phải là điểm trên lộ trình không
+                const isRoutePoint = (
+                    (startPoint && props.lng === startPoint[0] && props.lat === startPoint[1]) ||
+                    (endPoint && props.lng === endPoint[0] && props.lat === endPoint[1]) ||
+                    (waypoints && waypoints.some(wp => props.lng === wp[0] && props.lat === wp[1]))
+                );
+
+                // Kiểm tra xem có đang dùng bộ lọc không
+                const hasActiveFilter = activeFilters && activeFilters.length > 0;
+
+                if (!isSelected && !isRoutePoint && !hasActiveFilter) {
+                    // 1. Phân loại theo zoom để ẩn bớt lớp
+                    if (mapZoom < 12 && visibilityLevel > 1) {
+                        isVisible = false;
+                    } else if (mapZoom >= 12 && mapZoom < 14 && visibilityLevel > 2) {
+                        isVisible = false;
+                    } else if (mapZoom >= 14 && mapZoom < 16 && visibilityLevel > 3) {
+                        isVisible = false;
+                    }
+
+                    // 2. Lọc chất lượng & đại diện (chỉ áp dụng ở mapZoom < 16)
+                    if (isVisible && mapZoom < 16) {
+                        if (!isHighQuality && !isRepresentative) {
+                            isVisible = false;
+                        }
+                    }
+                }
+
+                if (!isVisible) return null; // Không hiển thị feature này
+
+                const scale = (isSelected || isRoutePoint) ? 0.08 : 0.054;
+
+                // TÍNH ĐIỂM ƯU TIÊN (Z-INDEX)
+                // Nguyên tắc Vàng: Những cửa hàng xuất hiện TỪ SỚM (khi bản đồ nhỏ) phải mang Z-Index cao hơn tuyệt đối
+                // so với những cửa hàng xuất hiện MUỘN (khi bản đồ phóng to).
+                // Do đó, khi phóng to lên, những cửa hàng mới TỪ HƯ KHÔNG mọc ra (Z-index thấp) tuyệt đối KHÔNG THỂ đè và làm mất đi cửa hàng cũ (Z-index cao).
+
+                let priorityZ = 0;
+                if (isHighQuality || isRepresentative) {
+                    // Nhóm đánh giá cao, đại diện: Xuất hiện sớm ở các mốc Zoom < 16
+                    if (visibilityLevel === 1) priorityZ = 90;
+                    else if (visibilityLevel === 2) priorityZ = 80;
+                    else if (visibilityLevel === 3) priorityZ = 70;
+                    else priorityZ = 60; // Level 4
+                } else {
+                    // Nhóm cửa hàng bình thường: Bị kìm hãm chỉ xuất hiện ở Zoom >= 16
+                    // Điểm số sẽ nhỏ hơn 60 để đảm bảo không bao giờ đè đầu các nhóm xuất hiện trước
+                    if (visibilityLevel === 1) priorityZ = 40;
+                    else if (visibilityLevel === 2) priorityZ = 30;
+                    else if (visibilityLevel === 3) priorityZ = 20;
+                    else priorityZ = 10;
+                }
+
+                // Đảm bảo zIndex là duy nhất cho mỗi feature để declutter (chống đè) ổn định 100%
+                const storeIdNum = parseInt(props.id || 0, 10) || 0;
+                const uniquePriorityZ = priorityZ * 100000 + storeIdNum;
+                // Nếu cửa hàng được Click hoặc là điểm trên lộ trình, set thẳng lên tối đa để ăn hết khoảng trống
+                const finalZIndex = (isSelected || isRoutePoint) ? 99999999 : uniquePriorityZ;
+
+                // Mức zoom sát nhất thì bỏ chống đè, hiện cho bằng hết (20.5)
+                const isMaxZoom = mapZoom >= 20.5;
+
+                return new Style({
+                    image: new Icon({
+                        src: iconSrc,
+                        scale,
+                        anchor: [0.5, 1],
+                        crossOrigin: 'anonymous',
+                        declutterMode: (isSelected || isRoutePoint) ? 'obstacle' : ((hasActiveFilter || isMaxZoom) ? 'none' : 'declutter')
+                    }),
+                    zIndex: finalZIndex
+                });
+            });
+
             source.addFeature(feature);
         });
-    }, [stores, selectedStore]);
+    }, [stores, selectedStore, activeFilters, startPoint, endPoint, waypoints]);
 
-    // 3. EFFECT: ẨN/HIỆN LAYER CỬA HÀNG KHI CÓ/KHÔNG CÓ ĐƯỜNG ĐI
+    // 3. EFFECT: CỬA HÀNG LUÔN HIỂN THỊ KỂ CẢ KHI CÓ ĐƯỜNG ĐI
     useEffect(() => {
         if (storeLayerRef.current) {
-            storeLayerRef.current.setVisible(!hasRoute);
+            storeLayerRef.current.setVisible(true);
         }
     }, [hasRoute]);
 
-    // 4. EFFECT: TÌM ĐƯỜNG (ROUTING) - Có vẽ đường nối Connector
+    // 4. EFFECT: TÌM ĐƯỜNG (ROUTING) - Hỗ trợ nhiều chặng (waypoints)
     useEffect(() => {
         const routeSource = routeSourceRef.current;
         if (!routeSource) return;
 
-        if (!startPoint || !endPoint) {
+        const points = [startPoint, ...(waypoints || []), endPoint].filter(Boolean);
+
+        if (points.length < 2) {
             routeSource.clear();
             setHasRoute(false);
             return;
         }
 
-        // Gọi API với thuật toán được chọn
-        const url = `http://127.0.0.1:8000/api/route/?start_lat=${startPoint[1]}&start_lng=${startPoint[0]}&end_lat=${endPoint[1]}&end_lng=${endPoint[0]}&algo=${algorithm}`;
+        const fetchRouteSegment = async (p1, p2) => {
+            const url = `http://127.0.0.1:8000/api/route/?start_lat=${p1[1]}&start_lng=${p1[0]}&end_lat=${p2[1]}&end_lng=${p2[0]}&algo=${algorithm}`;
+            const res = await fetch(url);
+            return res.json();
+        };
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
+        const fetchAllRoutes = async () => {
+            try {
+                const promises = [];
+                for (let i = 0; i < points.length - 1; i++) {
+                    promises.push(fetchRouteSegment(points[i], points[i + 1]));
+                }
+
+                const results = await Promise.all(promises);
+
                 routeSource.clear();
-                if (data && data.features) {
-                    const geojsonFormat = new GeoJSON();
-                    const features = geojsonFormat.readFeatures(data, {
-                        dataProjection: 'EPSG:4326',
-                        featureProjection: 'EPSG:3857'
-                    });
+                let allFeatures = [];
+                const geojsonFormat = new GeoJSON();
 
-                    if (features.length > 0) {
-                        const routeStartCoord = features[0].getGeometry().getFirstCoordinate();
-                        const routeEndCoord = features[features.length - 1].getGeometry().getLastCoordinate();
-
-                        const startConnector = new Feature({
-                            geometry: new LineString([fromLonLat(startPoint), routeStartCoord])
+                results.forEach((data, index) => {
+                    if (data && data.features) {
+                        const features = geojsonFormat.readFeatures(data, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
                         });
-                        startConnector.setStyle(new Style({
-                            stroke: new Stroke({ color: '#1A73E8', width: 4, lineDash: [10, 10] })
-                        }));
 
-                        const endConnector = new Feature({
-                            geometry: new LineString([routeEndCoord, fromLonLat(endPoint)])
-                        });
-                        endConnector.setStyle(new Style({
-                            stroke: new Stroke({ color: '#1A73E8', width: 4, lineDash: [10, 10] })
-                        }));
+                        if (features.length > 0) {
+                            const p1 = points[index];
+                            const p2 = points[index + 1];
+                            const routeStartCoord = features[0].getGeometry().getFirstCoordinate();
+                            const routeEndCoord = features[features.length - 1].getGeometry().getLastCoordinate();
 
-                        routeSource.addFeature(startConnector);
-                        routeSource.addFeature(endConnector);
-                    }
+                            const startConnector = new Feature({
+                                geometry: new LineString([fromLonLat(p1), routeStartCoord])
+                            });
+                            startConnector.setStyle(new Style({
+                                stroke: new Stroke({ color: '#1A73E8', width: 4, lineDash: [10, 10] })
+                            }));
 
-                    routeSource.addFeatures(features);
-                    setHasRoute(features.length > 0);
+                            const endConnector = new Feature({
+                                geometry: new LineString([routeEndCoord, fromLonLat(p2)])
+                            });
+                            endConnector.setStyle(new Style({
+                                stroke: new Stroke({ color: '#1A73E8', width: 4, lineDash: [10, 10] })
+                            }));
 
-                    if (mapInstance.current) {
-                        const extent = routeSource.getExtent();
-                        if (extent && !extent.includes(Infinity)) {
-                            mapInstance.current.getView().fit(extent, { padding: [100, 100, 100, 100], duration: 1000 });
+                            routeSource.addFeature(startConnector);
+                            routeSource.addFeature(endConnector);
                         }
+
+                        allFeatures = [...allFeatures, ...features];
+                    }
+                });
+
+                routeSource.addFeatures(allFeatures);
+                setHasRoute(allFeatures.length > 0);
+
+                if (mapInstance.current && allFeatures.length > 0) {
+                    const extent = routeSource.getExtent();
+                    if (extent && !extent.includes(Infinity)) {
+                        mapInstance.current.getView().fit(extent, { padding: [100, 100, 100, 100], duration: 1000 });
                     }
                 }
-            })
-            .catch(e => console.error("Lỗi tìm đường:", e));
-    }, [startPoint, endPoint, algorithm]);
+            } catch (e) {
+                console.error("Lỗi tìm đường:", e);
+            }
+        };
+
+        fetchAllRoutes();
+
+    }, [startPoint, endPoint, waypoints, algorithm]);
 
     // 5. EFFECT: VẼ MARKER ĐIỂM ĐI / ĐẾN
     useEffect(() => {
@@ -308,25 +448,42 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, onMapClick
             image: new Icon({ anchor: [0.5, 1], src: src, scale: 0.12 })
         });
 
+        // Hàm kiểm tra xem một toạ độ có thuộc về một cửa hàng bất kỳ không
+        const isStoreCoord = (coord) => {
+            if (!coord) return false;
+            return stores && stores.some(s => s.lng === coord[0] && s.lat === coord[1]);
+        };
+
         // Chỉ vẽ ping_blue khi điểm đi KHÔNG phải vị trí hiện tại
-        // (vị trí hiện tại đã được đánh dấu bằng currentnode.png)
+        // VÀ KHÔNG trùng với toạ độ của quán
         const isStartAtCurrentLoc = currentLocation &&
             startPoint &&
             startPoint[0] === currentLocation[0] &&
             startPoint[1] === currentLocation[1];
 
-        if (startPoint && !isStartAtCurrentLoc) {
+        if (startPoint && !isStartAtCurrentLoc && !isStoreCoord(startPoint)) {
             const feature = new Feature({ geometry: new Point(fromLonLat(startPoint)) });
             feature.setStyle(iconStyle('/ping_blue.png'));
             source.addFeature(feature);
         }
 
-        if (endPoint) {
+        // Vẽ các điểm dừng (waypoints)
+        if (waypoints && waypoints.length > 0) {
+            waypoints.forEach((wp) => {
+                if (!isStoreCoord(wp)) {
+                    const feature = new Feature({ geometry: new Point(fromLonLat(wp)) });
+                    feature.setStyle(iconStyle('/ping_blue.png')); 
+                    source.addFeature(feature);
+                }
+            });
+        }
+
+        if (endPoint && !isStoreCoord(endPoint)) {
             const feature = new Feature({ geometry: new Point(fromLonLat(endPoint)) });
             feature.setStyle(iconStyle('/ping_red.png'));
             source.addFeature(feature);
         }
-    }, [startPoint, endPoint, currentLocation]);
+    }, [startPoint, endPoint, waypoints, currentLocation, stores]);
 
     // 6. CÁC TƯƠNG TÁC KHÁC
     useEffect(() => {
