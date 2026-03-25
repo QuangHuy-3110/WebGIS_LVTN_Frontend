@@ -9,7 +9,7 @@ import {
   IoInformationCircleOutline, IoCreateOutline, IoMailOutline
 } from "react-icons/io5";
 
-const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDirections, hasRoute, onAddWaypoint, onSetAsDestination }) => {
+const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDirections, hasRoute, onAddWaypoint, onSetAsDestination, onRemoveFromRoute, routeInstructions, isStoreInRoute, onRouteStepClick, isMinimized, onToggleMinimize }) => {
   const { currentUser, authFetch } = useAuth();
 
   // --- STATES ---
@@ -25,6 +25,115 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
   // State Modal con
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [activeTab, setActiveTab] = useState('info');
+  const [activeInstructionIdx, setActiveInstructionIdx] = useState(null);
+
+  useEffect(() => {
+    setActiveInstructionIdx(null);
+  }, [routeInstructions]);
+
+  const getGroupedInstructions = () => {
+    if (!routeInstructions || routeInstructions.length === 0) return [];
+    
+    // Helper: Tính góc hướng đi (Bearing) giữa 2 tọa độ
+    const getBearing = (p1, p2) => {
+        const lat1 = p1[1] * Math.PI / 180;
+        const lon1 = p1[0] * Math.PI / 180;
+        const lat2 = p2[1] * Math.PI / 180;
+        const lon2 = p2[0] * Math.PI / 180;
+        const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
+        const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
+        const brng = Math.atan2(y, x) * 180 / Math.PI;
+        return (brng + 360) % 360;
+    };
+
+    // Helper: Phân loại rẽ dựa trên chênh lệch góc
+    const getTurnType = (angle1, angle2) => {
+        let diff = (angle2 - angle1 + 360) % 360;
+        if (diff > 180) diff -= 360;
+        
+        if (diff > -25 && diff < 25) return 'straight';
+        if (diff >= 25 && diff <= 100) return 'right';
+        if (diff > 100 && diff < 170) return 'hard-right';
+        if (diff <= -25 && diff >= -100) return 'left';
+        if (diff < -100 && diff > -170) return 'hard-left';
+        
+        return 'uturn';
+    };
+
+    const grouped = [];
+    let currentGroup = { 
+        name: routeInstructions[0].name, 
+        length_m: routeInstructions[0].length_m, 
+        coord: routeInstructions[0].coord,
+        geom: routeInstructions[0].geom || [],
+        turnType: 'start'
+    };
+
+    for (let i = 1; i < routeInstructions.length; i++) {
+        const item = routeInstructions[i];
+        if (item.name === currentGroup.name) {
+            currentGroup.length_m += item.length_m;
+            if (item.geom && item.geom.length > 0) {
+                // Nối mảng tọa độ lại để có đoạn đường đầy đủ
+                currentGroup.geom = currentGroup.geom.concat(item.geom);
+            }
+        } else {
+            // Xác định góc độ rẽ giữa dòng cũ và dòng mới
+            const pts1 = currentGroup.geom;
+            const pts2 = item.geom;
+            let turnType = 'straight';
+            if (pts1 && pts2 && pts1.length >= 2 && pts2.length >= 2) {
+               const pA = pts1[pts1.length - 2];
+               const pB = pts1[pts1.length - 1]; // End of street 1
+               const pC = pts2[0]; // Start of street 2
+               const pD = pts2[1];
+               
+               const bearing1 = getBearing(pA, pB);
+               const bearing2 = getBearing(pC, pD);
+               turnType = getTurnType(bearing1, bearing2);
+            }
+
+            grouped.push(currentGroup);
+            
+            currentGroup = { 
+                name: item.name, 
+                length_m: item.length_m, 
+                coord: item.coord,
+                geom: item.geom || [],
+                turnType: turnType
+            };
+        }
+    }
+    grouped.push(currentGroup);
+    return grouped;
+  };
+
+  const getTurnText = (type) => {
+     switch(type) {
+         case 'start': return 'Bắt đầu đi thẳng vào';
+         case 'right': return 'Rẽ phải vào';
+         case 'hard-right': return 'Rẽ ngoặt phải vào';
+         case 'left': return 'Rẽ trái vào';
+         case 'hard-left': return 'Rẽ ngoặt trái vào';
+         case 'uturn': return 'Quay đầu vào';
+         default: return 'Đi tiếp vào';
+     }
+  };
+
+  const groupedInstructions = getGroupedInstructions();
+  const totalLength = groupedInstructions.reduce((acc, curr) => acc + curr.length_m, 0);
+
+  // Tính tọa độ đích thực sự để ghim điểm khi click "Đến đích an toàn"
+  const getDestinationCoord = () => {
+      if (groupedInstructions.length === 0) return null;
+      const lastInst = groupedInstructions[groupedInstructions.length - 1];
+      if (lastInst && lastInst.geom && lastInst.geom.length > 0) {
+          return lastInst.geom[lastInst.geom.length - 1];
+      }
+      return null;
+  };
+  const destinationCoord = getDestinationCoord();
 
   // --- EFFECT: Reset & Load Data ---
   useEffect(() => {
@@ -37,6 +146,13 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
       fetchReviews(location.id);
     }
   }, [location]);
+
+  // --- EFFECT: Chuyển qua tab Chỉ đường nếu bắt đầu có Route ---
+  useEffect(() => {
+    if (hasRoute && location) {
+      setActiveTab('route');
+    }
+  }, [hasRoute, location]);
 
   // --- API HELPER: Lấy bình luận ---
   const fetchReviews = async (storeId) => {
@@ -94,6 +210,109 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
     }
   };
 
+  // NẾU LÀ PANEL CHỈ ĐƯỜNG ĐỘC LẬP (KHÔNG CÓ QUÁN)
+  if (!location) {
+      if (!hasRoute) return null;
+      return (
+        <div className="location-panel" style={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          transform: isMinimized ? 'translateX(-100%)' : 'translateX(0)',
+          transition: 'transform 0.3s ease-in-out'
+        }}>
+           {/* Nút lật thò ra ngoài rìa phải */}
+           <button 
+             onClick={onToggleMinimize} 
+             style={{ 
+               position: 'absolute', 
+               top: '50%', 
+               right: '-28px', 
+               transform: 'translateY(-50%)',
+               width: '28px', 
+               height: '60px', 
+               background: '#fff', 
+               border: '1px solid #ddd', 
+               borderLeft: 'none',
+               borderRadius: '0 8px 8px 0',
+               cursor: 'pointer',
+               boxShadow: '3px 0 5px rgba(0,0,0,0.1)',
+               display: 'flex',
+               alignItems: 'center',
+               justifyContent: 'center',
+               zIndex: 10
+             }}
+             title={isMinimized ? "Mở rộng bảng lộ trình" : "Thu gọn bảng lộ trình"}
+           >
+             {isMinimized ? <IoChevronForward size={22} color="#666"/> : <IoChevronBack size={22} color="#666"/>}
+           </button>
+
+           <div style={{ padding: '15px', background: '#fff', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+               <h2 style={{ margin: 0, fontSize: '18px', color: '#1A73E8' }}>Lộ trình chi tiết</h2>
+           </div>
+           <div className="panel-content route-instructions" style={{ flex: 1, overflowY: 'auto', display: isMinimized ? 'none' : 'block' }}>
+              <div style={{ padding: '15px', background: '#f8f9fa', borderRadius: '8px', marginBottom: '15px' }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '16px', color: '#1A73E8' }}>Tổng quãng đường:</div>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#333' }}>
+                      {totalLength > 1000 ? (totalLength / 1000).toFixed(2) + ' km' : Math.round(totalLength) + ' m'}
+                  </div>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {groupedInstructions.map((instruction, idx) => (
+                      <li 
+                          key={idx} 
+                          onClick={() => {
+                              setActiveInstructionIdx(idx);
+                              if (onRouteStepClick && instruction.coord) onRouteStepClick(instruction.coord);
+                          }} 
+                          style={{ 
+                              display: 'flex', gap: '15px', padding: '15px 10px', 
+                              borderBottom: '1px solid #eee', cursor: 'pointer', transition: 'all 0.2s',
+                              background: activeInstructionIdx === idx ? '#e8f0fe' : 'transparent',
+                              borderLeft: activeInstructionIdx === idx ? '4px solid #1A73E8' : '4px solid transparent',
+                              margin: '0 -10px',
+                              paddingLeft: activeInstructionIdx === idx ? '16px' : '20px'
+                          }} 
+                          onMouseEnter={e => { if (activeInstructionIdx !== idx) e.currentTarget.style.background = '#f8f9fa' }} 
+                          onMouseLeave={e => { if (activeInstructionIdx !== idx) e.currentTarget.style.background = 'transparent' }}
+                      >
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: idx === 0 ? '#34A853' : (idx === groupedInstructions.length - 1 ? '#EA4335' : '#1A73E8') }}></div>
+                              {idx !== groupedInstructions.length - 1 && <div style={{ width: '2px', flex: 1, background: '#e0e0e0', margin: '4px 0' }}></div>}
+                          </div>
+                          <div>
+                              <div style={{ fontWeight: 'bold', fontSize: '15px', color: activeInstructionIdx === idx ? '#1A73E8' : '#333' }}>
+                                  {getTurnText(instruction.turnType)} {instruction.name}
+                              </div>
+                              <div style={{ fontSize: '13px', color: activeInstructionIdx === idx ? '#333' : '#777', marginTop: '4px', fontWeight: activeInstructionIdx === idx ? '500' : 'normal' }}>
+                                  Đi thẳng {instruction.length_m > 1000 ? (instruction.length_m / 1000).toFixed(2) + ' km' : Math.round(instruction.length_m) + ' m'}
+                              </div>
+                          </div>
+                      </li>
+                  ))}
+                  <li 
+                      onClick={() => {
+                          setActiveInstructionIdx('destination');
+                          if (onRouteStepClick && destinationCoord) onRouteStepClick(destinationCoord);
+                      }} 
+                      style={{ 
+                          display: 'flex', gap: '15px', padding: '15px 10px', 
+                          cursor: 'pointer', transition: 'all 0.2s', margin: '0 -10px',
+                          background: activeInstructionIdx === 'destination' ? '#fce8e6' : 'transparent',
+                          borderLeft: activeInstructionIdx === 'destination' ? '4px solid #EA4335' : '4px solid transparent',
+                          paddingLeft: activeInstructionIdx === 'destination' ? '16px' : '20px'
+                      }} 
+                      onMouseEnter={e => { if (activeInstructionIdx !== 'destination') e.currentTarget.style.background = '#fce8e6' }} 
+                      onMouseLeave={e => { if (activeInstructionIdx !== 'destination') e.currentTarget.style.background = 'transparent' }}
+                  >
+                      <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#EA4335', alignSelf: 'center' }}></div>
+                      <div style={{ fontWeight: 'bold', fontSize: '15px', color: activeInstructionIdx === 'destination' ? '#d93025' : '#EA4335' }}>Đến đích an toàn!</div>
+                  </li>
+              </ul>
+           </div>
+        </div>
+      );
+  }
+
   // --- HELPERS: Render UI ---
   const images = (location.images && location.images.length > 0) 
       ? location.images 
@@ -132,7 +351,7 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
     return stars;
   };
 
-  if (!location) return null;
+
 
   return (
     <div className="location-panel">
@@ -174,7 +393,7 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
         {/* --- PHẦN 3: NÚT HÀNH ĐỘNG --- */}
         
         {/* Nút routing đặt riêng một hàng ngang nổi bật */}
-        {hasRoute && (
+        {hasRoute && !isStoreInRoute && (
           <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
             <button 
               onClick={onAddWaypoint}
@@ -187,6 +406,17 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
               style={{ flex: 1, padding: '10px', background: '#1A73E8', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
             >
               <IoLocationOutline size={18} /> Điểm đến mới
+            </button>
+          </div>
+        )}
+
+        {hasRoute && isStoreInRoute && (
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+            <button 
+              onClick={onRemoveFromRoute}
+              style={{ flex: 1, padding: '10px', background: '#fce8e6', color: '#d93025', border: 'none', borderRadius: '8px', fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
+            >
+              <IoClose size={18} /> Xóa khỏi Lộ trình
             </button>
           </div>
         )}
@@ -222,6 +452,22 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
           </div>
         </div>
 
+        {/* --- TABS --- */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #ddd', marginBottom: '15px' }}>
+          <div 
+            onClick={() => setActiveTab('info')}
+            style={{ flex: 1, textAlign: 'center', padding: '10px', cursor: 'pointer', borderBottom: activeTab === 'info' ? '2px solid #1A73E8' : 'none', color: activeTab === 'info' ? '#1A73E8' : '#555', fontWeight: activeTab === 'info' ? 'bold' : 'normal' }}
+          >Thông tin</div>
+          {hasRoute && (
+            <div 
+              onClick={() => setActiveTab('route')}
+              style={{ flex: 1, textAlign: 'center', padding: '10px', cursor: 'pointer', borderBottom: activeTab === 'route' ? '2px solid #1A73E8' : 'none', color: activeTab === 'route' ? '#1A73E8' : '#555', fontWeight: activeTab === 'route' ? 'bold' : 'normal' }}
+            >Chỉ đường</div>
+          )}
+        </div>
+
+        {activeTab === 'info' && (
+          <>
         {/* --- PHẦN 4: CHI TIẾT --- */}
         <div className="details-list">
 
@@ -330,6 +576,73 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
                 </div>
             )}
         </div>
+          </>
+        )}
+
+        {/* --- TAB CHỈ ĐƯỜNG --- */}
+        {activeTab === 'route' && (
+           <div className="route-instructions">
+              <h3 style={{fontSize: 18, marginBottom: 15}}>Lộ trình chi tiết</h3>
+              <div style={{ padding: '15px', background: '#f8f9fa', borderRadius: '8px', marginBottom: '15px' }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '16px', color: '#1A73E8' }}>Tổng quãng đường:</div>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#333' }}>
+                      {totalLength > 1000 ? (totalLength / 1000).toFixed(2) + ' km' : Math.round(totalLength) + ' m'}
+                  </div>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {groupedInstructions.map((instruction, idx) => (
+                      <li 
+                          key={idx} 
+                          onClick={() => {
+                              setActiveInstructionIdx(idx);
+                              if (onRouteStepClick && instruction.coord) onRouteStepClick(instruction.coord);
+                          }} 
+                          style={{ 
+                              display: 'flex', gap: '15px', padding: '15px 10px', 
+                              borderBottom: '1px solid #eee', cursor: 'pointer', transition: 'all 0.2s',
+                              background: activeInstructionIdx === idx ? '#e8f0fe' : 'transparent',
+                              borderLeft: activeInstructionIdx === idx ? '4px solid #1A73E8' : '4px solid transparent',
+                              margin: '0 -10px',
+                              paddingLeft: activeInstructionIdx === idx ? '16px' : '20px'
+                          }} 
+                          onMouseEnter={e => { if (activeInstructionIdx !== idx) e.currentTarget.style.background = '#f8f9fa' }} 
+                          onMouseLeave={e => { if (activeInstructionIdx !== idx) e.currentTarget.style.background = 'transparent' }}
+                      >
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: idx === 0 ? '#34A853' : (idx === groupedInstructions.length - 1 ? '#EA4335' : '#1A73E8') }}></div>
+                              {idx !== groupedInstructions.length - 1 && <div style={{ width: '2px', flex: 1, background: '#e0e0e0', margin: '4px 0' }}></div>}
+                          </div>
+                          <div>
+                              <div style={{ fontWeight: 'bold', fontSize: '15px', color: activeInstructionIdx === idx ? '#1A73E8' : '#333' }}>
+                                  {getTurnText(instruction.turnType)} {instruction.name}
+                              </div>
+                              <div style={{ fontSize: '13px', color: activeInstructionIdx === idx ? '#333' : '#777', marginTop: '4px', fontWeight: activeInstructionIdx === idx ? '500' : 'normal' }}>
+                                  Đi thẳng {instruction.length_m > 1000 ? (instruction.length_m / 1000).toFixed(2) + ' km' : Math.round(instruction.length_m) + ' m'}
+                              </div>
+                          </div>
+                      </li>
+                  ))}
+                  <li 
+                      onClick={() => {
+                          setActiveInstructionIdx('destination');
+                          if (onRouteStepClick && destinationCoord) onRouteStepClick(destinationCoord);
+                      }} 
+                      style={{ 
+                          display: 'flex', gap: '15px', padding: '15px 10px', 
+                          cursor: 'pointer', transition: 'all 0.2s', margin: '0 -10px',
+                          background: activeInstructionIdx === 'destination' ? '#fce8e6' : 'transparent',
+                          borderLeft: activeInstructionIdx === 'destination' ? '4px solid #EA4335' : '4px solid transparent',
+                          paddingLeft: activeInstructionIdx === 'destination' ? '16px' : '20px'
+                      }} 
+                      onMouseEnter={e => { if (activeInstructionIdx !== 'destination') e.currentTarget.style.background = '#fce8e6' }} 
+                      onMouseLeave={e => { if (activeInstructionIdx !== 'destination') e.currentTarget.style.background = 'transparent' }}
+                  >
+                      <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#EA4335', alignSelf: 'center' }}></div>
+                      <div style={{ fontWeight: 'bold', fontSize: '15px', color: activeInstructionIdx === 'destination' ? '#d93025' : '#EA4335' }}>Đến nơi an toàn tại {location.name}!</div>
+                  </li>
+              </ul>
+           </div>
+        )}
       </div>
 
       {/* --- MODAL XEM ẢNH CHI TIẾT (LIGHTBOX) --- */}

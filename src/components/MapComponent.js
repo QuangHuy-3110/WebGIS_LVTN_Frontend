@@ -10,6 +10,8 @@ import { Style, Icon, Stroke, Fill } from 'ol/style';
 import GeoJSON from 'ol/format/GeoJSON';
 import { fromLonLat, toLonLat, transformExtent } from 'ol/proj';
 import { ScaleLine, defaults as defaultControls } from 'ol/control';
+import Overlay from 'ol/Overlay';
+import { apply } from 'ol-mapbox-style';
 
 /**
  * Tạo feature viền sọc đỏ-trắng kiểu Google Maps từ ring tọa độ [lon, lat].
@@ -43,8 +45,9 @@ function buildOverlayFeatures(lonLatRing) {
     return [borderFeature];
 }
 
-const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints, activeFilters, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo }) => {
+const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints, activeFilters, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo, onRouteCalculated, activeRouteStep }) => {
     const mapRef = useRef();
+    const stepOverlayRef = useRef(null);
     const mapInstance = useRef(null);
     const [algorithm, setAlgorithm] = useState('dijkstra');
 
@@ -61,6 +64,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
     // Track trạng thái route
     const [hasRoute, setHasRoute] = useState(false);
+    const lastRoutePointsRef = useRef('');
 
     // Style cho đường đi chính (Lộ trình)
     const routeStyleFunction = (feature) => {
@@ -85,9 +89,25 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
         // Nền bản đồ
         const standardBase = new TileLayer({
-            source: new XYZ({ url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png' }),
-            visible: true, properties: { name: 'standard' }
+            source: new XYZ({
+                // Link này trỏ thẳng đến bản đồ đã CUSTOM của Huy (đã ẩn icon)
+                // https://api.maptiler.com/maps/dataviz-v4/{z}/{x}/{y}.png?key=8VtL7nDfk7i0W2TAHvlE
+                // https://api.maptiler.com/maps/base-v4/{z}/{x}/{y}@2x.png?key=8VtL7nDfk7i0W2TAHvlE
+                // https://api.maptiler.com/maps/topo-v4/{z}/{x}/{y}@2x.png?key=8VtL7nDfk7i0W2TAHvlE
+                url: 'https://api.maptiler.com/maps/topo-v4/{z}/{x}/{y}@2x.png?key=8VtL7nDfk7i0W2TAHvlE',
+
+                crossOrigin: 'anonymous',
+
+                attributions: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
+                maxZoom: 20
+            }),
+            visible: true,
+            properties: { name: 'standard' }
         });
+        // const standardBase = new TileLayer({
+        //     source: new XYZ({ url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png' }),
+        //     visible: true, properties: { name: 'standard' }
+        // });
         const satelliteBase = new TileLayer({
             source: new XYZ({ url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', maxZoom: 19 }),
             visible: false, properties: { name: 'satellite' }
@@ -153,6 +173,38 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
             layers: [standardBase, satelliteBase, roadsLayer, boundaryLayer, overlayLayer, routeLayer, markerLayer, storeLayer, currentLocLayer],
             view: new View({ center: canThoCenter, zoom: 13, extent: mapExtent, minZoom: 10, maxZoom: 21 }),
         });
+
+        // Khởi tạo Overlay cho Chấm đánh dấu của Lộ Trình (Active Step)
+        const stepElement = document.createElement('div');
+        stepElement.style.width = '20px';
+        stepElement.style.height = '20px';
+        stepElement.style.backgroundColor = '#4285F4';
+        stepElement.style.border = '3px solid white';
+        stepElement.style.borderRadius = '50%';
+        stepElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
+        stepElement.style.transition = 'all 0.3s ease';
+        
+        const stepOverlay = new Overlay({
+            element: stepElement,
+            positioning: 'center-center',
+            stopEvent: false
+        });
+        map.addOverlay(stepOverlay);
+        stepOverlayRef.current = stepOverlay;
+
+        let mapRenderStartTime = performance.now();
+        map.on('movestart', () => {
+            mapRenderStartTime = performance.now();
+        });
+        map.on('moveend', () => {
+            console.log(`🗺️ [MEASURE] Thời gian thao tác và render lại bản đồ: ${(performance.now() - mapRenderStartTime).toFixed(2)} ms`);
+        });
+
+        // apply(map, 'https://api.maptiler.com/maps/019d0506-cf0e-703d-ad64-49a526a7b56d/style.json?key=8VtL7nDfk7i0W2TAHvlE')
+        //     .then(() => {
+        //         console.log("Đã tải xong Vector Style của Huy!");
+        //         // Nếu muốn lớp vệ tinh Esri cũ vẫn hoạt động, bạn có thể thêm logic ở đây
+        //     });
 
         mapInstance.current = map;
         return () => map.setTarget(null);
@@ -363,13 +415,18 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
         if (points.length < 2) {
             routeSource.clear();
             setHasRoute(false);
+            if (onRouteCalculated) onRouteCalculated([]);
             return;
         }
 
         const fetchRouteSegment = async (p1, p2) => {
+            const startFetchTime = performance.now();
             const url = `http://127.0.0.1:8000/api/route/?start_lat=${p1[1]}&start_lng=${p1[0]}&end_lat=${p2[1]}&end_lng=${p2[0]}&algo=${algorithm}`;
             const res = await fetch(url);
-            return res.json();
+            const data = await res.json();
+            const endFetchTime = performance.now();
+            console.log(`⏱️ [MEASURE] Thời gian phản hồi API Route: ${(endFetchTime - startFetchTime).toFixed(2)} ms`);
+            return data;
         };
 
         const fetchAllRoutes = async () => {
@@ -383,6 +440,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
                 routeSource.clear();
                 let allFeatures = [];
+                let routeInstructions = [];
                 const geojsonFormat = new GeoJSON();
 
                 results.forEach((data, index) => {
@@ -416,14 +474,77 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                             routeSource.addFeature(endConnector);
                         }
 
+                        // Collect instructions from properties, aligning geometries sequentially!
+                        if (data.features) {
+                            let previousEnd = null;
+
+                            data.features.forEach((f, fIndex) => {
+                                if (f.properties && f.properties.type === 'road') {
+                                    const rawGeom = f.geometry;
+                                    if (!rawGeom || !rawGeom.coordinates || rawGeom.coordinates.length < 2) return;
+                                    
+                                    let coords = [...rawGeom.coordinates];
+                                    let isReversed = false;
+
+                                    if (previousEnd) {
+                                        // Compare the distance from previousEnd to first vs last node
+                                        const distToFirst = Math.pow(coords[0][0] - previousEnd[0], 2) + Math.pow(coords[0][1] - previousEnd[1], 2);
+                                        const distToLast = Math.pow(coords[coords.length - 1][0] - previousEnd[0], 2) + Math.pow(coords[coords.length - 1][1] - previousEnd[1], 2);
+                                        
+                                        if (distToLast < distToFirst) {
+                                            coords.reverse();
+                                            isReversed = true;
+                                        }
+                                    } else {
+                                        // For the very first feature, compare with the next feature to see which end connects
+                                        const nextF = data.features[fIndex + 1];
+                                        if (nextF && nextF.geometry && nextF.geometry.coordinates && nextF.geometry.coordinates.length > 0) {
+                                            const nextCoords = nextF.geometry.coordinates;
+                                            const pA = nextCoords[0];
+                                            const pB = nextCoords[nextCoords.length - 1];
+
+                                            const distFirstToNext1 = Math.pow(coords[0][0] - pA[0], 2) + Math.pow(coords[0][1] - pA[1], 2);
+                                            const distFirstToNext2 = Math.pow(coords[0][0] - pB[0], 2) + Math.pow(coords[0][1] - pB[1], 2);
+                                            const distLastToNext1 = Math.pow(coords[coords.length - 1][0] - pA[0], 2) + Math.pow(coords[coords.length - 1][1] - pA[1], 2);
+                                            const distLastToNext2 = Math.pow(coords[coords.length - 1][0] - pB[0], 2) + Math.pow(coords[coords.length - 1][1] - pB[1], 2);
+                                            
+                                            // If first point of this edge connects to next edge, then this edge is backward!
+                                            const minFirst = Math.min(distFirstToNext1, distFirstToNext2);
+                                            const minLast = Math.min(distLastToNext1, distLastToNext2);
+                                            if (minFirst < minLast) {
+                                                coords.reverse();
+                                            }
+                                        }
+                                    }
+
+                                    // Next iteration standard
+                                    previousEnd = coords[coords.length - 1];
+
+                                    routeInstructions.push({
+                                        name: f.properties.name || 'Đường không tên',
+                                        length_m: parseFloat(f.properties.length_m) || 0,
+                                        coord: coords[0], // Lấy đúng điểm ĐẦU bước vào của ngã rẽ!
+                                        geom: coords
+                                    });
+                                }
+                            });
+                        }
+
                         allFeatures = [...allFeatures, ...features];
                     }
                 });
 
                 routeSource.addFeatures(allFeatures);
                 setHasRoute(allFeatures.length > 0);
+                if (onRouteCalculated) {
+                    onRouteCalculated(routeInstructions);
+                }
 
-                if (mapInstance.current && allFeatures.length > 0) {
+                const currentPointsStr = JSON.stringify(points);
+                const isNewRoute = lastRoutePointsRef.current !== currentPointsStr;
+                lastRoutePointsRef.current = currentPointsStr;
+
+                if (isNewRoute && mapInstance.current && allFeatures.length > 0) {
                     const extent = routeSource.getExtent();
                     if (extent && !extent.includes(Infinity)) {
                         mapInstance.current.getView().fit(extent, { padding: [100, 100, 100, 100], duration: 1000 });
@@ -472,7 +593,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
             waypoints.forEach((wp) => {
                 if (!isStoreCoord(wp)) {
                     const feature = new Feature({ geometry: new Point(fromLonLat(wp)) });
-                    feature.setStyle(iconStyle('/ping_blue.png')); 
+                    feature.setStyle(iconStyle('/ping_blue.png'));
                     source.addFeature(feature);
                 }
             });
@@ -529,7 +650,25 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                 duration: 800,
             });
         }
-    }, [triggerFlyTo, currentLocation]);
+        // Bỏ currentLocation để Map KHÔNG bị bay lại mỗi khi cập nhật GPS
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [triggerFlyTo]);
+
+    // CẬP NHẬT VỊ TRÍ CHẤM TRÒN LỘ TRÌNH (ACTIVE STEP)
+    useEffect(() => {
+        if (stepOverlayRef.current) {
+            if (activeRouteStep) {
+                const targetPixel = fromLonLat(activeRouteStep);
+                stepOverlayRef.current.setPosition(targetPixel);
+                // Pan nhẹ màn hình tới
+                if (mapInstance.current) {
+                    mapInstance.current.getView().animate({ center: targetPixel, duration: 600 });
+                }
+            } else {
+                stepOverlayRef.current.setPosition(undefined);
+            }
+        }
+    }, [activeRouteStep]);
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100vh' }}>

@@ -39,10 +39,25 @@ const MainApp = () => {
 
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [triggerFlyTo, setTriggerFlyTo] = useState(0);
+  const [routeInstructions, setRouteInstructions] = useState([]);
+  const [activeRouteStep, setActiveRouteStep] = useState(null);
+  const [showStandaloneRoute, setShowStandaloneRoute] = useState(true);
 
-  // --- States quản lý Loading Screen ---
   const [appLoading, setAppLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
+
+  // Check if any route point is an actual store
+  const routeHasStore = React.useMemo(() => {
+    if (!startPoint && !endPoint && waypoints.length === 0) return false;
+    const allRoutePoints = [];
+    if (startPoint) allRoutePoints.push(startPoint);
+    if (endPoint) allRoutePoints.push(endPoint);
+    waypoints.forEach(wp => allRoutePoints.push(wp));
+
+    return stores.some(store => 
+      allRoutePoints.some(pt => pt[0] === store.lng && pt[1] === store.lat)
+    );
+  }, [startPoint, endPoint, waypoints, stores]);
 
   // Hiển thị Animation loading ban đầu
   useEffect(() => {
@@ -177,6 +192,48 @@ const MainApp = () => {
       .catch(err => console.error("Lỗi tải data:", err));
   };
 
+  // --- WebSocket connection for real-time store updates ---
+  useEffect(() => {
+    // Determine WS URL based on current protocol
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    // Use localhost or whatever the API domain is
+    const wsUrl = `${wsProtocol}//127.0.0.1:8000/ws/stores/`;
+    
+    const ws = new WebSocket(wsUrl);
+    
+    ws.onopen = () => {
+      console.log('Connected to Store WebSocket');
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const wsReceiveTime = Date.now();
+        const data = JSON.parse(event.data);
+        if (data.message && (data.message.action === 'STORE_ADDED' || data.message.action === 'STORE_UPDATED')) {
+          console.log(`⚡ [MEASURE] Đo lường độ trễ cập nhật thời gian thực (WebSocket). Nhận dữ liệu lúc: ${wsReceiveTime} ms.`);
+          console.log("Cập nhật dữ liệu cửa hàng từ server:", data.message);
+          fetchStoreData(); // Tự động refetch danh sách cửa hàng
+        }
+      } catch (e) {
+        console.error("Lỗi xử lý websocket message:", e);
+      }
+    };
+
+    ws.onerror = (error) => {
+      console.error("Lỗi WebSocket:", error);
+    };
+
+    ws.onclose = () => {
+      console.log('Disconnected from Store WebSocket');
+    };
+
+    return () => {
+      if (ws.readyState === 1) { // OPEN
+        ws.close();
+      }
+    };
+  }, []); // Only run once on mount
+
   // 3. Xử lý Thêm/Xóa Yêu thích
   const handleToggleFavorite = async (storeId) => {
     if (!currentUser) {
@@ -203,21 +260,27 @@ const MainApp = () => {
     }
   };
 
-  // 4. Xử lý Click trên bản đồ (Chỉ dùng để chọn điểm đi/đến, KHÔNG dùng để thêm quán nữa)
+  // 4. Xử lý Click trên bản đồ
   const handleMapClick = (coords) => {
-    // Nếu đang có Panel chi tiết quán thì đóng lại
-    if (selectedStore) { setSelectedStore(null); return; }
 
     if (selectingMode === 'start') {
       setStartPoint(coords);
-      setSelectingMode(null); // Tắt chế độ chọn sau khi click
+      setSelectingMode(null);
       return;
     }
     if (selectingMode === 'end') {
       setEndPoint(coords);
-      setSelectingMode(null); // Tắt chế độ chọn sau khi click
+      setSelectingMode(null);
       return;
     }
+    if (selectingMode === 'waypoint') {
+      setWaypoints(prev => [...prev, coords]);
+      setSelectingMode(null);
+      return;
+    }
+
+    // Nếu đang có Panel chi tiết quán thì đóng lại
+    if (selectedStore) { setSelectedStore(null); }
   };
 
   const handleSelectStoreFromSearch = (store) => {
@@ -238,6 +301,9 @@ const MainApp = () => {
     setEndPoint(null);
     setWaypoints([]);
     setSelectingMode(null);
+    setRouteInstructions([]);
+    setActiveRouteStep(null);
+    setShowStandaloneRoute(true);
   };
 
   // Callback từ SearchBar tab "Từ ảnh" sau khi trích xuất GPS thành công
@@ -320,6 +386,8 @@ const MainApp = () => {
           currentLocation={currentLocation}
           triggerFlyTo={triggerFlyTo}
           activeFilters={activeFilters}
+          onRouteCalculated={setRouteInstructions}
+          activeRouteStep={activeRouteStep}
         />
 
         <div className="ui-overlay">
@@ -409,26 +477,49 @@ const MainApp = () => {
 
           {/* --- CÁC PANEL & MODAL --- */}
 
-          {/* Panel Chi tiết Quán */}
-          {selectedStore && (
+          {/* Panel Chi tiết Quán HOẶC Panel Chỉ đường (khi không chọn quán mà có lộ trình) */}
+          {(selectedStore || (startPoint && endPoint && !routeHasStore)) && (
             <LocationPanel
-              location={selectedStore}
-              onClose={() => setSelectedStore(null)}
-              isFavorite={favorites.some(f => f.store === selectedStore.id)}
-              onToggleFavorite={() => handleToggleFavorite(selectedStore.id)}
-              onDirections={() => handleDirections(selectedStore)}
+              location={selectedStore} 
+              isMinimized={!selectedStore && !showStandaloneRoute}
+              onToggleMinimize={() => setShowStandaloneRoute(p => !p)}
+              onClose={() => {
+                  if (selectedStore) setSelectedStore(null);
+              }}
+              isFavorite={selectedStore ? favorites.some(f => f.store === selectedStore.id) : false}
+              onToggleFavorite={() => selectedStore && handleToggleFavorite(selectedStore.id)}
+              onDirections={() => selectedStore && handleDirections(selectedStore)}
               hasRoute={!!(startPoint && endPoint)}
               onAddWaypoint={() => {
-                setWaypoints(prev => [...prev, [selectedStore.lng, selectedStore.lat]]);
-                setSelectedStore(null);
+                if (selectedStore) {
+                  setWaypoints(prev => [...prev, [selectedStore.lng, selectedStore.lat]]);
+                }
               }}
               onSetAsDestination={() => {
-                if (endPoint) {
-                  setWaypoints(prev => [...prev, endPoint]);
+                if (selectedStore) {
+                  if (endPoint) {
+                    setWaypoints(prev => [...prev, endPoint]);
+                  }
+                  setEndPoint([selectedStore.lng, selectedStore.lat]);
                 }
-                setEndPoint([selectedStore.lng, selectedStore.lat]);
-                setSelectedStore(null);
               }}
+              onRemoveFromRoute={() => {
+                if (selectedStore) {
+                  const matchesStore = (pt) => pt && pt[0] === selectedStore.lng && pt[1] === selectedStore.lat;
+                  if (matchesStore(startPoint)) setStartPoint(null);
+                  else if (matchesStore(endPoint)) setEndPoint(null);
+                  else setWaypoints(prev => prev.filter(wp => !matchesStore(wp)));
+                }
+              }}
+              routeInstructions={routeInstructions}
+              isStoreInRoute={
+                  selectedStore ? (
+                    (startPoint && startPoint[0] === selectedStore.lng && startPoint[1] === selectedStore.lat) ||
+                    (endPoint && endPoint[0] === selectedStore.lng && endPoint[1] === selectedStore.lat) ||
+                    (waypoints.some(wp => wp[0] === selectedStore.lng && wp[1] === selectedStore.lat))
+                  ) : false
+              }
+              onRouteStepClick={setActiveRouteStep}
             />
           )}
 

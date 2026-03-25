@@ -251,6 +251,21 @@ const SearchBar = ({
                 {endPoint && <IoCheckmarkCircle color="#1e8e3e" size={20} />}
               </button>
             </div>
+
+            {/* --- MỚI: THÊM TRẠM DỪNG (WAYPOINT) TỪ TÌM KIẾM --- */}
+            {(startPoint || endPoint) && (
+            <div className="manual-actions" style={{ marginTop: '10px' }}>
+              <button
+                className="btn-action"
+                onClick={() => onSetMode('waypoint')}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <IoEllipse color="#F4B400" />
+                  <span>3. Thêm trạm dừng trên map</span>
+                </div>
+              </button>
+            </div>
+            )}
           </div>
         )}
 
