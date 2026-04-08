@@ -45,11 +45,11 @@ function buildOverlayFeatures(lonLatRing) {
     return [borderFeature];
 }
 
-const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints, activeFilters, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo, onRouteCalculated, activeRouteStep }) => {
+const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints, activeFilters, onMapClick, onStoreClick, stores, selectedStore, currentLocation, triggerFlyTo, onRouteCalculated, activeRouteStep, hoveredStoreId }) => {
     const mapRef = useRef();
     const stepOverlayRef = useRef(null);
     const mapInstance = useRef(null);
-    const [algorithm, setAlgorithm] = useState('dijkstra');
+    const [algorithm, setAlgorithm] = useState('astar');
 
     // Các Source dữ liệu
     const markerSourceRef = useRef(new VectorSource());
@@ -183,7 +183,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
         stepElement.style.borderRadius = '50%';
         stepElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
         stepElement.style.transition = 'all 0.3s ease';
-        
+
         const stepOverlay = new Overlay({
             element: stepElement,
             positioning: 'center-center',
@@ -330,7 +330,9 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                 // Kiểm tra xem có đang dùng bộ lọc không
                 const hasActiveFilter = activeFilters && activeFilters.length > 0;
 
-                if (!isSelected && !isRoutePoint && !hasActiveFilter) {
+                const isHovered = hoveredStoreId && String(props.id) === String(hoveredStoreId);
+
+                if (!isSelected && !isRoutePoint && !isHovered && !hasActiveFilter) {
                     // 1. Phân loại theo zoom để ẩn bớt lớp
                     if (mapZoom < 12 && visibilityLevel > 1) {
                         isVisible = false;
@@ -350,23 +352,16 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
                 if (!isVisible) return null; // Không hiển thị feature này
 
-                const scale = (isSelected || isRoutePoint) ? 0.08 : 0.054;
+                const scale = (isSelected || isRoutePoint || isHovered) ? 0.08 : 0.054;
 
                 // TÍNH ĐIỂM ƯU TIÊN (Z-INDEX)
-                // Nguyên tắc Vàng: Những cửa hàng xuất hiện TỪ SỚM (khi bản đồ nhỏ) phải mang Z-Index cao hơn tuyệt đối
-                // so với những cửa hàng xuất hiện MUỘN (khi bản đồ phóng to).
-                // Do đó, khi phóng to lên, những cửa hàng mới TỪ HƯ KHÔNG mọc ra (Z-index thấp) tuyệt đối KHÔNG THỂ đè và làm mất đi cửa hàng cũ (Z-index cao).
-
                 let priorityZ = 0;
                 if (isHighQuality || isRepresentative) {
-                    // Nhóm đánh giá cao, đại diện: Xuất hiện sớm ở các mốc Zoom < 16
                     if (visibilityLevel === 1) priorityZ = 90;
                     else if (visibilityLevel === 2) priorityZ = 80;
                     else if (visibilityLevel === 3) priorityZ = 70;
                     else priorityZ = 60; // Level 4
                 } else {
-                    // Nhóm cửa hàng bình thường: Bị kìm hãm chỉ xuất hiện ở Zoom >= 16
-                    // Điểm số sẽ nhỏ hơn 60 để đảm bảo không bao giờ đè đầu các nhóm xuất hiện trước
                     if (visibilityLevel === 1) priorityZ = 40;
                     else if (visibilityLevel === 2) priorityZ = 30;
                     else if (visibilityLevel === 3) priorityZ = 20;
@@ -376,8 +371,8 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                 // Đảm bảo zIndex là duy nhất cho mỗi feature để declutter (chống đè) ổn định 100%
                 const storeIdNum = parseInt(props.id || 0, 10) || 0;
                 const uniquePriorityZ = priorityZ * 100000 + storeIdNum;
-                // Nếu cửa hàng được Click hoặc là điểm trên lộ trình, set thẳng lên tối đa để ăn hết khoảng trống
-                const finalZIndex = (isSelected || isRoutePoint) ? 99999999 : uniquePriorityZ;
+                // Nếu cửa hàng được Click, Hover hoặc là điểm trên lộ trình, set thẳng lên tối đa để ăn hết khoảng trống
+                const finalZIndex = (isSelected || isRoutePoint || isHovered) ? 99999999 : uniquePriorityZ;
 
                 // Mức zoom sát nhất thì bỏ chống đè, hiện cho bằng hết (20.5)
                 const isMaxZoom = mapZoom >= 20.5;
@@ -388,7 +383,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                         scale,
                         anchor: [0.5, 1],
                         crossOrigin: 'anonymous',
-                        declutterMode: (isSelected || isRoutePoint) ? 'obstacle' : ((hasActiveFilter || isMaxZoom) ? 'none' : 'declutter')
+                        declutterMode: (isSelected || isRoutePoint || isHovered) ? 'none' : ((hasActiveFilter || isMaxZoom) ? 'none' : 'declutter')
                     }),
                     zIndex: finalZIndex
                 });
@@ -396,7 +391,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
             source.addFeature(feature);
         });
-    }, [stores, selectedStore, activeFilters, startPoint, endPoint, waypoints]);
+    }, [stores, selectedStore, activeFilters, startPoint, endPoint, waypoints, hoveredStoreId]);
 
     // 3. EFFECT: CỬA HÀNG LUÔN HIỂN THỊ KỂ CẢ KHI CÓ ĐƯỜNG ĐI
     useEffect(() => {
@@ -482,7 +477,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                                 if (f.properties && f.properties.type === 'road') {
                                     const rawGeom = f.geometry;
                                     if (!rawGeom || !rawGeom.coordinates || rawGeom.coordinates.length < 2) return;
-                                    
+
                                     let coords = [...rawGeom.coordinates];
                                     let isReversed = false;
 
@@ -490,7 +485,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                                         // Compare the distance from previousEnd to first vs last node
                                         const distToFirst = Math.pow(coords[0][0] - previousEnd[0], 2) + Math.pow(coords[0][1] - previousEnd[1], 2);
                                         const distToLast = Math.pow(coords[coords.length - 1][0] - previousEnd[0], 2) + Math.pow(coords[coords.length - 1][1] - previousEnd[1], 2);
-                                        
+
                                         if (distToLast < distToFirst) {
                                             coords.reverse();
                                             isReversed = true;
@@ -507,7 +502,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                                             const distFirstToNext2 = Math.pow(coords[0][0] - pB[0], 2) + Math.pow(coords[0][1] - pB[1], 2);
                                             const distLastToNext1 = Math.pow(coords[coords.length - 1][0] - pA[0], 2) + Math.pow(coords[coords.length - 1][1] - pA[1], 2);
                                             const distLastToNext2 = Math.pow(coords[coords.length - 1][0] - pB[0], 2) + Math.pow(coords[coords.length - 1][1] - pB[1], 2);
-                                            
+
                                             // If first point of this edge connects to next edge, then this edge is backward!
                                             const minFirst = Math.min(distFirstToNext1, distFirstToNext2);
                                             const minLast = Math.min(distLastToNext1, distLastToNext2);
@@ -531,6 +526,31 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                         }
 
                         allFeatures = [...allFeatures, ...features];
+                    }
+
+                    // Thêm thông tin điểm dừng (waypoint) hoặc điểm đến (destination)
+                    if (index < results.length - 1) {
+                        const wpCoord = points[index + 1];
+                        const wpStore = stores.find(s => s.lng === wpCoord[0] && s.lat === wpCoord[1]);
+                        const wpName = wpStore ? wpStore.name : `Điểm dừng ${index + 1}`;
+                        routeInstructions.push({
+                            isWaypoint: true,
+                            name: wpName,
+                            coord: wpCoord,
+                            length_m: 0,
+                            geom: []
+                        });
+                    } else if (index === results.length - 1) {
+                        const destCoord = points[points.length - 1];
+                        const destStore = stores.find(s => s.lng === destCoord[0] && s.lat === destCoord[1]);
+                        const destName = destStore ? destStore.name : 'đích';
+                        routeInstructions.push({
+                            isDestination: true,
+                            name: destName,
+                            coord: destCoord,
+                            length_m: 0,
+                            geom: []
+                        });
                     }
                 });
 
@@ -675,7 +695,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
             <div ref={mapRef} style={{ width: '100%', height: '100%', position: 'absolute' }} />
 
             {/* UI Chọn Thuật Toán */}
-            <div className="algorithm-selector-card">
+            {/* <div className="algorithm-selector-card">
                 <div className="algo-info">
                     <label>Chế độ tìm đường</label>
                     <select value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>
@@ -683,7 +703,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                         <option value="astar">A* (A-Star)</option>
                     </select>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

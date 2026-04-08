@@ -71,7 +71,7 @@ const FloatingControls = ({ categories, activeFilters = [], onFilterChange, curr
 
         {/* Nút ba chấm nếu còn mục ẩn */}
         {dropdownCategories.length > 0 && (
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'static' }}>
             <button
               className={`pill-btn ${showMore || selectedDropdownCount > 0 ? 'active' : ''}`}
               onClick={() => setShowMore(!showMore)}

@@ -45,6 +45,7 @@ const MainApp = () => {
 
   const [appLoading, setAppLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [hoveredStoreId, setHoveredStoreId] = useState(null);
 
   // Check if any route point is an actual store
   const routeHasStore = React.useMemo(() => {
@@ -54,7 +55,7 @@ const MainApp = () => {
     if (endPoint) allRoutePoints.push(endPoint);
     waypoints.forEach(wp => allRoutePoints.push(wp));
 
-    return stores.some(store => 
+    return stores.some(store =>
       allRoutePoints.some(pt => pt[0] === store.lng && pt[1] === store.lat)
     );
   }, [startPoint, endPoint, waypoints, stores]);
@@ -198,9 +199,9 @@ const MainApp = () => {
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     // Use localhost or whatever the API domain is
     const wsUrl = `${wsProtocol}//127.0.0.1:8000/ws/stores/`;
-    
+
     const ws = new WebSocket(wsUrl);
-    
+
     ws.onopen = () => {
       console.log('Connected to Store WebSocket');
     };
@@ -388,6 +389,7 @@ const MainApp = () => {
           activeFilters={activeFilters}
           onRouteCalculated={setRouteInstructions}
           activeRouteStep={activeRouteStep}
+          hoveredStoreId={hoveredStoreId}
         />
 
         <div className="ui-overlay">
@@ -414,6 +416,7 @@ const MainApp = () => {
               startPoint={startPoint}
               endPoint={endPoint}
               onClearRoute={handleClearRoute}
+              onHoverStore={setHoveredStoreId}
             />
 
           </div>
@@ -448,21 +451,21 @@ const MainApp = () => {
                   )}
                   Xin chào! <strong>{currentUser.last_name} {currentUser.first_name}</strong>
                 </span>
-                {currentUser.role === 'admin' && (
-                  <button className="icon-btn" title="Quản trị" onClick={() => setShowAdminPanel(true)}>
-                    <IoSettingsSharp size={20} />
-                  </button>
-                )}
-                <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
+                {/* {currentUser.role === 'admin' && (
+                  // <button className="icon-btn" title="Quản trị" onClick={() => setShowAdminPanel(true)}>
+                  //   <IoSettingsSharp size={20} />
+                  // </button>
+                )} */}
+                {/* <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
                   <IoAddCircle size={20} color="#5F6368" />
-                </button>
+                </button> */}
                 <button className="btn-logout" onClick={logout}>Đăng xuất</button>
               </div>
             ) : (
               <div className="guest-controls" style={{ display: 'flex', gap: '10px' }}>
-                <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
+                {/* <button className="icon-btn" title="Thêm địa điểm" onClick={handleToggleAddMode}>
                   <IoAddCircle size={20} color="#5F6368" />
-                </button>
+                </button> */}
                 <button className="btn-login" onClick={() => setShowAuthForm(true)}>
                   <IoPersonCircle size={20} /> Đăng nhập
                 </button>
@@ -480,11 +483,11 @@ const MainApp = () => {
           {/* Panel Chi tiết Quán HOẶC Panel Chỉ đường (khi không chọn quán mà có lộ trình) */}
           {(selectedStore || (startPoint && endPoint && !routeHasStore)) && (
             <LocationPanel
-              location={selectedStore} 
+              location={selectedStore}
               isMinimized={!selectedStore && !showStandaloneRoute}
               onToggleMinimize={() => setShowStandaloneRoute(p => !p)}
               onClose={() => {
-                  if (selectedStore) setSelectedStore(null);
+                if (selectedStore) setSelectedStore(null);
               }}
               isFavorite={selectedStore ? favorites.some(f => f.store === selectedStore.id) : false}
               onToggleFavorite={() => selectedStore && handleToggleFavorite(selectedStore.id)}
@@ -513,11 +516,11 @@ const MainApp = () => {
               }}
               routeInstructions={routeInstructions}
               isStoreInRoute={
-                  selectedStore ? (
-                    (startPoint && startPoint[0] === selectedStore.lng && startPoint[1] === selectedStore.lat) ||
-                    (endPoint && endPoint[0] === selectedStore.lng && endPoint[1] === selectedStore.lat) ||
-                    (waypoints.some(wp => wp[0] === selectedStore.lng && wp[1] === selectedStore.lat))
-                  ) : false
+                selectedStore ? (
+                  (startPoint && startPoint[0] === selectedStore.lng && startPoint[1] === selectedStore.lat) ||
+                  (endPoint && endPoint[0] === selectedStore.lng && endPoint[1] === selectedStore.lat) ||
+                  (waypoints.some(wp => wp[0] === selectedStore.lng && wp[1] === selectedStore.lat))
+                ) : false
               }
               onRouteStepClick={setActiveRouteStep}
             />
