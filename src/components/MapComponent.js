@@ -336,17 +336,15 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                     // 1. Phân loại theo zoom để ẩn bớt lớp
                     if (mapZoom < 12 && visibilityLevel > 1) {
                         isVisible = false;
-                    } else if (mapZoom >= 12 && mapZoom < 14 && visibilityLevel > 2) {
+                    } else if (mapZoom >= 12 && mapZoom < 14 && visibilityLevel > 3) {
                         isVisible = false;
-                    } else if (mapZoom >= 14 && mapZoom < 16 && visibilityLevel > 3) {
+                    } else if (mapZoom >= 14 && mapZoom < 16 && visibilityLevel > 4) {
                         isVisible = false;
                     }
 
-                    // 2. Lọc chất lượng & đại diện (chỉ áp dụng ở mapZoom < 16)
-                    if (isVisible && mapZoom < 16) {
-                        if (!isHighQuality && !isRepresentative) {
-                            isVisible = false;
-                        }
+                    // 2. Lọc chất lượng & đại diện (chỉ áp dụng ở mapZoom < 13)
+                    if (mapZoom < 13 && !isHighQuality && !isRepresentative) {
+                        isVisible = false;
                     }
                 }
 

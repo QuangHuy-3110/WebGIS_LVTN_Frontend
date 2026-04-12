@@ -713,36 +713,36 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
                 <IoClose size={24} />
               </button>
             </div>
-            
+
             <div className="share-location-preview">
-               <img src={currentImageSrc} alt={location.name} className="share-thumb" />
-               <div className="share-info">
-                 <strong>{location.name}</strong>
-                 <p>{location.address}</p>
-               </div>
+              <img src={currentImageSrc} alt={location.name} className="share-thumb" />
+              <div className="share-info">
+                <strong>{location.name}</strong>
+                <p>{location.address}</p>
+              </div>
             </div>
 
             <div className="share-icons-row">
-              <button 
-                 className="social-btn copy"
-                 onClick={() => {
-                   const shareText = `📍 Tên: ${location.name}\n🏠 Địa chỉ: ${location.address}\n🗺️ GPS: ${location.lat}, ${location.lng}\n🔗 Link: ${window.location.href}`;
-                   navigator.clipboard.writeText(shareText);
-                   alert("Đã sao chép tất cả thông tin điểm đến!");
-                 }}
+              <button
+                className="social-btn copy"
+                onClick={() => {
+                  const shareText = `📍 Tên: ${location.name}\n🏠 Địa chỉ: ${location.address}\n🗺️ GPS: ${location.lat}, ${location.lng}\n🔗 Link: ${window.location.href}`;
+                  navigator.clipboard.writeText(shareText);
+                  alert("Đã sao chép tất cả thông tin điểm đến!");
+                }}
               >
-                 <IoCopyOutline size={22} color="#5F6368" />
-                 <span>Sao chép Text</span>
+                <IoCopyOutline size={22} color="#5F6368" />
+                <span>Sao chép Text</span>
               </button>
             </div>
 
             <div className="share-link-box">
               <input type="text" readOnly value={window.location.href} />
-              <button 
+              <button
                 className="copy-link-btn"
                 onClick={() => {
-                   navigator.clipboard.writeText(window.location.href);
-                   alert("Đã sao chép đường liên kết!");
+                  navigator.clipboard.writeText(window.location.href);
+                  alert("Đã sao chép đường liên kết!");
                 }}
               >
                 Sao chép link
