@@ -94,8 +94,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
                 // https://api.maptiler.com/maps/dataviz-v4/{z}/{x}/{y}.png?key=8VtL7nDfk7i0W2TAHvlE
                 // https://api.maptiler.com/maps/base-v4/{z}/{x}/{y}@2x.png?key=8VtL7nDfk7i0W2TAHvlE
                 // https://api.maptiler.com/maps/topo-v4/{z}/{x}/{y}@2x.png?key=8VtL7nDfk7i0W2TAHvlE
-                url: 'https://api.maptiler.com/maps/topo-v4/{z}/{x}/{y}@2x.png?key=8VtL7nDfk7i0W2TAHvlE',
-
+                url: `https://api.maptiler.com/maps/topo-v4/{z}/{x}/{y}@2x.png?key=${process.env.REACT_APP_MAPTILER_KEY}`,
                 crossOrigin: 'anonymous',
 
                 attributions: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>',
@@ -116,7 +115,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
         // Lớp Geoserver (Đường & Ranh giới)
         const roadsLayer = new TileLayer({
             source: new TileWMS({
-                url: 'http://localhost:8080/geoserver/cantho_map/wms',
+                url: `${process.env.REACT_APP_GEOSERVER_URL}/cantho_map/wms`,
                 params: { 'LAYERS': 'cantho_map:planet_osm_line', 'TILED': true, 'STYLES': 'cantho_map:style_duong_di' },
                 serverType: 'geoserver',
             }), zIndex: 5,
@@ -125,7 +124,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
         const boundaryLayer = new TileLayer({
             source: new TileWMS({
-                url: 'http://localhost:8080/geoserver/cantho_map/wms',
+                url: `${process.env.REACT_APP_GEOSERVER_URL}/cantho_map/wms`,
                 params: { 'LAYERS': 'cantho_map:ranh_gioi_can_tho', 'TILED': true, 'STYLES': 'style_ranh_gioi_ninh_kieu' },
                 serverType: 'geoserver',
             }), zIndex: 10,
@@ -414,7 +413,7 @@ const MapComponent = ({ mapType, selectingMode, startPoint, endPoint, waypoints,
 
         const fetchRouteSegment = async (p1, p2) => {
             const startFetchTime = performance.now();
-            const url = `http://127.0.0.1:8000/api/route/?start_lat=${p1[1]}&start_lng=${p1[0]}&end_lat=${p2[1]}&end_lng=${p2[0]}&algo=${algorithm}`;
+            const url = `${process.env.REACT_APP_API_URL}/route/?start_lat=${p1[1]}&start_lng=${p1[0]}&end_lat=${p2[1]}&end_lng=${p2[0]}&algo=${algorithm}`;
             const res = await fetch(url);
             const data = await res.json();
             const endFetchTime = performance.now();

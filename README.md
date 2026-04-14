@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Web GIS - Frontend Repository
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Đây là thư mục chứa mã nguồn Giao diện (Frontend) cho hệ thống Web GIS. Ứng dụng này cung cấp giao diện tương tác bản đồ, tìm đường, phân trang hành chính, giao tiếp thời gian thực, tải ảnh chứa bảng hiệu để quét AI và kết xuất các lớp ranh giới, đường đi từ Local Map Server.
 
-## Available Scripts
+## 🚀 Tính năng nổi bật
+* **Bản đồ trực quan:** Tích hợp `react-leaflet`, `ol` (OpenLayers) để hiển thị dữ liệu không gian.
+* **Tích hợp Bản đồ nền (Base Maps):** Sử dụng OpenStreetMap (OSM) làm lớp dữ liệu bản đồ nền theo ý chuẩn, kết hợp với hệ thống MapTiler để cung cấp các lớp bản đồ chất lượng cao (như Topo layers).
+* **Quản lý không gian & Tìm kiếm đường đi:** Cung cấp giao diện người dùng trơn tru để hiển thị vị trí các cửa hàng, chức năng tìm kiếm người dùng (Lịch sử tìm kiếm), và tính toán lộ trình tối ưu.
+* **Giao diện Admin:** Giao diện hỗ trợ quản trị viên thêm mới các cửa hàng (Tích hợp AI dự đoán các trường thông tin từ bảng hiệu), cảnh báo chống trùng lặp dữ liệu không gian (Fuzzy matching).
 
-In the project directory, you can run:
+## 🛠 Công nghệ sử dụng
+* Khung ứng dụng: [React](https://reactjs.org/)
+* Map libraries: [Leaflet](https://leafletjs.com/), [OpenLayers](https://openlayers.org/)
+* Map Server Engine: Cổng chia lớp GeoServer OGC (WMS/WFS)
 
-### `npm start`
+## ⚙️ Hướng dẫn cài đặt và chạy Local từ A-Z
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Để hệ thống giao diện chạy lên có bản đồ đường xá, bạn cài đặt theo trật tự 4 bước sau (bao gồm cả việc dựng Map Server cục bộ).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Yêu cầu nền tảng
+* Node.js (khuyến nghị Node v18.x trở lên)
+* Java Runtime Environment JRE 8 hoặc 11 (Cần thiết để bật Local GeoServer)
 
-### `npm test`
+### BƯỚC 1: Dựng GeoServer (Map Server) - Thành phần làm nền
+Mã nguồn React đang ngầm trỏ đến nguồn tài nguyên `localhost:8080/geoserver` lấy bản đồ. Nếu bỏ qua bước này Map sẽ trắng trơn hoặc mất các phần phân vùng.
+1. Khởi tạo: Vào [https://geoserver.org](https://geoserver.org) chọn bản "Binaries" độc lập.
+2. Tại máy bạn, giải nén GeoServer, vào `/bin/` chạy tệp `startup.bat` (Windows) hoặc `startup.sh` (Linux).
+3. Mở Chrome vào `http://localhost:8080/geoserver` (Account Default là `admin` mật khẩu `geoserver`).
+4. **Chia lớp Bản đồ (Publish Layers)**
+   * Set Workspace (Trạm làm việc) tên `cantho_map`. 
+   * Tại Data Store (nguồn Database kết nối Postgres PostGIS từ Backend).
+   * Tại mục "Publish", xuất 2 bảng/lớp Layer OpenStreetMap quan trọng là: `planet_osm_line` (chứa dữ liệu dây đường đi) và `ranh_gioi_can_tho` (Phân vùng hành chính).
+5. **Đổ Màu Lớp (Add Styling):** Up SLD/CSS thiết kế đường cho server chạy nền vào tên mẫu: `style_duong_di` và `style_ranh_gioi_ninh_kieu`. Gán vào cho Layer. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*(Map Layer đã Launching Server xong)*
 
-### `npm run build`
+### BƯỚC 2: Cài đặt Node Modules (React)
+Dùng Terminal đi vào thư mục kho giao diện gốc (`frontend/`):
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### BƯỚC 3: Cấu hình Môi trường Vòng lặp (`.env`)
+Tạo File `.env` chứa 3 khóa điều khiển máy chủ cho Web App Client hiểu cổng:
+```env
+REACT_APP_MAPTILER_KEY=your_key_here
+REACT_APP_GEOSERVER_URL=http://localhost:8080/geoserver
+REACT_APP_API_URL=http://127.0.0.1:8000/api
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### BƯỚC 4: Khởi chạy Giao Diện Web
+Dùng lệnh:
+```bash
+npm start
+```
+*   Chrome sẽ vọt tab ra tại HTTP `localhost:3000`. 
+*   **Workflow hoạt động là:** Khi Browser nạp trang -> Nện BaseMap MapTiler -> Chặn lấy `http://localhost:8080` của nhánh GeoServer vẽ đè dây đường OSM và tô ranh giới Cần Thơ lên. Người bấm Request "Tìm đường" -> UI ném Ping thẳng qua địa chỉ `http://localhost:8000` của Django AI Backend và đón nhận JSON Render ra màn hình thành quả.*
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 📦 Xuất Gói (Build Deploy)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Nếu muốn đưa lên Server thật (Nginx statics, Vercel..):
+```bash
+npm run build
+```
+*(Code được tối giảm dung lượng và thả vào một Folder `/build` ready to push.*)
