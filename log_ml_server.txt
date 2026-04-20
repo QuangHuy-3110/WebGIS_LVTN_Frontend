@@ -1,0 +1,1687 @@
+[2026-04-15 09:15:22] 🚀 Khởi động ML Server trên cổng 5050...
+[2026-04-15 09:15:22] === Đang tải tất cả models (YOLO, PaddleOCR, VietOCR, Qwen, Classifier)... ===
+[2026-04-15 09:15:23] ✅ YOLO loaded.
+[2026-04-15 09:15:24] ✅ PaddleOCR loaded.
+[2026-04-15 09:15:27] ✅ VietOCR loaded.
+[2026-04-15 09:15:27] ✅ Classifier loaded: True
+[2026-04-15 09:15:36] ✅ Qwen LLM (LoRA) loaded.
+[2026-04-15 09:15:36] === Tất cả models đã sẵn sàng! ===
+
+[2026-04-15 12:45:50] [YOLO] Phát hiện 3 biển hiệu trong 3.185s
+[2026-04-15 12:46:55] [YOLO] Phát hiện 3 biển hiệu trong 0.111s
+[2026-04-15 12:46:58] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 12:46:58] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 12:46:58] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 12:47:04] [Qwen LLM] Raw output: {"BRAND": ["GIANG THỊ"], "SERVICE": ["CHÁO LÒNG CÁI TẮC"], "O": ["Lang Tây"]}
+[2026-04-15 12:47:05] [Classifier] Category = Vận Tải & Kho Bãi
+[2026-04-15 21:49:11] 🚀 Khởi động ML Server trên cổng 5050...
+[2026-04-15 21:49:11] === Đang tải tất cả models (YOLO, PaddleOCR, VietOCR, Qwen, Classifier)... ===
+[2026-04-15 21:49:45] ✅ YOLO loaded.
+[2026-04-15 21:49:46] ✅ PaddleOCR loaded.
+[2026-04-15 21:49:48] ✅ VietOCR loaded.
+[2026-04-15 21:49:49] ✅ Classifier loaded: True
+[2026-04-15 21:49:55] ✅ Qwen LLM (LoRA) loaded.
+[2026-04-15 21:49:55] === Tất cả models đã sẵn sàng! ===
+
+[2026-04-15 22:37:32] [YOLO] Phát hiện 3 biển hiệu trong 1.715s
+[2026-04-15 22:41:32] [YOLO] Phát hiện 3 biển hiệu trong 0.260s
+[2026-04-15 22:41:33] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-15 22:41:33] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:41:33] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:41:48] [Qwen LLM] Raw output: {"BRAND": ["GIAY DEP DA"], "SERVICE": [], "O": []}
+[2026-04-15 22:41:48] [Classifier] Category = Mua Sắm
+[2026-04-15 22:43:02] [YOLO] Phát hiện 1 biển hiệu trong 0.619s
+[2026-04-15 22:43:03] [YOLO] Phát hiện 1 biển hiệu trong 0.248s
+[2026-04-15 22:43:04] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 22:43:04] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:43:04] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:43:14] [Qwen LLM] Raw output: {"BRAND": ["PHONG KHÁM SẢN PHỤ KHOA BẢY THUẦN"], "SERVICE": [], "O": []}
+[2026-04-15 22:43:14] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 22:44:04] [YOLO] Phát hiện 1 biển hiệu trong 0.217s
+[2026-04-15 22:44:04] [YOLO] Phát hiện 1 biển hiệu trong 0.191s
+[2026-04-15 22:44:07] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 22:44:07] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:44:07] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:44:34] [Qwen LLM] Raw output: {"BRAND": ["CHUYÊN THIẾT KẾ MẪU LAM CÁCH TÂN, BÀ BA 9 CÚC"], "SERVICE": ["CHẤT LIỆU LỤA CAO CẤP, TƠ TẦM, Ý, 2 DA SIZES,M, L, XL, 2X, 3X, TỪ 35KG ĐẾN 10O KG"], "O": []}
+[2026-04-15 22:44:34] [Classifier] Category = Mua Sắm
+[2026-04-15 22:46:08] [YOLO] Phát hiện 2 biển hiệu trong 0.237s
+[2026-04-15 22:47:09] [YOLO] Phát hiện 2 biển hiệu trong 0.248s
+[2026-04-15 22:47:11] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 22:47:11] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:47:11] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:47:27] [Qwen LLM] Raw output: {"BRAND": ["KHẢLI"], "SERVICE": ["CHUYÊN PHỤC HỒI CÁC LOẠI PHUỘC XE GẮN MÁY NINH KIỀU.TPCT"], "O": []}
+[2026-04-15 22:47:27] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-15 22:54:33] [YOLO] Phát hiện 3 biển hiệu trong 1.042s
+[2026-04-15 22:54:37] [YOLO] Phát hiện 3 biển hiệu trong 0.201s
+[2026-04-15 22:54:39] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 22:54:39] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:54:39] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:54:53] [Qwen LLM] Raw output: {"BRAND": ["NƯỚC MẮM CÁ CƠM HỒNG ĐÀI"], "SERVICE": [], "O": []}
+[2026-04-15 22:54:53] [Classifier] Category = Ẩm Thực
+[2026-04-15 22:56:40] [YOLO] Phát hiện 2 biển hiệu trong 0.896s
+[2026-04-15 22:56:47] [YOLO] Phát hiện 2 biển hiệu trong 0.193s
+[2026-04-15 22:56:49] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 22:56:49] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:56:49] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:56:59] [Qwen LLM] Raw output: {"BRAND": ["MỸ PHẨM THIÊN NHIÊN . 099"], "SERVICE": [], "O": []}
+[2026-04-15 22:56:59] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-15 22:57:52] [YOLO] Phát hiện 1 biển hiệu trong 0.375s
+[2026-04-15 22:57:52] [YOLO] Phát hiện 1 biển hiệu trong 0.232s
+[2026-04-15 22:57:54] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 22:57:54] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:57:54] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:58:13] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM TƯ NHÂN BÁC SỈ: BÙI NGỌC VIỆT"], "SERVICE": ["Chuyên Khoa: NGOẠI GPHĐ: 744/CT SGPHD -  -"], "O": []}
+[2026-04-15 22:58:13] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 22:59:04] [YOLO] Phát hiện 1 biển hiệu trong 0.308s
+[2026-04-15 22:59:04] [YOLO] Phát hiện 1 biển hiệu trong 0.270s
+[2026-04-15 22:59:06] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 22:59:06] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 22:59:06] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 22:59:17] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM XỖ SỐ TRUNG TÂM TRẢ THƯỞNG"], "SERVICE": [], "O": ["Vietlott"]}
+[2026-04-15 22:59:17] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 23:00:07] [YOLO] Phát hiện 1 biển hiệu trong 0.505s
+[2026-04-15 23:00:07] [YOLO] Phát hiện 1 biển hiệu trong 0.220s
+[2026-04-15 23:00:11] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 23:00:11] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:00:11] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:00:26] [Qwen LLM] Raw output: {"BRAND": ["HOA TƯƠI - HOA LAN - TRÁI CÂY Bánh"], "SERVICE": [], "O": ["B: (Ms Thảo)"]}
+[2026-04-15 23:00:26] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:01:30] [YOLO] Phát hiện 3 biển hiệu trong 0.513s
+[2026-04-15 23:01:44] [YOLO] Phát hiện 3 biển hiệu trong 0.297s
+[2026-04-15 23:01:45] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:01:45] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:01:45] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:01:58] [Qwen LLM] Raw output: {"BRAND": ["Lựa chọn cửa HÀNG TRIỆU gia đình Việt"], "SERVICE": [], "O": ["TOSHIKO"]}
+[2026-04-15 23:01:58] [Classifier] Category = Mua Sắm
+[2026-04-15 23:02:05] [YOLO] Phát hiện 3 biển hiệu trong 0.302s
+[2026-04-15 23:02:07] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 23:02:07] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:02:07] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:02:23] [Qwen LLM] Raw output: {"BRAND": ["GHẾ MASSAGE TOSHIKO"], "SERVICE": ["CHO MỌI NHÀ GHẾ MASSAGE - XE ĐẠP MÁY CHAY B"], "O": []}
+[2026-04-15 23:02:23] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-15 23:02:23] [YOLO] Phát hiện 3 biển hiệu trong 0.205s
+[2026-04-15 23:02:25] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 23:02:25] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:02:25] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:02:41] [Qwen LLM] Raw output: {"BRAND": ["GHẾ MASSAGE TOSHIKO"], "SERVICE": ["CHO MỌI NHÀ GHẾ MASSAGE - XE ĐẠP MÁY CHAY B"], "O": []}
+[2026-04-15 23:02:41] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-15 23:03:24] [YOLO] Phát hiện 1 biển hiệu trong 0.237s
+[2026-04-15 23:03:24] [YOLO] Phát hiện 1 biển hiệu trong 0.281s
+[2026-04-15 23:03:25] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-15 23:03:25] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:03:25] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:03:34] [Qwen LLM] Raw output: {"BRAND": ["MELYA.VN"], "SERVICE": [], "O": []}
+[2026-04-15 23:03:34] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-15 23:04:17] [YOLO] Phát hiện 3 biển hiệu trong 0.387s
+[2026-04-15 23:04:23] [YOLO] Phát hiện 3 biển hiệu trong 0.186s
+[2026-04-15 23:04:26] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:04:26] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:04:26] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:04:39] [Qwen LLM] Raw output: {"BRAND": ["CÔNG TY TNHH MỘT THÀNH VIÊN TIỆM VÀNG KIM TÍN CẦN THƠ"], "SERVICE": [], "O": []}
+[2026-04-15 23:04:39] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:05:27] [YOLO] Phát hiện 2 biển hiệu trong 0.234s
+[2026-04-15 23:05:30] [YOLO] Phát hiện 2 biển hiệu trong 0.187s
+[2026-04-15 23:05:33] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-15 23:05:33] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:05:33] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:05:54] [Qwen LLM] Raw output: {"BRAND": ["ÁNH NGHĨA"], "SERVICE": ["CHUYÊN: ĐỒ SẮT - MỘC - Ổ KHÓA - DỤNG CỤ CÁC LOẠI..."], "O": ["VIET-TIEP", "KHÓA VIỆT - TIỆP", "NIỀM TIN CỦA MỌI NHÀ"]}
+[2026-04-15 23:05:54] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-15 23:06:36] [YOLO] Phát hiện 1 biển hiệu trong 0.235s
+[2026-04-15 23:06:37] [YOLO] Phát hiện 1 biển hiệu trong 0.211s
+[2026-04-15 23:06:39] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:06:39] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:06:39] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:06:49] [Qwen LLM] Raw output: , the customer service department of the company is located in the basement of the building. Therefore, it's important to mention that this location is underground and not accessible from the ground level.
+[2026-04-15 23:06:49] [Classifier] Category = Nông Nghiệp & Thú Y
+[2026-04-15 23:08:10] [YOLO] Phát hiện 1 biển hiệu trong 0.397s
+[2026-04-15 23:08:10] [YOLO] Phát hiện 1 biển hiệu trong 0.224s
+[2026-04-15 23:08:11] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-15 23:08:11] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:08:11] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:08:17] [Qwen LLM] Raw output: {"BRAND": ["TOKYOLIFE"], "SERVICE": [], "O": []}
+[2026-04-15 23:08:17] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:08:59] [YOLO] Phát hiện 3 biển hiệu trong 0.334s
+[2026-04-15 23:09:03] [YOLO] Phát hiện 3 biển hiệu trong 0.192s
+[2026-04-15 23:09:04] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-15 23:09:04] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:09:04] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:09:10] [Qwen LLM] Raw output: {"BRAND": ["30 SHINE"], "SERVICE": [], "O": []}
+[2026-04-15 23:09:10] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-15 23:09:43] [YOLO] Phát hiện 2 biển hiệu trong 0.218s
+[2026-04-15 23:09:45] [YOLO] Phát hiện 2 biển hiệu trong 0.193s
+[2026-04-15 23:09:48] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 23:09:48] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:09:48] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:10:10] [Qwen LLM] Raw output: "BRAND": ["TRUNG TÂM PHÁT THANH - TRUYỀN HÌNH QUÂN ĐỘI"], "SERVICE": ["PHÁT THANH QUÂN ĐỘI NHÂN DÂN KÊNH TRUYỀN HÌNH QUỐC PHÒNG VIỆT NAM TRUYỀN NHÌNH QUÂN ĐỘI NHÂN DÂN"], "O": ["PVN"]}
+[2026-04-15 23:10:10] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-15 23:10:58] [YOLO] Phát hiện 1 biển hiệu trong 0.323s
+[2026-04-15 23:10:58] [YOLO] Phát hiện 1 biển hiệu trong 0.211s
+[2026-04-15 23:10:59] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:10:59] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:10:59] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:11:12] [Qwen LLM] Raw output:  + 10% discount offer
+{"BRAND": ["XCONS CẦN THƠ"], "SERVICE": [], "O": ["DECT", "BUTU"]}
+[2026-04-15 23:11:12] [Classifier] Category = Thể Thao & Thể Hình
+[2026-04-15 23:12:32] [YOLO] Phát hiện 1 biển hiệu trong 0.290s
+[2026-04-15 23:12:32] [YOLO] Phát hiện 1 biển hiệu trong 0.209s
+[2026-04-15 23:12:34] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:12:34] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:12:34] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:12:41] [Qwen LLM] Raw output: {"BRAND": ["KIMBERLY Diamond & Jewelry"], "SERVICE": [], "O": []}
+[2026-04-15 23:12:41] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:13:14] [YOLO] Phát hiện 2 biển hiệu trong 0.431s
+[2026-04-15 23:13:17] [YOLO] Phát hiện 2 biển hiệu trong 0.222s
+[2026-04-15 23:13:20] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 23:13:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:13:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:13:44] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN HÒA NGOẠI TIÊU HÓA"], "SERVICE": ["GIỜ KHÁM: THỨ 2 - THỨ 6: 11 - 13H VÀ 17 - 19HỊ THỨ 7 - CN-LỄ: 8 - 12H"], "O": []}
+[2026-04-15 23:13:44] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 23:14:22] [YOLO] Phát hiện 1 biển hiệu trong 0.417s
+[2026-04-15 23:14:22] [YOLO] Phát hiện 1 biển hiệu trong 0.224s
+[2026-04-15 23:14:24] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-15 23:14:24] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:14:24] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:14:34] [Qwen LLM] Raw output: {"BRAND": ["BÁNH NGỌT - TRÁI CÂY NHẬP KHẨU"], "SERVICE": [], "O": []}
+[2026-04-15 23:14:34] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-15 23:15:20] [YOLO] Phát hiện 5 biển hiệu trong 0.299s
+[2026-04-15 23:15:26] [YOLO] Phát hiện 5 biển hiệu trong 0.207s
+[2026-04-15 23:15:27] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 23:15:27] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:15:27] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:15:41] [Qwen LLM] Raw output: {"BRAND": ["GREE FUJITSU YẾT"], "SERVICE": ["ĐIỆN NÂNG - VẬN HÀNH BỀN BÌ ĐAIR CÔ DIONDER - JAPAN"], "O": []}
+[2026-04-15 23:15:41] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-15 23:15:53] [YOLO] Phát hiện 5 biển hiệu trong 0.241s
+[2026-04-15 23:15:57] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 23:15:57] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:15:57] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:16:09] [Qwen LLM] Raw output: {"BRAND": ["Guidea THIÊN HOÀNG KÝ"], "SERVICE": ["ĐIỆN MÁY"], "O": []}
+[2026-04-15 23:16:09] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-15 23:17:50] [YOLO] Phát hiện 1 biển hiệu trong 0.405s
+[2026-04-15 23:17:50] [YOLO] Phát hiện 1 biển hiệu trong 0.230s
+[2026-04-15 23:17:52] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-15 23:17:52] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:17:52] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:18:01] [Qwen LLM] Raw output: {"BRAND": ["NHÀ CỦA GẠO"], "SERVICE": [], "O": []}
+[2026-04-15 23:18:01] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-15 23:18:24] [YOLO] Phát hiện 1 biển hiệu trong 0.253s
+[2026-04-15 23:18:24] [YOLO] Phát hiện 1 biển hiệu trong 0.255s
+[2026-04-15 23:18:25] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-15 23:18:25] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:18:25] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:18:39] [Qwen LLM] Raw output: {"BRAND": ["DOANH NGHIỆP TẬN NƠI"], "SERVICE": [], "O": ["Đồng Giá 19k"]}
+[2026-04-15 23:18:39] [Classifier] Category = Vận Tải & Kho Bãi
+[2026-04-15 23:19:27] [YOLO] Phát hiện 2 biển hiệu trong 0.502s
+[2026-04-15 23:19:55] [YOLO] Phát hiện 2 biển hiệu trong 0.246s
+[2026-04-15 23:19:57] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-15 23:19:57] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:19:57] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:20:09] [Qwen LLM] Raw output: {"BRAND": ["Vietlott"], "SERVICE": [], "O": ["www.vietlott.vn", "Cơ hội để tốt hơn"]}
+[2026-04-15 23:20:09] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:21:05] [YOLO] Phát hiện 1 biển hiệu trong 0.317s
+[2026-04-15 23:21:06] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-15 23:21:09] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-15 23:21:09] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:21:09] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:21:27] [Qwen LLM] Raw output: {"BRAND": ["CÔNG TY CỔ PHẦN TƯ VẤN ĐẦU TƯ XÂY DỰNG NĂNG LƯỢNG XANH"], "SERVICE": ["Consulting Joint Stock Company"], "O": ["Green Energy Construction Investment", "Nangluongxanh19580gmail.com"]}
+[2026-04-15 23:21:27] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:22:13] [YOLO] Phát hiện 1 biển hiệu trong 0.242s
+[2026-04-15 23:22:13] [YOLO] Phát hiện 1 biển hiệu trong 0.305s
+[2026-04-15 23:22:16] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:22:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:22:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:22:28] [Qwen LLM] Raw output: {"BRAND": ["DỤNG CỤ Y TẾ & HÓA CHẤT XÉT NGHIỆM HOÀNG CHI"], "SERVICE": [], "O": []}
+[2026-04-15 23:22:28] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 23:23:53] [YOLO] Phát hiện 1 biển hiệu trong 0.247s
+[2026-04-15 23:23:54] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-15 23:23:56] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:23:56] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:23:56] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:24:03] [Qwen LLM] Raw output: {"BRAND": ["NHAT TIN logistics"], "SERVICE": [], "O": []}
+[2026-04-15 23:24:03] [Classifier] Category = Vận Tải & Kho Bãi
+[2026-04-15 23:24:48] [YOLO] Phát hiện 1 biển hiệu trong 0.215s
+[2026-04-15 23:24:48] [YOLO] Phát hiện 1 biển hiệu trong 0.247s
+[2026-04-15 23:24:51] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-15 23:24:51] [Classifier] Category = Thiếu dữ liệu
+[2026-04-15 23:26:07] [YOLO] Phát hiện 1 biển hiệu trong 0.322s
+[2026-04-15 23:26:07] [YOLO] Phát hiện 1 biển hiệu trong 0.238s
+[2026-04-15 23:26:11] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:26:11] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:26:11] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:26:21] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG TRẺ EM Như"], "SERVICE": [], "O": []}
+[2026-04-15 23:26:21] [Classifier] Category = Mua Sắm
+[2026-04-15 23:27:30] [YOLO] Phát hiện 1 biển hiệu trong 0.501s
+[2026-04-15 23:27:31] [YOLO] Phát hiện 1 biển hiệu trong 0.292s
+[2026-04-15 23:27:33] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:27:33] [Classifier] Category = Thiếu dữ liệu
+[2026-04-15 23:29:57] [YOLO] Phát hiện 1 biển hiệu trong 0.478s
+[2026-04-15 23:29:57] [YOLO] Phát hiện 1 biển hiệu trong 0.282s
+[2026-04-15 23:30:01] [VietOCR] Đọc được 10 dòng chữ.
+[2026-04-15 23:30:01] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:30:02] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:30:38] [Qwen LLM] Raw output: {"BRAND": ["CN CẦN THƠ"], "SERVICE": ["CHUYÊN GIA VỀ THỊ THỰC - VISA DU LỊCH THĂM THÂN CÔNG TÁC ĐỊNH CƯ"], "O": ["24hvisa", "www.24hvisa.com"]}
+[2026-04-15 23:30:38] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-15 23:31:34] [YOLO] Phát hiện 1 biển hiệu trong 1.365s
+[2026-04-15 23:31:34] [YOLO] Phát hiện 1 biển hiệu trong 0.332s
+[2026-04-15 23:31:37] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-15 23:31:37] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:31:37] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:31:47] [Qwen LLM] Raw output: {"BRAND": ["Hair - Nail - Makewn"], "SERVICE": [], "O": []}
+[2026-04-15 23:31:47] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-15 23:33:02] [YOLO] Phát hiện 2 biển hiệu trong 0.736s
+[2026-04-15 23:33:34] [YOLO] Phát hiện 2 biển hiệu trong 0.257s
+[2026-04-15 23:33:38] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-15 23:33:38] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:33:38] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:33:52] [Qwen LLM] Raw output: 了. I'm sorry, but you haven't provided any OCR images or text to process. Please provide the OCR results and text for me to analyze and generate the JSON format.
+[2026-04-15 23:33:53] [Classifier] Category = Mua Sắm
+[2026-04-15 23:34:32] [YOLO] Phát hiện 1 biển hiệu trong 0.466s
+[2026-04-15 23:34:33] [YOLO] Phát hiện 1 biển hiệu trong 0.347s
+[2026-04-15 23:34:35] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:34:35] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:34:35] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:34:52] [Qwen LLM] Raw output: {"BRAND": ["DENTAL CLINIC NHA KHOA Á CHÂU"], "SERVICE": [], "O": ["UY TÍN - CHẤT LƯỢNG"]}
+[2026-04-15 23:34:52] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 23:36:27] [YOLO] Phát hiện 1 biển hiệu trong 0.468s
+[2026-04-15 23:36:27] [YOLO] Phát hiện 1 biển hiệu trong 0.201s
+[2026-04-15 23:36:30] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 23:36:30] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:36:30] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:36:36] [Qwen LLM] Raw output:  of the above image is:
+
+Đầu ra JSON:
+[2026-04-15 23:36:36] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:37:18] [YOLO] Phát hiện 1 biển hiệu trong 0.421s
+[2026-04-15 23:37:19] [YOLO] Phát hiện 1 biển hiệu trong 0.204s
+[2026-04-15 23:37:20] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-15 23:37:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:37:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:37:31] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM ĐA KHOA VẠN PHƯỚC CỬU LONG"], "SERVICE": [], "O": []}
+[2026-04-15 23:37:31] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-15 23:38:11] [YOLO] Phát hiện 3 biển hiệu trong 0.521s
+[2026-04-15 23:38:14] [YOLO] Phát hiện 3 biển hiệu trong 0.215s
+[2026-04-15 23:38:17] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-15 23:38:17] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:38:17] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:38:31] [Qwen LLM] Raw output: :Bún Đậu Mắm Tôm
+[1680, 403, 2265, 552] (Chi nhánh)
+
+Đầu ra JSON:
+[2026-04-15 23:38:31] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:39:18] [YOLO] Phát hiện 1 biển hiệu trong 0.368s
+[2026-04-15 23:39:19] [YOLO] Phát hiện 1 biển hiệu trong 0.205s
+[2026-04-15 23:39:20] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:39:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:39:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:39:29] [Qwen LLM] Raw output: {"BRAND": ["QUÁN HẢI SẢN HOÀNG LỘC"], "SERVICE": [], "O": []}
+[2026-04-15 23:39:29] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:40:17] [YOLO] Phát hiện 4 biển hiệu trong 0.376s
+[2026-04-15 23:40:19] [YOLO] Phát hiện 4 biển hiệu trong 0.200s
+[2026-04-15 23:40:23] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-15 23:40:23] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:40:23] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:40:37] [Qwen LLM] Raw output: {"BRAND": ["QUÁN HẢI SẢN TIGET HOÀNG LỘC"], "SERVICE": ["Chuyên: Hải Sản Giá Gốc - Bình Dân 1 Đổi 1"], "O": []}
+[2026-04-15 23:40:37] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:42:51] [YOLO] Phát hiện 1 biển hiệu trong 0.291s
+[2026-04-15 23:42:51] [YOLO] Phát hiện 1 biển hiệu trong 0.221s
+[2026-04-15 23:42:55] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:42:55] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:42:55] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:43:08] [Qwen LLM] Raw output: {"BRAND": ["PHỤC VỤ TẬN TÂM"], "SERVICE": [], "O": ["P177A ĂNG DẦN RẾP"]}
+[2026-04-15 23:43:08] [Classifier] Category = Giải Trí
+[2026-04-15 23:44:03] [YOLO] Phát hiện 2 biển hiệu trong 0.274s
+[2026-04-15 23:44:04] [YOLO] Phát hiện 2 biển hiệu trong 0.193s
+[2026-04-15 23:44:07] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 23:44:07] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:44:07] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:44:23] [Qwen LLM] Raw output: {"BRAND": ["QUỲNH BÚN ĐẬU MẮM TÔM"], "SERVICE": ["Chấp nhận các loại hình giao dịch"], "O": ["Chuan Tan"], ["VẠN LINH - Ninh Kiều - TPCT"]}
+[2026-04-15 23:44:23] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:48:50] [YOLO] Phát hiện 2 biển hiệu trong 1.210s
+[2026-04-15 23:50:13] [YOLO] Phát hiện 2 biển hiệu trong 0.350s
+[2026-04-15 23:50:17] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-15 23:50:17] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:50:17] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:50:40] [Qwen LLM] Raw output: {"BRAND": ["QUỲNH BÚN ĐẬU MẮM TÔM"], "SERVICE": ["Chấp nhận các loại hình giao dịch"], "O": ["Chuan Tan"], ["VẠN LINH - Ninh Kiều - TPCT"]}
+[2026-04-15 23:50:40] [Classifier] Category = Ẩm Thực
+[2026-04-15 23:51:07] [YOLO] Phát hiện 1 biển hiệu trong 0.585s
+[2026-04-15 23:51:07] [YOLO] Phát hiện 1 biển hiệu trong 0.273s
+[2026-04-15 23:51:10] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:51:10] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:51:10] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:51:20] [Qwen LLM] Raw output: {"BRAND": ["CHIBA"], "SERVICE": [], "O": ["QUẦN ÁO HOT TREND GIÁ RẺ"]}
+[2026-04-15 23:51:20] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:51:45] [YOLO] Phát hiện 2 biển hiệu trong 0.488s
+[2026-04-15 23:51:48] [YOLO] Phát hiện 2 biển hiệu trong 0.202s
+[2026-04-15 23:51:52] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-15 23:51:52] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:51:52] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:52:20] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM THÚ Y HUỲNH MAI"], "SERVICE": ["Huỳnh Mai pet Shop & TIêm Ngừa - Điều Trị - Phụ Kiện - Thúc An"], "O": ["BSTY Phan Tấn Phong - BSTY Nguyễn Thị Mộng Tuyền", "SGP: 57A.8000830/ĐKKD - MS: CT/AN - 01"]}
+[2026-04-15 23:52:20] [Classifier] Category = Nông Nghiệp & Thú Y
+[2026-04-15 23:53:30] [YOLO] Phát hiện 2 biển hiệu trong 0.519s
+[2026-04-15 23:53:32] [YOLO] Phát hiện 2 biển hiệu trong 0.280s
+[2026-04-15 23:53:34] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-15 23:53:34] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:53:34] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:53:44] [Qwen LLM] Raw output: {"BRAND": ["PHỤ KIỆN ĐIỆN THOẠI HÙNG PHÁT"], "SERVICE": [], "O": []}
+[2026-04-15 23:53:45] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-15 23:55:40] [YOLO] Phát hiện 1 biển hiệu trong 0.451s
+[2026-04-15 23:55:40] [YOLO] Phát hiện 1 biển hiệu trong 0.257s
+[2026-04-15 23:55:43] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:55:43] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:55:43] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:55:53] [Qwen LLM] Raw output: {"BRAND": ["NGỌC DUNG"], "SERVICE": [], "O": ["Dẹp mãi với thời gian"]}
+[2026-04-15 23:55:53] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-15 23:57:03] [YOLO] Phát hiện 1 biển hiệu trong 0.690s
+[2026-04-15 23:57:03] [YOLO] Phát hiện 1 biển hiệu trong 0.291s
+[2026-04-15 23:57:06] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:57:06] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:57:06] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:57:21] [Qwen LLM] Raw output: -ungarye. USCG. To find the correct answer, you need to use OCR technology to extract the relevant information from the barcode and identify the type of business or establishment it represents. Then, you should match this information with the appropriate JSON format.
+[2026-04-15 23:57:21] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-15 23:58:57] [YOLO] Phát hiện 1 biển hiệu trong 0.337s
+[2026-04-15 23:58:58] [YOLO] Phát hiện 1 biển hiệu trong 0.233s
+[2026-04-15 23:59:00] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-15 23:59:00] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:59:00] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:59:12] [Qwen LLM] Raw output: {"BRAND": ["TT TRỢ THÍNH MICROTECH"], "SERVICE": ["TƯ VẤN ỐC TAI ĐIỆN TỬ MEDEL"], "O": []}
+[2026-04-15 23:59:12] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-15 23:59:43] [YOLO] Phát hiện 1 biển hiệu trong 0.461s
+[2026-04-15 23:59:43] [YOLO] Phát hiện 1 biển hiệu trong 0.211s
+[2026-04-15 23:59:45] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-15 23:59:45] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-15 23:59:45] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-15 23:59:55] [Qwen LLM] Raw output: {"BRAND": ["mattana TỔNG CÔNG TY CP MAY NHÀ BÈ NBC"], "SERVICE": [], "O": []}
+[2026-04-15 23:59:55] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:00:51] [YOLO] Phát hiện 1 biển hiệu trong 0.623s
+[2026-04-16 00:00:52] [YOLO] Phát hiện 1 biển hiệu trong 0.349s
+[2026-04-16 00:00:57] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-16 00:00:57] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:00:57] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:01:08] [Qwen LLM] Raw output: {"BRAND": ["THÀNH CTP. CẦN THƠ"], "SERVICE": ["Siêu nhỏ - S Cực Mạnh"], "O": ["Nhập khẩu châu này sỹ"]}
+[2026-04-16 00:01:08] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:03:09] [YOLO] Phát hiện 1 biển hiệu trong 0.355s
+[2026-04-16 00:03:09] [YOLO] Phát hiện 1 biển hiệu trong 0.232s
+[2026-04-16 00:03:13] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:03:13] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:03:13] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:03:24] [Qwen LLM] Raw output: {"BRAND": ["CHUỘT XÁM"], "SERVICE": [], "O": ["MỞ CỬA 24/7", "CHUOTXAMSTORE"]}
+[2026-04-16 00:03:24] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-16 00:04:06] [YOLO] Phát hiện 1 biển hiệu trong 0.715s
+[2026-04-16 00:04:06] [YOLO] Phát hiện 1 biển hiệu trong 0.235s
+[2026-04-16 00:04:12] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:04:12] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:04:12] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:04:23] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM NGHIÊN CỨU, ỨNG NG & ĐÀO TẠO"], "SERVICE": [], "O": []}
+[2026-04-16 00:04:23] [Classifier] Category = Giáo Dục
+[2026-04-16 00:06:13] [YOLO] Phát hiện 1 biển hiệu trong 0.353s
+[2026-04-16 00:06:13] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-16 00:06:18] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:06:18] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:06:18] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:06:33] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM BỆNH TƯ NHÂN"], "SERVICE": [], "O": ["GIẤY PHÉP SỐ: 468/SYT-GPHĐ"]}
+[2026-04-16 00:06:33] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 00:08:31] [YOLO] Phát hiện 2 biển hiệu trong 0.448s
+[2026-04-16 00:09:12] [YOLO] Phát hiện 2 biển hiệu trong 0.312s
+[2026-04-16 00:09:40] [YOLO] Phát hiện 2 biển hiệu trong 0.284s
+[2026-04-16 00:09:44] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:09:44] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:09:44] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:10:17] [Qwen LLM] Raw output: "BRAND": ["PHÒNG KHÁM CHUYÊN KHOA NHI THẠC SĨ - BÁC SĨ CHUYÊN KHOA H THÁI THANH LÂM"], "SERVICE": ["GIẤY PHÉP SỐ: 79/SYT-G"], "O": ["TRONG THỜI GIAN TỪ 06H00 - 18H00"]}
+[2026-04-16 00:10:17] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 00:11:53] [YOLO] Phát hiện 2 biển hiệu trong 0.401s
+[2026-04-16 00:11:56] [YOLO] Phát hiện 2 biển hiệu trong 0.208s
+[2026-04-16 00:11:59] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 00:11:59] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:11:59] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:12:11] [Qwen LLM] Raw output: {"BRAND": ["NGUYỄN HÀNG TRIỆT BỊ Y TẾ"], "SERVICE": [], "O": ["SỐ: CNĐKKD - K7A 80204"]}
+[2026-04-16 00:12:11] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 00:13:38] [YOLO] Phát hiện 1 biển hiệu trong 0.551s
+[2026-04-16 00:13:38] [YOLO] Phát hiện 1 biển hiệu trong 0.199s
+[2026-04-16 00:13:41] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:13:42] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:13:42] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:13:55] [Qwen LLM] Raw output: {"BRAND": ["BỆNH VIỆN IM MẠCH TP.CẦN THƠ KHOA KHÁM BỆNH OUTPATIENT DEPARTMENT"], "SERVICE": [], "O": []}
+[2026-04-16 00:13:55] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 00:15:14] [YOLO] Phát hiện 3 biển hiệu trong 0.452s
+[2026-04-16 00:15:17] [YOLO] Phát hiện 3 biển hiệu trong 0.206s
+[2026-04-16 00:15:20] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:15:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:15:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:15:42] [Qwen LLM] Raw output: {"BRAND": ["MÁY MAY GIA DỤNG - MÁY MAY CÔNG NGHIỆP"], "SERVICE": ["MÁY VẮT SỔ VÀ LINH KIỆN NGHÀNH MAY"], "O": ["UGN", "UY TÍN LÂU NĂM - ĐẢM BẢO CHẤT LƯỢNG"]}
+[2026-04-16 00:15:42] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-16 00:16:41] [YOLO] Phát hiện 1 biển hiệu trong 0.444s
+[2026-04-16 00:16:41] [YOLO] Phát hiện 1 biển hiệu trong 0.206s
+[2026-04-16 00:16:43] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-16 00:16:43] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:16:43] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:16:48] [Qwen LLM] Raw output: , BRIDAL SHOPPING AREA
+
+Đầu ra JSON:
+[2026-04-16 00:16:48] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 00:17:07] [YOLO] Phát hiện 1 biển hiệu trong 0.277s
+[2026-04-16 00:17:07] [YOLO] Phát hiện 1 biển hiệu trong 0.199s
+[2026-04-16 00:17:08] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-16 00:17:08] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:17:08] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:17:15] [Qwen LLM] Raw output: , BRIDAL SHOPPING AREA
+
+Đầu ra JSON:
+[2026-04-16 00:17:15] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 00:18:43] [YOLO] Phát hiện 1 biển hiệu trong 0.308s
+[2026-04-16 00:18:43] [YOLO] Phát hiện 1 biển hiệu trong 0.195s
+[2026-04-16 00:18:45] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:18:45] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:18:45] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:18:59] [Qwen LLM] Raw output: {"BRAND": ["HÙNG MAY NỆM"], "SERVICE": ["CHUYÊN: BỌC NỆM Ô TÔ, GHẾ SOFA CÁC LOẠI YÊN XE"], "O": ["DT- 0933"]}
+[2026-04-16 00:18:59] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-16 00:19:32] [YOLO] Phát hiện 3 biển hiệu trong 0.494s
+[2026-04-16 00:19:45] [YOLO] Phát hiện 3 biển hiệu trong 0.215s
+[2026-04-16 00:19:48] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-16 00:19:48] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:19:48] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:20:00] [Qwen LLM] Raw output: {"BRAND": ["DECAL 360"], "SERVICE": ["WRAP ĐỔI MÀU PPF TEM XE FILM CÁCH NHIỆT"], "O": []}
+[2026-04-16 00:20:00] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-16 00:20:33] [YOLO] Phát hiện 2 biển hiệu trong 0.388s
+[2026-04-16 00:20:35] [YOLO] Phát hiện 2 biển hiệu trong 0.218s
+[2026-04-16 00:20:37] [VietOCR] Đọc được 8 dòng chữ.
+[2026-04-16 00:20:37] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:20:37] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:20:50] [Qwen LLM] Raw output: {"BRAND": ["SỮA TƯƠI THỐT NỐT RIM NHƯ Ý LÊ"], "SERVICE": [], "O": ["HKD: LÊ THỊ NHƯ Ý", "nhuyle cantho"]}
+[2026-04-16 00:20:51] [Classifier] Category = Đồ Uống
+[2026-04-16 00:21:50] [YOLO] Phát hiện 5 biển hiệu trong 0.500s
+[2026-04-16 00:22:01] [YOLO] Phát hiện 5 biển hiệu trong 0.225s
+[2026-04-16 00:22:03] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:22:03] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:22:03] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:22:10] [Qwen LLM] Raw output: {"BRAND": ["THỢ BẠC KIM NGÂN"], "SERVICE": [], "O": []}
+[2026-04-16 00:22:10] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:22:15] [YOLO] Phát hiện 5 biển hiệu trong 0.284s
+[2026-04-16 00:22:18] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-16 00:22:18] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:22:18] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:22:26] [Qwen LLM] Raw output: {"BRAND": ["KIM BÁC ÂN"], "SERVICE": [], "O": []}
+[2026-04-16 00:22:26] [Classifier] Category = Ẩm Thực
+[2026-04-16 00:23:46] [YOLO] Phát hiện 1 biển hiệu trong 0.466s
+[2026-04-16 00:23:46] [YOLO] Phát hiện 1 biển hiệu trong 0.267s
+[2026-04-16 00:23:48] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:23:48] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:23:48] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:24:00] [Qwen LLM] Raw output: {"BRAND": ["GIÁO HỘI PHẬT GIÁO VIỆT NHỚN LÔNG CỔ TƯ"], "SERVICE": [], "O": []}
+[2026-04-16 00:24:00] [Classifier] Category = Tôn Giáo
+[2026-04-16 00:25:07] [YOLO] Phát hiện 2 biển hiệu trong 0.397s
+[2026-04-16 00:25:12] [YOLO] Phát hiện 2 biển hiệu trong 0.198s
+[2026-04-16 00:25:13] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:25:13] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:25:14] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:25:23] [Qwen LLM] Raw output: {"BRAND": ["PHUN XĂM HỒNG ĐÀO LƯỢNG"], "SERVICE": [], "O": []}
+[2026-04-16 00:25:23] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-16 00:27:16] [YOLO] Phát hiện 1 biển hiệu trong 0.711s
+[2026-04-16 00:27:17] [YOLO] Phát hiện 1 biển hiệu trong 0.344s
+[2026-04-16 00:27:20] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 00:27:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:27:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:27:27] [Qwen LLM] Raw output: {"BRAND": ["Rich HOTEL"], "SERVICE": [], "O": ["86D"]}
+[2026-04-16 00:27:27] [Classifier] Category = Lưu Trú
+[2026-04-16 00:28:27] [YOLO] Phát hiện 1 biển hiệu trong 0.319s
+[2026-04-16 00:28:27] [YOLO] Phát hiện 1 biển hiệu trong 0.266s
+[2026-04-16 00:28:31] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:28:31] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:28:31] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:28:39] [Qwen LLM] Raw output: {"BRAND": ["SƠN ZShop.vn"], "SERVICE": [], "O": ["Canon", "ThrivePa0"]}
+[2026-04-16 00:28:39] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-16 00:29:28] [YOLO] Phát hiện 2 biển hiệu trong 0.405s
+[2026-04-16 00:29:31] [YOLO] Phát hiện 2 biển hiệu trong 0.233s
+[2026-04-16 00:29:34] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 00:29:34] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:29:34] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:29:45] [Qwen LLM] Raw output: {"BRAND": ["QUÁN HỦ TIẾC - MÌ THỊT TƯƠI SƠN CẢO"], "SERVICE": [], "O": []}
+[2026-04-16 00:29:45] [Classifier] Category = Ẩm Thực
+[2026-04-16 00:30:48] [YOLO] Phát hiện 1 biển hiệu trong 0.318s
+[2026-04-16 00:30:48] [YOLO] Phát hiện 1 biển hiệu trong 0.235s
+[2026-04-16 00:30:51] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:30:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:30:51] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:31:10] [Qwen LLM] Raw output: {"BRAND": ["HÀN PHÒNG LUẬT SƯ VẠN LÝ"], "SERVICE": ["ĐOÀN LUẬT SƯ THÀNH PHỐ CẦN THƠ"], "O": ["Wedsite: www.amly.com.vn - Email: vart", "DD:"]}
+[2026-04-16 00:31:10] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 00:32:21] [YOLO] Phát hiện 2 biển hiệu trong 0.732s
+[2026-04-16 00:32:31] [YOLO] Phát hiện 2 biển hiệu trong 0.243s
+[2026-04-16 00:32:35] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:32:35] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:32:35] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:33:00] [Qwen LLM] Raw output: {"BRAND": ["ĐẠI LÝ VÉ SỐ LÊ NGỌC"], "SERVICE": ["VÉ TRUYỀN THỐNG + VÉ ĐIỆN TOÁN + VÉ CÀO"], "O": ["- 0907 656"]}
+[2026-04-16 00:33:00] [Classifier] Category = Vận Tải & Kho Bãi
+[2026-04-16 00:34:49] [YOLO] Phát hiện 1 biển hiệu trong 0.554s
+[2026-04-16 00:34:49] [YOLO] Phát hiện 1 biển hiệu trong 0.411s
+[2026-04-16 00:34:52] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:34:52] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:34:52] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:34:59] [Qwen LLM] Raw output: {"BRAND": ["iheystore"], "SERVICE": [], "O": ["Beystore"]}
+[2026-04-16 00:34:59] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:35:46] [YOLO] Phát hiện 2 biển hiệu trong 0.468s
+[2026-04-16 00:36:38] [YOLO] Phát hiện 2 biển hiệu trong 0.432s
+[2026-04-16 00:36:40] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-16 00:36:40] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:36:40] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:36:48] [Qwen LLM] Raw output: {"BRAND": ["Pharmacity Nhà thuốc tiện lợi"], "SERVICE": [], "O": []}
+[2026-04-16 00:36:48] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 00:37:50] [YOLO] Phát hiện 1 biển hiệu trong 0.530s
+[2026-04-16 00:37:51] [YOLO] Phát hiện 1 biển hiệu trong 0.251s
+[2026-04-16 00:37:53] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:37:53] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:37:53] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:38:17] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM ĐIỀU TRA KHẢO SÁT, CÔNG NGHỆ VÀ DỊCH VỤ KHÍ TƯỢNG THỦY VĂN VĂN ĐOÀN ĐIỀU TRA KHẢO SÁT KHÍ TƯƠNG THỦY VĂN MIỀN NAM"], "SERVICE": [], "O": []}
+[2026-04-16 00:38:17] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 00:40:06] [YOLO] Phát hiện 1 biển hiệu trong 0.402s
+[2026-04-16 00:40:06] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-16 00:40:09] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:40:09] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:40:09] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:40:25] [Qwen LLM] Raw output: {"BRAND": ["QUỸ TRỢ VỐN CHO CÔNG NHÂN LAO ĐỘNG NGHÈO"], "SERVICE": [], "O": ["LIÊN ĐOÀN LAO ĐỘNG THÀNH PHỐ CẦN THƠ"]}
+[2026-04-16 00:40:25] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 00:41:04] [YOLO] Phát hiện 1 biển hiệu trong 0.413s
+[2026-04-16 00:41:04] [YOLO] Phát hiện 1 biển hiệu trong 0.237s
+[2026-04-16 00:41:06] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 00:41:06] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:41:06] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:41:18] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG & PHỤ ĐIỆN TRÍ BÉ BIN 147B - CMT8"], "SERVICE": [], "O": []}
+[2026-04-16 00:41:18] [Classifier] Category = Mua Sắm
+[2026-04-16 00:42:44] [YOLO] Phát hiện 1 biển hiệu trong 0.803s
+[2026-04-16 00:42:45] [YOLO] Phát hiện 1 biển hiệu trong 0.311s
+[2026-04-16 00:42:49] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-16 00:42:49] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:42:49] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:43:10] [Qwen LLM] Raw output: {"BRAND": ["A Máo"], "SERVICE": ["THỜI TRANG PHONG CÁCH MỚI CHUYÊN: CƯNG CẤP SỈ & LẺ"], "O": ["ĐỒ SƠ MI CÔNG SỞ CẠO CẤP", "NHÂN ĐẶT HÀNG THEO YÊU CẦU"]}
+[2026-04-16 00:43:10] [Classifier] Category = Mua Sắm
+[2026-04-16 00:43:57] [YOLO] Phát hiện 2 biển hiệu trong 0.383s
+[2026-04-16 00:43:59] [YOLO] Phát hiện 2 biển hiệu trong 0.204s
+[2026-04-16 00:44:02] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 00:44:02] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:44:02] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:44:14] [Qwen LLM] Raw output: {"BRAND": ["DI TRÚ | DU HỌC"], "SERVICE": [], "O": ["DUHOCBLUESEA.EDU.VN", "DINHCUBLUESEA.COM"]}
+[2026-04-16 00:44:14] [Classifier] Category = Giáo Dục
+[2026-04-16 00:45:28] [YOLO] Phát hiện 2 biển hiệu trong 0.808s
+[2026-04-16 00:45:48] [YOLO] Phát hiện 2 biển hiệu trong 0.226s
+[2026-04-16 00:45:51] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-16 00:45:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:45:51] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:46:00] [Qwen LLM] Raw output: {"BRAND": ["NGUYỄN VĂN LINH"], "SERVICE": [], "O": []}
+[2026-04-16 00:46:00] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:46:50] [YOLO] Phát hiện 2 biển hiệu trong 0.480s
+[2026-04-16 00:47:18] [YOLO] Phát hiện 2 biển hiệu trong 0.216s
+[2026-04-16 00:47:22] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:47:22] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:47:22] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:47:59] [Qwen LLM] Raw output:  = [140, 42, 1355, 289] ĐỒ ĐỒNG VIỆT
+[185, 309, 1292, 420] QUÀ TẶNG VÀNG 24K - TRANH VÀNG
+[169, 439, 1213, 553] ĐỒ THỜ CÚNG - ĐÚC TƯỢNG ĐỒNG
+[73, 812, 937, 859] Web: dodongvietcantho.com - dodongcantho.com
+[14
+[2026-04-16 00:47:59] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:49:32] [YOLO] Phát hiện 2 biển hiệu trong 0.870s
+[2026-04-16 00:50:15] [YOLO] Phát hiện 2 biển hiệu trong 0.378s
+[2026-04-16 00:50:19] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:50:19] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:50:19] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:50:29] [Qwen LLM] Raw output:  that I'm not sure what to call it. What should I call this?
+This is probably a store name or website address.
+[2026-04-16 00:50:29] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-16 00:51:48] [YOLO] Phát hiện 1 biển hiệu trong 0.992s
+[2026-04-16 00:51:49] [YOLO] Phát hiện 1 biển hiệu trong 0.301s
+[2026-04-16 00:51:51] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 00:51:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:51:51] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:51:59] [Qwen LLM] Raw output: {"BRAND": ["GIẶT BẤY 365"], "SERVICE": [], "O": []}
+[2026-04-16 00:51:59] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:54:35] [YOLO] Phát hiện 1 biển hiệu trong 0.698s
+[2026-04-16 00:54:35] [YOLO] Phát hiện 1 biển hiệu trong 0.195s
+[2026-04-16 00:54:40] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 00:54:40] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:54:40] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:54:57] [Qwen LLM] Raw output: {"BRAND": ["QUẢNG CÁO PHÁT LIỀM"], "SERVICE": ["PHỤC VỤ TẬN TÂM ĐỒNG VĂN GỐNG, P. AN THỚI, TP. CẦN THƠ"], "O": []}
+[2026-04-16 00:54:58] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 00:56:53] [YOLO] Phát hiện 3 biển hiệu trong 0.660s
+[2026-04-16 00:57:42] [YOLO] Phát hiện 3 biển hiệu trong 0.219s
+[2026-04-16 00:57:45] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 00:57:45] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 00:57:46] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 00:57:57] [Qwen LLM] Raw output: {"BRAND": ["PHƯƠNG MAI PHƯƠNG AN"], "SERVICE": [], "O": []}
+[2026-04-16 00:57:57] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-16 01:00:56] [YOLO] Phát hiện 3 biển hiệu trong 0.812s
+[2026-04-16 01:01:03] [YOLO] Phát hiện 3 biển hiệu trong 0.239s
+[2026-04-16 01:01:06] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-16 01:01:06] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:01:06] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:01:20] [Qwen LLM] Raw output: {"BRAND": ["Thanh Phuong CƠM GÀ XỐI MỠ"], "SERVICE": ["VỊT QUAY DA GIÒN"], "O": ["9"]}
+[2026-04-16 01:01:20] [Classifier] Category = Ẩm Thực
+[2026-04-16 01:04:01] [YOLO] Phát hiện 2 biển hiệu trong 0.738s
+[2026-04-16 01:04:04] [YOLO] Phát hiện 2 biển hiệu trong 0.225s
+[2026-04-16 01:04:08] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-16 01:04:08] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:04:08] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:04:30] [Qwen LLM] Raw output: {"BRAND": ["HỆ THỐNG SIÊU THỊ"], "SERVICE": ["NHÂN SÂM - LINH CHI - HÀN QUỐC CÔNG TY TNHH THƯƠNG MẠI SX THẢO LÂM CHEONG KWAN JANG"], "O": ["Website thaolan", "- 0944"]}
+[2026-04-16 01:04:30] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-16 01:06:32] [YOLO] Phát hiện 1 biển hiệu trong 1.484s
+[2026-04-16 01:06:33] [YOLO] Phát hiện 1 biển hiệu trong 0.393s
+[2026-04-16 01:06:38] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 01:06:38] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:06:38] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:06:55] [Qwen LLM] Raw output: {"BRAND": ["LINH KIỆN ĐIỆN THOẠI DI ĐỘNG"], "SERVICE": ["PHÂN PHỐI SỈ & LẺ"], "O": ["EPOC", "SIPKON", "OPPO", "VIVO"]}
+[2026-04-16 01:06:55] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-16 01:08:32] [YOLO] Phát hiện 1 biển hiệu trong 0.835s
+[2026-04-16 01:08:33] [YOLO] Phát hiện 1 biển hiệu trong 0.270s
+[2026-04-16 01:08:35] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 01:08:35] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:08:36] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:08:46] [Qwen LLM] Raw output: {"BRAND": ["BARBER SHOP CẮT TÓC NAM"], "SERVICE": [], "O": ["ÈM"]}
+[2026-04-16 01:08:47] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-16 01:09:48] [YOLO] Phát hiện 1 biển hiệu trong 0.842s
+[2026-04-16 01:09:48] [YOLO] Phát hiện 1 biển hiệu trong 0.209s
+[2026-04-16 01:09:51] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 01:09:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:09:51] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:10:02] [Qwen LLM] Raw output: {"BRAND": ["HOÀNG ANH"], "SERVICE": [], "O": ["MOBILE", "hoanganhmobile.com"]}
+[2026-04-16 01:10:02] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-16 01:12:11] [YOLO] Phát hiện 1 biển hiệu trong 0.994s
+[2026-04-16 01:12:11] [YOLO] Phát hiện 1 biển hiệu trong 0.295s
+[2026-04-16 01:12:15] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-16 01:12:15] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:12:15] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:12:38] [Qwen LLM] Raw output: {"BRAND": ["Bakery TÂN PHÁT LÒ BÁNH MÌ"], "SERVICE": ["Chuyên: BÁNH MÌ LẠT + BÁNH BAO + BÁNH KEM + BÁNH MÌ NGỌT CÁC LOẠI ... 73A - CMT8 - P. CÁI KHẾ - TPCT"], "O": []}
+[2026-04-16 01:12:39] [Classifier] Category = Ẩm Thực
+[2026-04-16 01:15:59] [YOLO] Phát hiện 4 biển hiệu trong 1.157s
+[2026-04-16 01:17:54] [YOLO] Phát hiện 4 biển hiệu trong 0.294s
+[2026-04-16 01:17:57] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-16 01:17:57] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:17:57] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:18:24] [Qwen LLM] Raw output: {"BRAND": ["NHÀ THUỐC TÂN TRÀO CT"], "SERVICE": ["CHUYÊN BÁN LẺ THUỐC THÀNH PHẨM, TPCN, VTYT, SỮA... DS: THÁI THỊ MỸ ANH GCN: 2270/CCCHN-D-SYT-CT"], "O": []}
+[2026-04-16 01:18:25] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 01:19:06] [YOLO] Phát hiện 2 biển hiệu trong 0.706s
+[2026-04-16 01:19:08] [YOLO] Phát hiện 2 biển hiệu trong 0.198s
+[2026-04-16 01:19:12] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-16 01:19:12] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:19:12] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:19:46] [Qwen LLM] Raw output: {"BRAND": ["MẸ & BÉ Bi"], "SERVICE": ["TRỌN BỘ ĐI SINH MÁY HÚT SỮA CHO MẸ ĐỒ DÙNG CHO MẸ & BÉ, ĐỒ CHƠI TRẺ EM, SỮA, TÃ XE ĐẨY, NÔI ĐIỆN, GIƯỜNG GỖ, MÁY ĐƯA VỠNG"], "O": []}
+[2026-04-16 01:19:46] [Classifier] Category = Mua Sắm
+[2026-04-16 01:22:16] [YOLO] Phát hiện 1 biển hiệu trong 1.068s
+[2026-04-16 01:22:16] [YOLO] Phát hiện 1 biển hiệu trong 0.320s
+[2026-04-16 01:22:19] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-16 01:22:19] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:22:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:22:57] [Qwen LLM] Raw output: !tho !n !t !h !e !w !a !s !t !he !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !e !w !e !t !h !
+[2026-04-16 01:22:57] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 01:25:51] [YOLO] Phát hiện 3 biển hiệu trong 0.981s
+[2026-04-16 01:28:48] [YOLO] Phát hiện 3 biển hiệu trong 0.333s
+[2026-04-16 01:28:51] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-16 01:28:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:28:52] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:29:09] [Qwen LLM] Raw output: {"BRAND": ["CỬA HÀNG DIỄM SƠN"], "SERVICE": [], "O": ["vietteL", "telecom"]}
+[2026-04-16 01:29:09] [Classifier] Category = Mua Sắm
+[2026-04-16 01:31:41] [YOLO] Phát hiện 1 biển hiệu trong 0.946s
+[2026-04-16 01:31:42] [YOLO] Phát hiện 1 biển hiệu trong 0.250s
+[2026-04-16 01:31:46] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 01:31:46] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:31:46] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:32:05] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM Y TẾ KHU VỰC BÌNH THỦY TRẠM Y TẾ PHƯỜNG CÁI KHẾ CAI KHE WARD HEALTH STATION"], "SERVICE": [], "O": []}
+[2026-04-16 01:32:05] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 01:33:13] [YOLO] Phát hiện 1 biển hiệu trong 0.954s
+[2026-04-16 01:33:13] [YOLO] Phát hiện 1 biển hiệu trong 0.275s
+[2026-04-16 01:33:17] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 01:33:17] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:33:17] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:33:33] [Qwen LLM] Raw output: {"BRAND": ["SỞ NÔNG NGHIỆP VÀ MÔI TRƯỜNG THÀNH PHỐ CẦN THƠ TRUNG TÂM TỪ NÔNG NGHIỆP"], "SERVICE": [], "O": []}
+[2026-04-16 01:33:33] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-16 01:37:16] [YOLO] Phát hiện 1 biển hiệu trong 1.224s
+[2026-04-16 01:37:17] [YOLO] Phát hiện 1 biển hiệu trong 0.341s
+[2026-04-16 01:37:20] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 01:37:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:37:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:37:31] [Qwen LLM] Raw output: {"BRAND": ["RĂNG - HÀM - MẶT NHA KHOA KIẾN HUY"], "SERVICE": [], "O": []}
+[2026-04-16 01:37:31] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 01:39:01] [YOLO] Phát hiện 1 biển hiệu trong 0.898s
+[2026-04-16 01:39:02] [YOLO] Phát hiện 1 biển hiệu trong 0.268s
+[2026-04-16 01:39:05] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 01:39:05] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:39:05] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:39:19] [Qwen LLM] Raw output: {"BRAND": ["RĂNG - HÀM - MẶT NHA KHOA KIẾN HUY"], "SERVICE": [], "O": []}
+[2026-04-16 01:39:19] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 01:39:21] [YOLO] Phát hiện 1 biển hiệu trong 1.046s
+[2026-04-16 01:39:21] [YOLO] Phát hiện 1 biển hiệu trong 0.254s
+[2026-04-16 01:39:23] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-16 01:39:23] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:39:23] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:39:58] [Qwen LLM] Raw output: ! of the future is the future of the internet of things. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+[2026-04-16 01:39:58] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 01:44:29] [YOLO] Phát hiện 1 biển hiệu trong 0.991s
+[2026-04-16 01:44:30] [YOLO] Phát hiện 1 biển hiệu trong 0.264s
+[2026-04-16 01:44:34] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-16 01:44:34] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:44:34] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:44:54] [Qwen LLM] Raw output: {"BRAND": ["nhasachtuoitre.vn"], "SERVICE": ["BIỂU DIỄN VĂN NGHỆ MAY - BÁN TRANG PHỤC CHI NHÁNH CẦN THƠ - THỜI TRANG TÁI CHẾ"], "O": []}
+[2026-04-16 01:44:54] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 01:48:09] [YOLO] Phát hiện 2 biển hiệu trong 1.351s
+[2026-04-16 01:49:57] [YOLO] Phát hiện 2 biển hiệu trong 0.344s
+[2026-04-16 01:50:01] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 01:50:01] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:50:01] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:50:22] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM DỊCH VỤ VIỆC LÀM THẠNH ĐOÀN TNCS HỒ CHÍ MINH TP. CẦN THƠ"], "SERVICE": [], "O": ["www.MekongWorks.vn"]}
+[2026-04-16 01:50:22] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-16 01:55:15] [YOLO] Phát hiện 1 biển hiệu trong 0.990s
+[2026-04-16 01:55:15] [YOLO] Phát hiện 1 biển hiệu trong 0.276s
+[2026-04-16 01:55:17] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-16 01:55:17] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 01:55:17] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 01:55:28] [Qwen LLM] Raw output: {"BRAND": ["MẮT KÍNH"], "SERVICE": [], "O": []}
+[2026-04-16 01:55:28] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:04:43] 🚀 Khởi động ML Server trên cổng 5050...
+[2026-04-16 15:04:43] === Đang tải tất cả models (YOLO, PaddleOCR, VietOCR, Qwen, Classifier)... ===
+[2026-04-16 15:04:44] ✅ YOLO loaded.
+[2026-04-16 15:04:45] ✅ PaddleOCR loaded.
+[2026-04-16 15:04:48] ✅ VietOCR loaded.
+[2026-04-16 15:04:48] ✅ Classifier loaded: True
+[2026-04-16 15:04:53] ✅ Qwen LLM (LoRA) loaded.
+[2026-04-16 15:04:53] === Tất cả models đã sẵn sàng! ===
+
+[2026-04-16 15:05:12] [YOLO] Phát hiện 1 biển hiệu trong 1.482s
+[2026-04-16 15:05:12] [YOLO] Phát hiện 1 biển hiệu trong 0.210s
+[2026-04-16 15:05:19] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:05:19] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:05:19] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:05:35] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:05:35] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:06:27] [YOLO] Phát hiện 1 biển hiệu trong 0.281s
+[2026-04-16 15:06:27] [YOLO] Phát hiện 1 biển hiệu trong 0.254s
+[2026-04-16 15:06:32] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:06:32] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:06:32] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:06:46] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:06:46] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:11:11] [YOLO] Phát hiện 1 biển hiệu trong 1.146s
+[2026-04-16 15:11:12] [YOLO] Phát hiện 1 biển hiệu trong 0.470s
+[2026-04-16 15:11:19] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:11:19] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:11:19] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:11:41] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:11:41] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:13:55] [YOLO] Phát hiện 1 biển hiệu trong 0.932s
+[2026-04-16 15:13:56] [YOLO] Phát hiện 1 biển hiệu trong 0.398s
+[2026-04-16 15:14:05] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:14:05] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:14:05] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:14:19] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:14:19] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:15:15] [YOLO] Phát hiện 1 biển hiệu trong 0.879s
+[2026-04-16 15:15:16] [YOLO] Phát hiện 1 biển hiệu trong 0.263s
+[2026-04-16 15:15:22] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:15:22] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:15:22] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:15:34] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:15:34] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:20:28] [YOLO] Phát hiện 1 biển hiệu trong 1.528s
+[2026-04-16 15:20:29] [YOLO] Phát hiện 1 biển hiệu trong 0.322s
+[2026-04-16 15:20:36] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:20:36] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:20:36] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:20:57] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:20:57] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-16 15:24:17] [YOLO] Phát hiện 1 biển hiệu trong 0.943s
+[2026-04-16 15:24:18] [YOLO] Phát hiện 1 biển hiệu trong 0.216s
+[2026-04-16 15:24:24] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-16 15:24:24] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-16 15:24:24] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-16 15:24:39] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM CHUYÊN KHOA AN KHÁNH SIÊU ÂM"], "SERVICE": [], "O": []}
+[2026-04-16 15:24:39] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-19 23:55:50] 🚀 Khởi động ML Server trên cổng 5050...
+[2026-04-19 23:55:50] === Đang tải tất cả models (YOLO, PaddleOCR, VietOCR, Qwen, Classifier)... ===
+[2026-04-19 23:55:51] ✅ YOLO loaded.
+[2026-04-19 23:55:53] ✅ PaddleOCR loaded.
+[2026-04-19 23:55:57] ✅ VietOCR loaded.
+[2026-04-19 23:55:57] ✅ Classifier loaded: True
+[2026-04-19 23:56:03] ✅ Qwen LLM (LoRA) loaded.
+[2026-04-19 23:56:03] === Tất cả models đã sẵn sàng! ===
+
+[2026-04-20 00:09:31] [YOLO] Phát hiện 1 biển hiệu trong 1.167s
+[2026-04-20 00:09:31] [YOLO] Phát hiện 1 biển hiệu trong 0.020s
+[2026-04-20 00:09:33] [VietOCR] Đọc được 8 dòng chữ.
+[2026-04-20 00:09:33] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:09:33] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:09:40] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM BỆNH TƯ NHÂN"], "SERVICE": ["B5, TĂNG KIM SƠN BS.", "CAO THỊ VUI"], "O": ["CHUYÊN KHOA II: NGOẠI TỔNG QUÁT", "CHUYÊN KHOA II: NỘI NHI", "GP SỐ: 376 - 377715YT-GPHĐ"]}
+[2026-04-20 00:09:40] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 00:10:12] [YOLO] Phát hiện 4 biển hiệu trong 0.072s
+[2026-04-20 00:11:23] [YOLO] Phát hiện 1 biển hiệu trong 0.089s
+[2026-04-20 00:11:23] [YOLO] Phát hiện 1 biển hiệu trong 0.019s
+[2026-04-20 00:11:26] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 00:11:26] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:11:26] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:11:31] [Qwen LLM] Raw output: {"BRAND": ["TRƯỜNG MẦM NON HOÀNG YẾN (CƠ SỞ 1) minhoangyeng cantho.edu.vn, Velisite: Cantho.edu.vnjnh...mikoangyen"], "SERVICE": [], "O": ["ỦY BAN NHÂN DÂN PHƯỜNG NINH KIỀU"]}
+[2026-04-20 00:11:31] [Classifier] Category = Giáo Dục
+[2026-04-20 00:12:38] [YOLO] Phát hiện 1 biển hiệu trong 0.063s
+[2026-04-20 00:12:38] [YOLO] Phát hiện 1 biển hiệu trong 0.022s
+[2026-04-20 00:12:39] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-20 00:12:39] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:12:39] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:12:40] [Qwen LLM] Raw output: {"BRAND": ["TOKYOLIFE"], "SERVICE": [], "O": []}
+[2026-04-20 00:12:40] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:13:11] [YOLO] Phát hiện 1 biển hiệu trong 0.051s
+[2026-04-20 00:13:12] [YOLO] Phát hiện 1 biển hiệu trong 0.025s
+[2026-04-20 00:13:14] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-20 00:13:14] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:13:14] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:13:21] [Qwen LLM] Raw output: {"BRAND": ["BÌ BÌNH - Q. NINH KIỀU"], "SERVICE": ["- ĐIỆN-THOẠI BÀN - ĐIỆN-THOẠI-CORLLESS - MÁY FAX - MÁY ĐẾM TIÊN V.V..."], "O": ["PT", "- EVNT. PT. CỬA HÀNG VIỄN THÔNG PT"]}
+[2026-04-20 00:13:21] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-20 00:14:48] [YOLO] Phát hiện 2 biển hiệu trong 0.056s
+[2026-04-20 00:15:12] [YOLO] Phát hiện 2 biển hiệu trong 0.031s
+[2026-04-20 00:15:13] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:15:13] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:15:13] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:15:15] [Qwen LLM] Raw output: {"BRAND": ["BS. LÊ MINH NGUYỆT"], "SERVICE": [], "O": ["SỐ 1A MẬU THÂN"]}
+[2026-04-20 00:15:15] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:15:54] [YOLO] Phát hiện 1 biển hiệu trong 0.052s
+[2026-04-20 00:15:54] [YOLO] Phát hiện 1 biển hiệu trong 0.022s
+[2026-04-20 00:15:55] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 00:15:55] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:15:55] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:15:57] [Qwen LLM] Raw output: {"BRAND": ["TRƯỜNG TIỂU HỌC TRẦN QUỐC TOẢN"], "SERVICE": [], "O": []}
+[2026-04-20 00:15:57] [Classifier] Category = Giáo Dục
+[2026-04-20 00:17:37] [YOLO] Phát hiện 2 biển hiệu trong 0.052s
+[2026-04-20 00:17:41] [YOLO] Phát hiện 2 biển hiệu trong 0.019s
+[2026-04-20 00:17:42] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:17:42] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:17:42] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:17:44] [Qwen LLM] Raw output: {"BRAND": ["BLAO"], "SERVICE": ["Đặc Sàn Bảo Lộc - Trà Ô Long Đậm Vị"], "O": []}
+[2026-04-20 00:17:44] [Classifier] Category = Đồ Uống
+[2026-04-20 00:19:13] [YOLO] Phát hiện 4 biển hiệu trong 0.048s
+[2026-04-20 00:19:15] [YOLO] Phát hiện 4 biển hiệu trong 0.019s
+[2026-04-20 00:19:16] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:19:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:19:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:19:18] [Qwen LLM] Raw output: {"BRAND": ["Bánh Sinh Nhật Singapore Cần Thơ"], "SERVICE": [], "O": ["BÁNH SINH NHẬT"]}
+[2026-04-20 00:19:18] [Classifier] Category = Ẩm Thực
+[2026-04-20 00:19:56] [YOLO] Phát hiện 1 biển hiệu trong 0.055s
+[2026-04-20 00:19:56] [YOLO] Phát hiện 1 biển hiệu trong 0.030s
+[2026-04-20 00:19:58] [VietOCR] Đọc được 8 dòng chữ.
+[2026-04-20 00:19:58] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:19:58] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:20:05] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM BỆNH TƯ NHÂN"], "SERVICE": ["B5, TĂNG KIM SƠN BS.", "CAO THỊ VUI"], "O": ["CHUYÊN KHOA II: NGOẠI TỔNG QUÁT", "CHUYÊN KHOA II: NỘI NHI", "GP SỐ: 376 - 377715YT-GPHĐ"]}
+[2026-04-20 00:20:05] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 00:21:53] [YOLO] Phát hiện 1 biển hiệu trong 0.051s
+[2026-04-20 00:21:53] [YOLO] Phát hiện 1 biển hiệu trong 0.028s
+[2026-04-20 00:21:54] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 00:21:54] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:21:54] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:21:59] [Qwen LLM] Raw output: {"BRAND": ["Cô Diêng"], "SERVICE": ["Chân gà sốt thái - Gà ủ muối Bánh tráng phơi sương Bánh tráng cuộn - Tré trộn"], "O": ["0975.00.55.29"]}
+[2026-04-20 00:21:59] [Classifier] Category = Ẩm Thực
+[2026-04-20 00:23:44] [YOLO] Phát hiện 1 biển hiệu trong 0.059s
+[2026-04-20 00:23:44] [YOLO] Phát hiện 1 biển hiệu trong 0.022s
+[2026-04-20 00:23:46] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 00:23:46] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:23:46] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:23:48] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM TƯ NHÂN T5.BS, NGUYỄN CHÂU THoa"], "SERVICE": [], "O": []}
+[2026-04-20 00:23:48] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 00:25:22] [YOLO] Phát hiện 2 biển hiệu trong 0.048s
+[2026-04-20 00:25:23] [YOLO] Phát hiện 2 biển hiệu trong 0.022s
+[2026-04-20 00:25:24] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:25:24] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:25:24] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:25:26] [Qwen LLM] Raw output: {"BRAND": ["160 STORE"], "SERVICE": ["BOUTON RUI ĐP94/ ICONDE HIM SMART JEANS"], "O": []}
+[2026-04-20 00:25:26] [Classifier] Category = Mua Sắm
+[2026-04-20 00:26:03] [YOLO] Phát hiện 1 biển hiệu trong 0.057s
+[2026-04-20 00:26:03] [YOLO] Phát hiện 1 biển hiệu trong 0.028s
+[2026-04-20 00:26:06] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 00:26:06] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:26:06] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:26:08] [Qwen LLM] Raw output: {"BRAND": ["Cung cấp Giấy Dép Nam - N Nữ, Dây Nịt Thời Trang"], "SERVICE": [], "O": ["Xân hạnh phục vụ quy khách 1"]}
+[2026-04-20 00:26:08] [Classifier] Category = Mua Sắm
+[2026-04-20 00:27:14] [YOLO] Phát hiện 1 biển hiệu trong 0.048s
+[2026-04-20 00:27:14] [YOLO] Phát hiện 1 biển hiệu trong 0.020s
+[2026-04-20 00:27:16] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-20 00:27:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:27:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:27:20] [Qwen LLM] Raw output: {"BRAND": ["GIẶT HẤP 58"], "SERVICE": ["Chuyên: GIẶT - HẤP - TẨY VESTON - ÁO DÀI NHUNG - LỤA ĐẦM"], "O": []}
+[2026-04-20 00:27:20] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:28:22] [YOLO] Phát hiện 1 biển hiệu trong 0.053s
+[2026-04-20 00:28:22] [YOLO] Phát hiện 1 biển hiệu trong 0.021s
+[2026-04-20 00:28:22] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-20 00:28:22] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:28:22] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:28:24] [Qwen LLM] Raw output: {"BRAND": ["HỒN SƠN"], "SERVICE": [], "O": []}
+[2026-04-20 00:28:24] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-20 00:29:50] [YOLO] Phát hiện 3 biển hiệu trong 0.055s
+[2026-04-20 00:29:58] [YOLO] Phát hiện 3 biển hiệu trong 0.020s
+[2026-04-20 00:30:00] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:30:00] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:30:00] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:30:02] [Qwen LLM] Raw output: {"BRAND": ["SHOP TRUNG TÍN DÂY NỊT - VÍ DA"], "SERVICE": [], "O": []}
+[2026-04-20 00:30:02] [Classifier] Category = Mua Sắm
+[2026-04-20 00:31:05] [YOLO] Phát hiện 1 biển hiệu trong 0.058s
+[2026-04-20 00:31:05] [YOLO] Phát hiện 1 biển hiệu trong 0.031s
+[2026-04-20 00:31:06] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-20 00:31:06] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:31:06] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:31:07] [Qwen LLM] Raw output: {"BRAND": ["UNION BANK OF NAM"), "SERVICE": [], "O": []}
+[2026-04-20 00:31:07] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:32:01] [YOLO] Phát hiện 3 biển hiệu trong 0.049s
+[2026-04-20 00:32:03] [YOLO] Phát hiện 3 biển hiệu trong 0.020s
+[2026-04-20 00:32:04] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 00:32:04] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:32:04] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:32:07] [Qwen LLM] Raw output: {"BRAND": ["Shop TRUNG TÊN"], "SERVICE": ["DÂY NỊT - VÍ DA HỢP THỜI TRANG"], "O": []}
+[2026-04-20 00:32:07] [Classifier] Category = Mua Sắm
+[2026-04-20 00:34:46] [YOLO] Phát hiện 1 biển hiệu trong 0.048s
+[2026-04-20 00:34:46] [YOLO] Phát hiện 1 biển hiệu trong 0.019s
+[2026-04-20 00:34:48] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-20 00:34:48] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:34:48] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:34:53] [Qwen LLM] Raw output: {"BRAND": ["DÌ TỰ"], "SERVICE": ["HỦ TIẾU - MŨI TRỘN BÒ - BÚN THÁI"], "O": ["Mở Cửa: Từ Thú 2 Đến Thú 7", "From 06:00 đến 21:00 Hằng Ngày"]}
+[2026-04-20 00:34:53] [Classifier] Category = Ẩm Thực
+[2026-04-20 00:36:26] [YOLO] Phát hiện 1 biển hiệu trong 0.047s
+[2026-04-20 00:36:26] [YOLO] Phát hiện 1 biển hiệu trong 0.026s
+[2026-04-20 00:36:28] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 00:36:28] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:36:28] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:36:30] [Qwen LLM] Raw output: {"BRAND": ["MÁ KÍNH CÂM CÂN NGHĨA TRÒNG"], "SERVICE": [], "O": []}
+[2026-04-20 00:36:30] [Classifier] Category = Mua Sắm
+[2026-04-20 00:38:09] [YOLO] Phát hiện 1 biển hiệu trong 0.046s
+[2026-04-20 00:38:09] [YOLO] Phát hiện 1 biển hiệu trong 0.023s
+[2026-04-20 00:38:10] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 00:38:10] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:38:10] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:38:13] [Qwen LLM] Raw output: {"BRAND": ["GIÁO PHẬN CẦN THƠ - GIÁO XƯ THAM TƯỚNG HẠT CẦN THƠ"], "SERVICE": [], "O": []}
+[2026-04-20 00:38:13] [Classifier] Category = Thể Thao & Thể Hình
+[2026-04-20 00:40:40] [YOLO] Phát hiện 2 biển hiệu trong 0.048s
+[2026-04-20 00:41:03] [YOLO] Phát hiện 2 biển hiệu trong 0.029s
+[2026-04-20 00:41:03] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 00:41:03] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:41:03] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:41:05] [Qwen LLM] Raw output: {"BRAND": ["RỬA XE LÂM"], "SERVICE": ["CASTROL"], "O": []}
+[2026-04-20 00:41:05] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-20 00:41:39] [YOLO] Phát hiện 1 biển hiệu trong 0.049s
+[2026-04-20 00:41:39] [YOLO] Phát hiện 1 biển hiệu trong 0.022s
+[2026-04-20 00:41:40] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:41:40] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:41:40] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:41:42] [Qwen LLM] Raw output: {"BRAND": ["SỞ SẢN XUẤT KINH DOANH HỮU PHÚ"], "SERVICE": [], "O": []}
+[2026-04-20 00:41:42] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-20 00:42:46] [YOLO] Phát hiện 1 biển hiệu trong 0.048s
+[2026-04-20 00:42:46] [YOLO] Phát hiện 1 biển hiệu trong 0.028s
+[2026-04-20 00:42:47] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:42:47] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:42:47] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:42:49] [Qwen LLM] Raw output: {"BRAND": ["Lanno"], "SERVICE": ["COSMETICS. LamThaoCosmetics"], "O": []}
+[2026-04-20 00:42:49] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:45:24] [YOLO] Phát hiện 1 biển hiệu trong 0.047s
+[2026-04-20 00:45:24] [YOLO] Phát hiện 1 biển hiệu trong 0.021s
+[2026-04-20 00:45:25] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 00:45:25] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:45:25] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:45:30] [Qwen LLM] Raw output: {"BRAND": ["CÔNG TY TNHH MTV THƯƠNG MẠI DẦU ĐỒNG THÁP CÔNG TY CỔ PHẦN NHIÊN LIỆU TÂY ĐÔ - TFC"], "SERVICE": ["TRẠM XĂNG DẦU ĐỒNG THÁP 27"], "O": ["1973"]}
+[2026-04-20 00:45:30] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:45:41] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 00:45:41] [YOLO] Phát hiện 1 biển hiệu trong 0.020s
+[2026-04-20 00:45:42] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 00:45:42] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:45:42] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:45:47] [Qwen LLM] Raw output: {"BRAND": ["CÔNG TY TNHH MTV THƯƠNG MẠI DẦU ĐỒNG THÁP CÔNG TY CỔ PHẦN NHIÊN LIỆU TÂY ĐÔ - TFC"], "SERVICE": ["TRẠM XĂNG DẦU ĐỒNG THÁP 27"], "O": ["1973"]}
+[2026-04-20 00:45:47] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:47:57] [YOLO] Phát hiện 2 biển hiệu trong 0.060s
+[2026-04-20 00:48:10] [YOLO] Phát hiện 2 biển hiệu trong 0.021s
+[2026-04-20 00:48:12] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:48:12] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:48:12] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:48:14] [Qwen LLM] Raw output: {"BRAND": ["PHỤC VỤ TẬN BẢO NGHIỆP"], "SERVICE": [], "O": []}
+[2026-04-20 00:48:14] [Classifier] Category = Ẩm Thực
+[2026-04-20 00:49:14] [YOLO] Phát hiện 2 biển hiệu trong 0.048s
+[2026-04-20 00:49:16] [YOLO] Phát hiện 2 biển hiệu trong 0.019s
+[2026-04-20 00:49:18] [VietOCR] Đọc được 9 dòng chữ.
+[2026-04-20 00:49:18] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:49:18] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:49:22] [Qwen LLM] Raw output: {"BRAND": ["IN B.THUẬT SỐ"], "SERVICE": ["HẢI LƯU"], "O": ["Konica", "QLGQCT"], "O": ["CÔNG TY TNHH TM & DV QUẢNG CÁO", "OLT/"]}
+[2026-04-20 00:49:22] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 00:51:12] [YOLO] Phát hiện 1 biển hiệu trong 0.051s
+[2026-04-20 00:51:12] [YOLO] Phát hiện 1 biển hiệu trong 0.040s
+[2026-04-20 00:51:15] [VietOCR] Đọc được 8 dòng chữ.
+[2026-04-20 00:51:15] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:51:15] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:51:19] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM TIN HỌC TRƯỜNG TÍN (VJ htttp:1/truongtin.vn)"], "SERVICE": [], "O": ["(ĐÀO TẠO | WEB DESIGN", "CUNG CẤP PHẦN MỀM"]}
+[2026-04-20 00:51:19] [Classifier] Category = Giáo Dục
+[2026-04-20 00:53:24] [YOLO] Phát hiện 1 biển hiệu trong 0.047s
+[2026-04-20 00:53:24] [YOLO] Phát hiện 1 biển hiệu trong 0.033s
+[2026-04-20 00:53:25] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 00:53:25] [Classifier] Category = Thiếu dữ liệu
+[2026-04-20 00:53:53] [YOLO] Phát hiện 1 biển hiệu trong 0.029s
+[2026-04-20 00:53:53] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 00:53:54] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 00:53:54] [Classifier] Category = Thiếu dữ liệu
+[2026-04-20 00:55:27] [YOLO] Phát hiện 1 biển hiệu trong 0.047s
+[2026-04-20 00:55:27] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 00:55:28] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 00:55:28] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:55:28] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:55:30] [Qwen LLM] Raw output: {"BRAND": ["KELLY PERFUME NƯỚC HOA CHÍNH HÃNG"], "SERVICE": [], "O": []}
+[2026-04-20 00:55:30] [Classifier] Category = Mua Sắm
+[2026-04-20 00:57:30] [YOLO] Phát hiện 1 biển hiệu trong 0.046s
+[2026-04-20 00:57:30] [YOLO] Phát hiện 1 biển hiệu trong 0.025s
+[2026-04-20 00:57:31] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 00:57:31] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:57:31] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:57:33] [Qwen LLM] Raw output: {"BRAND": ["Cici Coffee & Tea"], "SERVICE": [], "O": ["Cici"]}
+[2026-04-20 00:57:33] [Classifier] Category = Đồ Uống
+[2026-04-20 00:58:24] [YOLO] Phát hiện 1 biển hiệu trong 0.061s
+[2026-04-20 00:58:24] [YOLO] Phát hiện 1 biển hiệu trong 0.023s
+[2026-04-20 00:58:25] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 00:58:25] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 00:58:25] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 00:58:26] [Qwen LLM] Raw output: {"BRAND": ["OGI store"], "SERVICE": [], "O": ["Balo - Túi vải"]}
+[2026-04-20 00:58:26] [Classifier] Category = Mua Sắm
+[2026-04-20 01:01:23] [YOLO] Phát hiện 3 biển hiệu trong 0.050s
+[2026-04-20 01:01:25] [YOLO] Phát hiện 3 biển hiệu trong 0.019s
+[2026-04-20 01:01:26] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 01:01:26] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:01:26] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:01:33] [Qwen LLM] Raw output: {"BRAND": ["TY.PHARM HỒNG PHÚC 93"], "SERVICE": ["CHUYÊN BÁN LẺ THUỐC THÀNH PHẨM, THỰC PHẨM CHỨC NĂNG, MỸ PHẨM, DỤNG CU Y TẾ"], "O": ["DSPT: Bùi Thị Ngọc Mai", "Gấy Chứng Nhận Số: 159"]}
+[2026-04-20 01:01:33] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 01:04:47] [YOLO] Phát hiện 4 biển hiệu trong 0.062s
+[2026-04-20 01:04:49] [YOLO] Phát hiện 4 biển hiệu trong 0.021s
+[2026-04-20 01:04:51] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-20 01:04:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:04:51] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:04:59] [Qwen LLM] Raw output: {"BRAND": ["MINH ĐỨC"], "SERVICE": ["LIĐH CÁC MÔN: TOÁN, LÝ, HÓA, SINH, VĂN, SỬ, ĐỊA, ANH. ANH VĂN ĐỦ MỌI TRÌNH ĐỘ CHO TRẺ EM & NGƯỜI LỚN.. CƯỜNG ANH VĂN.. (0710) 65"], "O": ["CƠ SỞ LUYỆN THI - HỌC & DẠY TIẾNG ANH"]}
+[2026-04-20 01:04:59] [Classifier] Category = Giáo Dục
+[2026-04-20 01:06:10] [YOLO] Phát hiện 3 biển hiệu trong 0.047s
+[2026-04-20 01:06:12] [YOLO] Phát hiện 3 biển hiệu trong 0.019s
+[2026-04-20 01:06:12] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:06:12] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:06:12] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:06:14] [Qwen LLM] Raw output: {"BRAND": ["TH Truemart"], "SERVICE": [], "O": ["HẦM TH"]}
+[2026-04-20 01:06:14] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-20 01:08:10] [YOLO] Phát hiện 1 biển hiệu trong 0.047s
+[2026-04-20 01:08:10] [YOLO] Phát hiện 1 biển hiệu trong 0.023s
+[2026-04-20 01:08:10] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:08:10] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:08:10] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:08:12] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG NAM MINH ĐỨC"], "SERVICE": [], "O": []}
+[2026-04-20 01:08:12] [Classifier] Category = Mua Sắm
+[2026-04-20 01:09:18] [YOLO] Phát hiện 1 biển hiệu trong 0.055s
+[2026-04-20 01:09:18] [YOLO] Phát hiện 1 biển hiệu trong 0.050s
+[2026-04-20 01:09:19] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:09:19] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:09:19] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:09:21] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG NAM MINH ĐỨC"], "SERVICE": [], "O": []}
+[2026-04-20 01:09:21] [Classifier] Category = Mua Sắm
+[2026-04-20 01:23:12] [YOLO] Phát hiện 1 biển hiệu trong 0.532s
+[2026-04-20 01:23:13] [YOLO] Phát hiện 1 biển hiệu trong 0.021s
+[2026-04-20 01:23:15] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:23:15] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:23:15] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:23:17] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG NAM MINH ĐỨC"], "SERVICE": [], "O": []}
+[2026-04-20 01:23:17] [Classifier] Category = Mua Sắm
+[2026-04-20 01:24:40] [YOLO] Phát hiện 1 biển hiệu trong 0.098s
+[2026-04-20 01:24:40] [YOLO] Phát hiện 1 biển hiệu trong 0.026s
+[2026-04-20 01:24:41] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:24:41] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:24:41] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:24:43] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG NAM MINH ĐỨC"], "SERVICE": [], "O": []}
+[2026-04-20 01:24:43] [Classifier] Category = Mua Sắm
+[2026-04-20 01:27:56] [YOLO] Phát hiện 1 biển hiệu trong 0.290s
+[2026-04-20 01:27:57] [YOLO] Phát hiện 1 biển hiệu trong 0.028s
+[2026-04-20 01:27:58] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:27:58] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:27:58] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:28:00] [Qwen LLM] Raw output: {"BRAND": ["THỜI TRANG NAM MINH ĐỨC"], "SERVICE": [], "O": []}
+[2026-04-20 01:28:00] [Classifier] Category = Mua Sắm
+[2026-04-20 01:29:19] [YOLO] Phát hiện 2 biển hiệu trong 0.049s
+[2026-04-20 01:29:22] [YOLO] Phát hiện 2 biển hiệu trong 0.020s
+[2026-04-20 01:29:24] [VietOCR] Đọc được 10 dòng chữ.
+[2026-04-20 01:29:24] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:29:24] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:29:28] [Qwen LLM] Raw output: {"BRAND": ["BIA KIỀU TRINH"], "SERVICE": ["GON Tạp hóa"], "O": ["875", "CHUYÊN BÁN SỈ LẺ THUỐC TÂY"]}
+[2026-04-20 01:29:28] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-20 01:31:04] [YOLO] Phát hiện 3 biển hiệu trong 0.121s
+[2026-04-20 01:31:06] [YOLO] Phát hiện 3 biển hiệu trong 0.020s
+[2026-04-20 01:31:08] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 01:31:08] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:31:08] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:31:15] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM ĐÀO TẠO IELTS HÀNG ĐẦU VIỆT NAM"], "SERVICE": ["ĐỒ IELTS TIẾNG ANH GIAO TIẾP - TỪ VỰNG VÀ NGỮ PHÁP - TIẾNG ANH TRẺ EM, THIẾU NIÊN"], "O": []}
+[2026-04-20 01:31:15] [Classifier] Category = Giáo Dục
+[2026-04-20 01:34:58] [YOLO] Phát hiện 1 biển hiệu trong 0.093s
+[2026-04-20 01:34:58] [YOLO] Phát hiện 1 biển hiệu trong 0.022s
+[2026-04-20 01:35:00] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 01:35:00] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:35:00] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:35:04] [Qwen LLM] Raw output: {"BRAND": ["SHOP THỜI TRANG NỮ Phượng Nguyên"], "SERVICE": [], "O": ["UUUN", "NGÃ TƯ MẬU THÂN - 3/2"]}
+[2026-04-20 01:35:04] [Classifier] Category = Mua Sắm
+[2026-04-20 01:36:37] [YOLO] Phát hiện 1 biển hiệu trong 0.046s
+[2026-04-20 01:36:37] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 01:36:39] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-20 01:36:39] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:36:39] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:36:40] [Qwen LLM] Raw output: {"BRAND": ["KHATOCO"], "SERVICE": [], "O": []}
+[2026-04-20 01:36:40] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 01:37:11] [YOLO] Phát hiện 1 biển hiệu trong 0.046s
+[2026-04-20 01:37:11] [YOLO] Phát hiện 1 biển hiệu trong 0.020s
+[2026-04-20 01:37:12] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:37:12] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:37:12] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:37:14] [Qwen LLM] Raw output: {"BRAND": ["KAN CENTER"], "SERVICE": [], "O": ["DANCE - YOGA FITNESS - GYM"]}
+[2026-04-20 01:37:14] [Classifier] Category = Giải Trí
+[2026-04-20 01:39:38] [YOLO] Phát hiện 6 biển hiệu trong 0.047s
+[2026-04-20 01:39:44] [YOLO] Phát hiện 6 biển hiệu trong 0.019s
+[2026-04-20 01:39:45] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 01:39:45] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:39:45] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:39:47] [Qwen LLM] Raw output: {"BRAND": ["Phúc ca mế VÀO 30M"], "SERVICE": [], "O": []}
+[2026-04-20 01:39:47] [Classifier] Category = Đồ Uống
+[2026-04-20 01:41:14] [YOLO] Phát hiện 1 biển hiệu trong 0.048s
+[2026-04-20 01:41:14] [YOLO] Phát hiện 1 biển hiệu trong 0.025s
+[2026-04-20 01:41:16] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 01:41:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:41:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:41:20] [Qwen LLM] Raw output: {"BRAND": ["BÒ NÔNG NGHIỆP VÀ MÔI TRƯỜNG BAN QUẢN LÝ ĐẦU TƯ"], "SERVICE": [], "O": ["VÀ XÂY DỰNG THỦY LỢI 10"]}
+[2026-04-20 01:41:20] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-20 01:43:25] [YOLO] Phát hiện 1 biển hiệu trong 0.056s
+[2026-04-20 01:43:25] [YOLO] Phát hiện 1 biển hiệu trong 0.021s
+[2026-04-20 01:43:28] [VietOCR] Đọc được 18 dòng chữ.
+[2026-04-20 01:43:28] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:43:28] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:43:36] [Qwen LLM] Raw output: {"BRAND": ["CHÂN GÀ SỐT THÁI CHÂN GÀ A TÝ"], "SERVICE": ["GÂN BÒ SỐT THÁI 120K-150K"], "O": ["35k-55k", "80K-120K", "Chân Gà - Gân bò", "Trứng Non - Bạch Tuột", "1 com", "Món THÊM", "BÁNH TRÁNG TRỘN", "25K7 MÓN", "20k301"]}
+[2026-04-20 01:43:36] [Classifier] Category = Ẩm Thực
+[2026-04-20 01:45:52] [YOLO] Phát hiện 1 biển hiệu trong 0.059s
+[2026-04-20 01:45:52] [YOLO] Phát hiện 1 biển hiệu trong 0.025s
+[2026-04-20 01:45:53] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 01:45:53] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:45:53] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:45:55] [Qwen LLM] Raw output: {"BRAND": ["VIỆN THẨM MỸ QUỐC TẾ AERA VIỆT HÀN"], "SERVICE": [], "O": []}
+[2026-04-20 01:45:55] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-20 01:48:00] [YOLO] Phát hiện 1 biển hiệu trong 0.050s
+[2026-04-20 01:48:00] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 01:48:02] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-20 01:48:02] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:48:02] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:48:06] [Qwen LLM] Raw output: {"BRAND": ["THÀNH NAM"], "SERVICE": ["UY TÍN - CTY TNHH DE NHỜI TRANG"], "O": ["Sang Trọng - Lãm"]}
+[2026-04-20 01:48:06] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 01:51:09] [YOLO] Phát hiện 1 biển hiệu trong 0.046s
+[2026-04-20 01:51:09] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 01:51:10] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 01:51:10] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:51:10] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:51:12] [Qwen LLM] Raw output: {"BRAND": ["SUBC SỮA BÁO SỮA BẮP TOPPING"], "SERVICE": [], "O": []}
+[2026-04-20 01:51:12] [Classifier] Category = Đồ Uống
+[2026-04-20 01:53:20] [YOLO] Phát hiện 1 biển hiệu trong 0.123s
+[2026-04-20 01:53:20] [YOLO] Phát hiện 1 biển hiệu trong 0.026s
+[2026-04-20 01:53:21] [VietOCR] Đọc được 0 dòng chữ.
+[2026-04-20 01:53:21] [Classifier] Category = Chưa xác định
+[2026-04-20 01:57:18] [YOLO] Phát hiện 2 biển hiệu trong 0.062s
+[2026-04-20 01:57:20] [YOLO] Phát hiện 2 biển hiệu trong 0.022s
+[2026-04-20 01:57:23] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-20 01:57:23] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:57:23] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:57:26] [Qwen LLM] Raw output: {"BRAND": ["ARTIST SALON"], "SERVICE": ["ĐÀO TẠO MẪU TÓC"], "O": ["FOUNDER: QUANG VINH"]}
+[2026-04-20 01:57:26] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-20 01:58:35] [YOLO] Phát hiện 2 biển hiệu trong 0.049s
+[2026-04-20 01:58:36] [YOLO] Phát hiện 2 biển hiệu trong 0.019s
+[2026-04-20 01:58:39] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-20 01:58:39] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:58:39] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:58:42] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM PHA MÀU NGUYÊN HÙNG"], "SERVICE": ["SƠN & CHỐNG THẤM TESSOR PAIN KOVA"], "O": ["KOVA"]}
+[2026-04-20 01:58:42] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-20 01:59:30] [YOLO] Phát hiện 1 biển hiệu trong 0.053s
+[2026-04-20 01:59:30] [YOLO] Phát hiện 1 biển hiệu trong 0.024s
+[2026-04-20 01:59:31] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 01:59:31] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 01:59:31] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 01:59:33] [Qwen LLM] Raw output: {"BRAND": ["HEYOUNG"], "SERVICE": ["Tiêm Trà"], "O": []}
+[2026-04-20 01:59:33] [Classifier] Category = Đồ Uống
+[2026-04-20 02:01:27] [YOLO] Phát hiện 2 biển hiệu trong 0.050s
+[2026-04-20 02:01:29] [YOLO] Phát hiện 2 biển hiệu trong 0.019s
+[2026-04-20 02:01:31] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 02:01:31] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:01:31] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:01:34] [Qwen LLM] Raw output: {"BRAND": ["Videsign & Build A.D.A"], "SERVICE": ["DESIGN & BUILD KIẾN TRÚC - NỘI THẤT - XÂY DỰNG"], "O": []}
+[2026-04-20 02:01:34] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-20 02:02:55] [YOLO] Phát hiện 1 biển hiệu trong 0.051s
+[2026-04-20 02:02:55] [YOLO] Phát hiện 1 biển hiệu trong 0.025s
+[2026-04-20 02:02:57] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-20 02:02:57] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:02:57] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:03:02] [Qwen LLM] Raw output: {"BRAND": ["CÔNG TY TNHH MTV KV THUẬT TMDV"], "SERVICE": ["MACBOOK - LAPTOP - IMAC SỬA CHỮA CHUYÊN SÂU CUNG CẤP LINH KIỆN CHẤT LƯỢNG CAO"], "O": []}
+[2026-04-20 02:03:02] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-20 02:04:11] [YOLO] Phát hiện 2 biển hiệu trong 0.046s
+[2026-04-20 02:04:13] [YOLO] Phát hiện 2 biển hiệu trong 0.019s
+[2026-04-20 02:04:14] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 02:04:14] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:04:14] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:04:16] [Qwen LLM] Raw output: {"BRAND": ["TÙNG NGUYÊN TP. CẦN THƠ"], "SERVICE": [], "O": ["SO -"]}
+[2026-04-20 02:04:16] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-20 02:06:15] [YOLO] Phát hiện 1 biển hiệu trong 0.052s
+[2026-04-20 02:06:15] [YOLO] Phát hiện 1 biển hiệu trong 0.030s
+[2026-04-20 02:06:16] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 02:06:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:06:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:06:18] [Qwen LLM] Raw output: {"BRAND": ["HAIR SALON"], "SERVICE": [], "O": []}
+[2026-04-20 02:06:18] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-20 02:07:40] [YOLO] Phát hiện 2 biển hiệu trong 0.052s
+[2026-04-20 02:07:43] [YOLO] Phát hiện 2 biển hiệu trong 0.019s
+[2026-04-20 02:07:44] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 02:07:44] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:07:44] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:07:47] [Qwen LLM] Raw output: {"BRAND": ["TRƯỜNG HẦM NON"], "SERVICE": [], "O": ["ỦY BAN NHÂN DÂN PHƯỜNG NINH KIỀU"]}
+[2026-04-20 02:07:47] [Classifier] Category = Giáo Dục
+[2026-04-20 02:11:31] [YOLO] Phát hiện 1 biển hiệu trong 0.051s
+[2026-04-20 02:11:31] [YOLO] Phát hiện 1 biển hiệu trong 0.028s
+[2026-04-20 02:11:32] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 02:11:32] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:11:32] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:11:33] [Qwen LLM] Raw output: {"BRAND": ["STORE"], "SERVICE": [], "O": []}
+[2026-04-20 02:11:33] [Classifier] Category = Mua Sắm
+[2026-04-20 02:15:28] [YOLO] Phát hiện 1 biển hiệu trong 0.151s
+[2026-04-20 02:15:28] [YOLO] Phát hiện 1 biển hiệu trong 0.023s
+[2026-04-20 02:15:29] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 02:15:29] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 02:15:29] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 02:15:32] [Qwen LLM] Raw output: {"BRAND": ["DÂI CÂY NHẬP KHẨU CHÍNH NGẠCH LIỀU TP CẦN THƠ"], "SERVICE": [], "O": []}
+[2026-04-20 02:15:32] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-20 23:39:19] 🚀 Khởi động ML Server trên cổng 5050...
+[2026-04-20 23:39:19] === Đang tải tất cả models (YOLO, PaddleOCR, VietOCR, Qwen, Classifier)... ===
+[2026-04-20 23:39:20] ✅ YOLO loaded.
+[2026-04-20 23:39:21] ✅ PaddleOCR loaded.
+[2026-04-20 23:39:24] ✅ VietOCR loaded.
+[2026-04-20 23:39:24] ✅ Classifier loaded: True
+[2026-04-20 23:39:27] ✅ Qwen LLM (LoRA) loaded.
+[2026-04-20 23:39:27] === Tất cả models đã sẵn sàng! ===
+
+[2026-04-20 23:40:30] [YOLO] Phát hiện 1 biển hiệu trong 1.005s
+[2026-04-20 23:40:30] [YOLO] Phát hiện 1 biển hiệu trong 0.188s
+[2026-04-20 23:40:32] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 23:40:32] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:40:32] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:40:42] [Qwen LLM] Raw output: {"BRAND": ["SENBARDEN"], "SERVICE": [], "O": []}
+[2026-04-20 23:40:42] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 23:41:30] [YOLO] Phát hiện 1 biển hiệu trong 0.376s
+[2026-04-20 23:41:31] [YOLO] Phát hiện 1 biển hiệu trong 0.255s
+[2026-04-20 23:41:31] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-20 23:41:31] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:41:31] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:41:37] [Qwen LLM] Raw output: {"BRAND": ["MATRING"], "SERVICE": [], "O": []}
+[2026-04-20 23:41:37] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-20 23:42:37] [YOLO] Phát hiện 2 biển hiệu trong 0.421s
+[2026-04-20 23:42:40] [YOLO] Phát hiện 2 biển hiệu trong 0.192s
+[2026-04-20 23:42:41] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 23:42:41] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:42:41] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:42:50] [Qwen LLM] Raw output: {"BRAND": ["SƠN THÀNH THỰC"], "SERVICE": [], "O": []}
+[2026-04-20 23:42:50] [Classifier] Category = Xây Dựng & Nội Thất
+[2026-04-20 23:44:00] [YOLO] Phát hiện 1 biển hiệu trong 0.295s
+[2026-04-20 23:44:00] [YOLO] Phát hiện 1 biển hiệu trong 0.232s
+[2026-04-20 23:44:01] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 23:44:01] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:44:01] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:44:09] [Qwen LLM] Raw output: {"BRAND": ["KARAOKE SẮC MÀU"], "SERVICE": [], "O": []}
+[2026-04-20 23:44:09] [Classifier] Category = Giải Trí
+[2026-04-20 23:44:48] [YOLO] Phát hiện 2 biển hiệu trong 0.466s
+[2026-04-20 23:44:50] [YOLO] Phát hiện 2 biển hiệu trong 0.190s
+[2026-04-20 23:44:52] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 23:44:52] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:44:52] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:45:03] [Qwen LLM] Raw output: {"BRAND": ["TUẤN HÂN"], "SERVICE": ["SỬA CHỮA ĐIỆN THOẠI LẤY LIỀN"], "O": []}
+[2026-04-20 23:45:03] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-20 23:45:25] [YOLO] Phát hiện 1 biển hiệu trong 0.264s
+[2026-04-20 23:45:26] [YOLO] Phát hiện 1 biển hiệu trong 0.217s
+[2026-04-20 23:45:27] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 23:45:27] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:45:27] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:45:34] [Qwen LLM] Raw output: {"BRAND": ["BÁNH MÌ BÚN HEO QUAY"], "SERVICE": [], "O": []}
+[2026-04-20 23:45:34] [Classifier] Category = Ẩm Thực
+[2026-04-20 23:46:03] [YOLO] Phát hiện 2 biển hiệu trong 0.210s
+[2026-04-20 23:46:21] [YOLO] Phát hiện 2 biển hiệu trong 0.220s
+[2026-04-20 23:46:22] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-20 23:46:22] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:46:22] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:46:47] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG KHÁM TIẾT NIỆU - NAM KHOA"], "SERVICE": ["THẬN, TIẾT NIỆU NAM KHOA"], "O": ["ThS BS", "NGUYỄN ĐỨC DUY", "THẬN, TIẾT NIỆU", "NIỆU NỮ"]}
+[2026-04-20 23:46:47] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 23:47:41] [YOLO] Phát hiện 2 biển hiệu trong 0.277s
+[2026-04-20 23:47:45] [YOLO] Phát hiện 2 biển hiệu trong 0.200s
+[2026-04-20 23:47:47] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 23:47:47] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:47:47] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:47:58] [Qwen LLM] Raw output: {"BRAND": ["Shop Trung Tên"], "SERVICE": ["Chuyên Bán: DÂY NỊT - VÍ DA HỢP THỜI TRANG"], "O": []}
+[2026-04-20 23:47:58] [Classifier] Category = Mua Sắm
+[2026-04-20 23:49:17] [YOLO] Phát hiện 1 biển hiệu trong 0.383s
+[2026-04-20 23:49:18] [YOLO] Phát hiện 1 biển hiệu trong 0.258s
+[2026-04-20 23:49:20] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 23:49:20] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:49:20] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:49:33] [Qwen LLM] Raw output: {"BRAND": ["CỬA HÀNG MUA BÁN - SỬA CHỮA - ĐIỆN THOẠI KIM ANILLP"], "SERVICE": [], "O": []}
+[2026-04-20 23:49:33] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-20 23:50:27] [YOLO] Phát hiện 1 biển hiệu trong 0.224s
+[2026-04-20 23:50:28] [YOLO] Phát hiện 1 biển hiệu trong 0.194s
+[2026-04-20 23:50:29] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-20 23:50:29] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:50:29] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:50:36] [Qwen LLM] Raw output: {"BRAND": ["CẨU TIỆN"], "SERVICE": [], "O": []}
+[2026-04-20 23:50:36] [Classifier] Category = Vận Tải & Kho Bãi
+[2026-04-20 23:51:37] [YOLO] Phát hiện 2 biển hiệu trong 0.218s
+[2026-04-20 23:51:41] [YOLO] Phát hiện 2 biển hiệu trong 0.190s
+[2026-04-20 23:51:42] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 23:51:42] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:51:42] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:51:51] [Qwen LLM] Raw output: {"BRAND": ["NHÀ TRỌ SINH VIÊN"], "SERVICE": [], "O": ["Nhật Hoàng"]}
+[2026-04-20 23:51:51] [Classifier] Category = Lưu Trú
+[2026-04-20 23:52:43] [YOLO] Phát hiện 1 biển hiệu trong 0.396s
+[2026-04-20 23:52:43] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-20 23:52:46] [VietOCR] Đọc được 7 dòng chữ.
+[2026-04-20 23:52:46] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:52:46] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:52:59] [Qwen LLM] Raw output: {"BRAND": ["THE VUONG'S COSMETICS"], "SERVICE": ["Chuyên bán: Sỉ & lẻ mỹ phẩm, BAO BÌ CHAI LỌ MỸ PHẨM. www.vuongcosmetics.com"], "O": []}
+[2026-04-20 23:53:00] [Classifier] Category = Mua Sắm
+[2026-04-20 23:53:44] [YOLO] Phát hiện 2 biển hiệu trong 0.230s
+[2026-04-20 23:53:47] [YOLO] Phát hiện 2 biển hiệu trong 0.222s
+[2026-04-20 23:53:50] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-20 23:53:50] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:53:50] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:53:59] [Qwen LLM] Raw output: {"BRAND": ["BIA SAIGON"], "SERVICE": [], "O": []}
+[2026-04-20 23:53:59] [Classifier] Category = Ẩm Thực
+[2026-04-20 23:54:54] [YOLO] Phát hiện 2 biển hiệu trong 0.311s
+[2026-04-20 23:54:56] [YOLO] Phát hiện 2 biển hiệu trong 0.203s
+[2026-04-20 23:54:58] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 23:54:58] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:54:58] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:55:16] [Qwen LLM] Raw output: {"BRAND": ["VẠN PHÚC TAI MŨI HỌNG TẠO NIỀM TIN, TỰ TIN VUI SÓN"], "SERVICE": ["KHÁM BIỆCH: NGƯỜI LỚN VÀ TRẺ EM"], "O": ["TAI MŨI HỌNG"]}
+[2026-04-20 23:55:16] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 23:56:15] [YOLO] Phát hiện 1 biển hiệu trong 0.224s
+[2026-04-20 23:56:15] [YOLO] Phát hiện 1 biển hiệu trong 0.226s
+[2026-04-20 23:56:16] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-20 23:56:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:56:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:56:49] [Qwen LLM] Raw output: :from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from:from
+[2026-04-20 23:56:49] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 23:57:30] [YOLO] Phát hiện 1 biển hiệu trong 0.359s
+[2026-04-20 23:57:30] [YOLO] Phát hiện 1 biển hiệu trong 0.195s
+[2026-04-20 23:57:32] [VietOCR] Đọc được 8 dòng chữ.
+[2026-04-20 23:57:32] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:57:32] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:57:57] [Qwen LLM] Raw output: {"BRAND": ["DẠI XƯƠNG KHỚP UY TÍN TƯ NHẬT BẢN"], "SERVICE": ["DỤNG CỤ Y KHOA KIM NGUYÊN MÁY ĐO HUYẾT ÁP MÁY THỞ KHÍ DUNG ĐAI - NẸP CHỈNH HÌNH XE LĂN - GHẾ BÔ-1"], "O": []}
+[2026-04-20 23:57:57] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-20 23:58:42] [YOLO] Phát hiện 1 biển hiệu trong 0.266s
+[2026-04-20 23:58:42] [YOLO] Phát hiện 1 biển hiệu trong 0.246s
+[2026-04-20 23:58:44] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-20 23:58:44] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-20 23:58:44] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-20 23:58:56] [Qwen LLM] Raw output: {"BRAND": ["CỬA HÀNG YẾN SÀO TỔNG HỢP HƯNG LỢI, TP. CẦN THƠ"], "SERVICE": [], "O": []}
+[2026-04-20 23:58:56] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-21 00:00:24] [YOLO] Phát hiện 1 biển hiệu trong 0.221s
+[2026-04-21 00:00:24] [YOLO] Phát hiện 1 biển hiệu trong 0.211s
+[2026-04-21 00:00:26] [VietOCR] Đọc được 1 dòng chữ.
+[2026-04-21 00:00:26] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:00:26] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:00:36] [Qwen LLM] Raw output: {"BRAND": ["THU MUA ĐIỆN THOẠI CŨ GIÁ CAO"], "SERVICE": [], "O": []}
+[2026-04-21 00:00:36] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-21 00:01:34] [YOLO] Phát hiện 1 biển hiệu trong 0.425s
+[2026-04-21 00:01:34] [YOLO] Phát hiện 1 biển hiệu trong 0.259s
+[2026-04-21 00:01:37] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-21 00:01:37] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:01:37] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:01:50] [Qwen LLM] Raw output: {"BRAND": ["HALO 365"], "SERVICE": [], "O": ["DTT: 0945", "L, TP Cần Thơ", "0939 06"]}
+[2026-04-21 00:01:50] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-21 00:02:40] [YOLO] Phát hiện 1 biển hiệu trong 0.228s
+[2026-04-21 00:02:40] [YOLO] Phát hiện 1 biển hiệu trong 0.208s
+[2026-04-21 00:02:41] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-21 00:02:41] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:02:41] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:02:48] [Qwen LLM] Raw output: {"BRAND": ["NHÀ TÂM"], "SERVICE": [], "O": []}
+[2026-04-21 00:02:48] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:03:59] [YOLO] Phát hiện 2 biển hiệu trong 0.264s
+[2026-04-21 00:04:01] [YOLO] Phát hiện 2 biển hiệu trong 0.196s
+[2026-04-21 00:04:05] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-21 00:04:05] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:04:05] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:04:15] [Qwen LLM] Raw output: {"BRAND": ["NẤU Caffe - Trà Sữa Trái cây - Nước ép - Sinh tố"], "SERVICE": [], "O": []}
+[2026-04-21 00:04:15] [Classifier] Category = Đồ Uống
+[2026-04-21 00:06:10] [YOLO] Phát hiện 1 biển hiệu trong 0.250s
+[2026-04-21 00:06:10] [YOLO] Phát hiện 1 biển hiệu trong 0.231s
+[2026-04-21 00:06:12] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 00:06:12] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:06:12] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:06:28] [Qwen LLM] Raw output: {"BRAND": ["TIỆM NƯỚC ÉP"], "SERVICE": ["NƯỚC ÉP - CAFE - SINH TỐ - TRÀ TRÁI CÂY - TRẢI CÂY TƯƠI"], "O": []}
+[2026-04-21 00:06:28] [Classifier] Category = Đồ Uống
+[2026-04-21 00:07:22] [YOLO] Phát hiện 1 biển hiệu trong 0.403s
+[2026-04-21 00:07:22] [YOLO] Phát hiện 1 biển hiệu trong 0.258s
+[2026-04-21 00:07:26] [VietOCR] Đọc được 10 dòng chữ.
+[2026-04-21 00:07:26] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:07:26] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:07:54] [Qwen LLM] Raw output: {"BRAND": ["GIA BẢO FI"], "SERVICE": ["CHUYÊN: SƠN - SỬA TÂN TRANG CÁC LOẠI XE GẮN MÁY LỢP YÊN XE - THAY NHỚT VÁ VỎ KHÔNG RUỘT ÉP BẢNG SỐ - HÀN ĐIỆN RÚT CĂM - ĐỌC LỖI - XÓA LỖI DẦU KHÍ QUỐC TẾ"], "O": []}
+[2026-04-21 00:07:54] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-21 00:08:59] [YOLO] Phát hiện 1 biển hiệu trong 0.346s
+[2026-04-21 00:08:59] [YOLO] Phát hiện 1 biển hiệu trong 0.229s
+[2026-04-21 00:09:01] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-21 00:09:01] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:09:01] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:09:34] [Qwen LLM] Raw output:  - 100% of the time. They're all confused about which one they should go to for their coffee. So we need to create a list of options and order them alphabetically. 
+
+Hướng dẫn: 
+- Trong các trường "BRAND", hãy gộp tất cả các loại hình kinh doanh và tên công ty chủ quản của biển hiệu vào một giá trị 
+[2026-04-21 00:09:34] [Classifier] Category = Đồ Uống
+[2026-04-21 00:10:44] [YOLO] Phát hiện 1 biển hiệu trong 0.344s
+[2026-04-21 00:10:44] [YOLO] Phát hiện 1 biển hiệu trong 0.353s
+[2026-04-21 00:10:49] [VietOCR] Đọc được 12 dòng chữ.
+[2026-04-21 00:10:49] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:10:49] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:11:26] [Qwen LLM] Raw output: {"BRAND": ["CHUYỂN PHÁT TÊN - BỰU PHẨM - BƯU KIỆN XE GẮN MÁY - MÁY MÓC TÔ CHÂU Chuyên Nghiệp An Toàn - Bảo Mật Thoại Trạm NHẬN CÁC TỈNH MIỀN TÂY - BÌNH DƯƠNG - PHÚ QUỐC CHÂU CẦN THƠ NHẬN CÁC TUYẾN MỚI"], "SERVICE": [], "O": []}
+[2026-04-21 00:11:26] [Classifier] Category = Vận Tải & Kho Bãi
+[2026-04-21 00:13:37] [YOLO] Phát hiện 1 biển hiệu trong 0.278s
+[2026-04-21 00:13:38] [YOLO] Phát hiện 1 biển hiệu trong 0.277s
+[2026-04-21 00:13:40] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-21 00:13:40] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:13:40] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:14:00] [Qwen LLM] Raw output: {"BRAND": ["Quán Mum"], "SERVICE": ["HỦ TIẾU THỐ - MÌ - NUI - BÁNH LỌT + BÚN GÀ ÁC TIỂM - CHÁO NGƯỜI LỚN - CHÁO EM BÉ"], "O": []}
+[2026-04-21 00:14:00] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:16:13] [YOLO] Phát hiện 1 biển hiệu trong 0.422s
+[2026-04-21 00:16:13] [YOLO] Phát hiện 1 biển hiệu trong 0.300s
+[2026-04-21 00:16:18] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-21 00:16:18] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:16:18] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:16:42] [Qwen LLM] Raw output: {"BRAND": ["PHƯƠNG HỒ PHÒNG KHÁM - XÉT NGHIÊM PHÒNG XÉT NGHIỆM: NGUYỄN THỊ HỒNG - GPS.O8/CT - GPHD KHÁM: NỘI TIÊU HOÁ, GAN MẬT.... PHÒNG KHÁM DƯƠNG THIỆN PHUỐC"], "SERVICE": [], "O": []}
+[2026-04-21 00:16:42] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-21 00:19:15] [YOLO] Phát hiện 1 biển hiệu trong 0.314s
+[2026-04-21 00:19:15] [YOLO] Phát hiện 1 biển hiệu trong 0.250s
+[2026-04-21 00:19:17] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-21 00:19:17] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:19:17] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:19:32] [Qwen LLM] Raw output: {"BRAND": ["SƠN BARBER SHOP ĐÀO TẠO HỌC VIÊN YÊN NGHIỆP"], "SERVICE": [], "O": ["TIỆM TÓC NAM"]}
+[2026-04-21 00:19:32] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-21 00:21:01] [YOLO] Phát hiện 1 biển hiệu trong 0.276s
+[2026-04-21 00:21:01] [YOLO] Phát hiện 1 biển hiệu trong 0.246s
+[2026-04-21 00:21:04] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-21 00:21:04] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:21:04] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:21:17] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM CHĂM SÓC VÀ NÂNG CẤP ÔTÔ XPEL STEK"], "SERVICE": [], "O": ["Autobahn wn"]}
+[2026-04-21 00:21:17] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-21 00:23:19] [YOLO] Phát hiện 1 biển hiệu trong 0.476s
+[2026-04-21 00:23:20] [YOLO] Phát hiện 1 biển hiệu trong 0.205s
+[2026-04-21 00:23:23] [VietOCR] Đọc được 9 dòng chữ.
+[2026-04-21 00:23:23] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:23:23] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:23:44] [Qwen LLM] Raw output: {"BRAND": ["CƠ KHÍ NAM PHÁT"], "SERVICE": ["CHUYÊN: XOÁY XILEN ÉP DÊN, LÀM BỐ NỒI NỒI TAY GA, THAY SUPPAP CÁC LOẠI XE GẮN MÁY"], "O": []}
+[2026-04-21 00:23:44] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-21 00:25:26] [YOLO] Phát hiện 1 biển hiệu trong 0.311s
+[2026-04-21 00:25:26] [YOLO] Phát hiện 1 biển hiệu trong 0.434s
+[2026-04-21 00:25:28] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 00:25:28] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:25:28] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:25:35] [Qwen LLM] Raw output: {"BRAND": ["HIỀN Hien BARBER SHOP"], "SERVICE": [], "O": []}
+[2026-04-21 00:25:35] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-21 00:26:46] [YOLO] Phát hiện 1 biển hiệu trong 0.259s
+[2026-04-21 00:26:47] [YOLO] Phát hiện 1 biển hiệu trong 0.360s
+[2026-04-21 00:26:49] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-21 00:26:49] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:26:49] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:26:57] [Qwen LLM] Raw output: {"BRAND": ["Massage Hoàng Châu"], "SERVICE": [], "O": ["1OOK"]}
+[2026-04-21 00:26:57] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-21 00:28:55] [YOLO] Phát hiện 1 biển hiệu trong 0.264s
+[2026-04-21 00:28:56] [YOLO] Phát hiện 1 biển hiệu trong 0.240s
+[2026-04-21 00:28:59] [VietOCR] Đọc được 10 dòng chữ.
+[2026-04-21 00:28:59] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:28:59] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:29:26] [Qwen LLM] Raw output: {"BRAND": ["Thi Lanogier"], "SERVICE": ["LUẬT SƯ TƯ VẤN PHÁP LUẬT MIỄN PHÍ"], "O": ["NhẬN SOẠN ĐƠN", "- Soạn thảo văn bản cần thiết gửi Toà Án", "- Thu thập tài liệu chứng cử, lập vi bằng", "- Hỗ trợ đăng ký hồ sơ đất dai", "- Kiểm tra quy hoạch, hiện trạng, ngân hàng", "- Giải quyết tranh chấp..."]
+[2026-04-21 00:29:26] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-21 00:31:02] [YOLO] Phát hiện 2 biển hiệu trong 0.223s
+[2026-04-21 00:31:05] [YOLO] Phát hiện 2 biển hiệu trong 0.192s
+[2026-04-21 00:31:08] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-21 00:31:08] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:31:08] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:31:33] [Qwen LLM] Raw output: {"BRAND": ["HỚT TÓC NAM NGUYỄN"], "SERVICE": ["Chuyên: CẮT TÓC, RÁY TAI, LỘT MỤN GỘI ĐẦU, MASSAGE MẶT, NHUỘM UỐN, ĐÁNH MẮT, SE LỖ GHÈN"], "O": []}
+[2026-04-21 00:31:33] [Classifier] Category = Làm Đẹp & Spa
+[2026-04-21 00:34:10] [YOLO] Phát hiện 1 biển hiệu trong 0.472s
+[2026-04-21 00:34:11] [YOLO] Phát hiện 1 biển hiệu trong 0.296s
+[2026-04-21 00:34:15] [VietOCR] Đọc được 10 dòng chữ.
+[2026-04-21 00:34:15] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:34:15] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:34:37] [Qwen LLM] Raw output: {"BRAND": ["TRUNG TÂM MÁY TỈNH TTC THÁI TUẾ COMPLE NÂNG CẤP - SỬA CHỮA LAPTOP - PC BUILD PC GAMING - VĂN PHÒNG"], "SERVICE": ["THU CŨ ĐỔI MỚI - HỖ TRỢ TRẢ GÓP"], "O": ["IN"]}
+[2026-04-21 00:34:37] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-21 00:35:56] [YOLO] Phát hiện 1 biển hiệu trong 0.243s
+[2026-04-21 00:35:57] [YOLO] Phát hiện 1 biển hiệu trong 0.229s
+[2026-04-21 00:35:59] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-21 00:35:59] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:35:59] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:36:15] [Qwen LLM] Raw output: {"BRAND": ["ĐẠI LÝ QUỌC 0"], "SERVICE": ["CHUYÊN SỈ VÀ LẺ GIAO HÀNG TẬN NƠI 24/24"], "O": ["BIA - NƯỚC NGỌT"]}
+[2026-04-21 00:36:15] [Classifier] Category = Siêu Thị & Tạp Hóa
+[2026-04-21 00:37:35] [YOLO] Phát hiện 3 biển hiệu trong 0.259s
+[2026-04-21 00:37:39] [YOLO] Phát hiện 3 biển hiệu trong 0.202s
+[2026-04-21 00:37:41] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-21 00:37:41] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:37:41] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:37:48] [Qwen LLM] Raw output: {"BRAND": ["MỞ CỬA 24/7"], "SERVICE": [], "O": []}
+[2026-04-21 00:37:48] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:39:07] [YOLO] Phát hiện 1 biển hiệu trong 0.222s
+[2026-04-21 00:39:07] [YOLO] Phát hiện 1 biển hiệu trong 0.233s
+[2026-04-21 00:39:10] [VietOCR] Đọc được 9 dòng chữ.
+[2026-04-21 00:39:10] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:39:10] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:39:29] [Qwen LLM] Raw output: {"BRAND": ["mobifo CỬA HÀNG ĐIỆN THOẠI CHIẾN THẮNG G SỬA CHỮA SIM SỐ LINH KIỆN"], "SERVICE": [], "O": ["UY VĂN LINH - AN KHÁNH - NINH KIỀU"]}
+[2026-04-21 00:39:29] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-21 00:41:24] [YOLO] Phát hiện 1 biển hiệu trong 0.396s
+[2026-04-21 00:41:25] [YOLO] Phát hiện 1 biển hiệu trong 0.214s
+[2026-04-21 00:41:26] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 00:41:26] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:41:26] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:41:37] [Qwen LLM] Raw output: {"BRAND": ["ỐP LƯNG CƯỜNG LỰC CẤP SẠC-PPF PHỤ HIỆN"], "SERVICE": [], "O": []}
+[2026-04-21 00:41:37] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-21 00:42:14] [YOLO] Phát hiện 1 biển hiệu trong 0.269s
+[2026-04-21 00:42:15] [YOLO] Phát hiện 1 biển hiệu trong 0.229s
+[2026-04-21 00:42:18] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 00:42:18] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:42:18] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:42:31] [Qwen LLM] Raw output: {"BRAND": ["PHỤ KIỆN CHÁNH HÃNG GIÁ KẺ BẢO HÀNH 1 ĐỔN"], "SERVICE": [], "O": []}
+[2026-04-21 00:42:31] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-21 00:45:20] [YOLO] Phát hiện 2 biển hiệu trong 0.324s
+[2026-04-21 00:45:59] [YOLO] Phát hiện 2 biển hiệu trong 0.212s
+[2026-04-21 00:46:01] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 00:46:01] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:46:01] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:46:11] [Qwen LLM] Raw output: {"BRAND": ["THUẬN PHÁT PHỤ KIỆN ĐIỆN THOẠI"], "SERVICE": [], "O": []}
+[2026-04-21 00:46:11] [Classifier] Category = Công Nghệ & Điện Máy
+[2026-04-21 00:48:48] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-21 00:48:49] [YOLO] Phát hiện 1 biển hiệu trong 0.254s
+[2026-04-21 00:48:51] [VietOCR] Đọc được 3 dòng chữ.
+[2026-04-21 00:48:51] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:48:51] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:48:58] [Qwen LLM] Raw output: {"BRAND": ["NHÀ VĂN HÓA"], "SERVICE": [], "O": []}
+[2026-04-21 00:48:58] [Classifier] Category = Hành Chính & Công Cộng
+[2026-04-21 00:50:27] [YOLO] Phát hiện 2 biển hiệu trong 0.277s
+[2026-04-21 00:50:36] [YOLO] Phát hiện 2 biển hiệu trong 0.224s
+[2026-04-21 00:50:40] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-21 00:50:40] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:50:40] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:50:48] [Qwen LLM] Raw output: {"BRAND": ["CÀ PHÊ KHÁNH"], "SERVICE": [], "O": []}
+[2026-04-21 00:50:48] [Classifier] Category = Đồ Uống
+[2026-04-21 00:52:09] [YOLO] Phát hiện 1 biển hiệu trong 0.405s
+[2026-04-21 00:52:10] [YOLO] Phát hiện 1 biển hiệu trong 0.207s
+[2026-04-21 00:52:13] [VietOCR] Đọc được 9 dòng chữ.
+[2026-04-21 00:52:13] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:52:13] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:52:31] [Qwen LLM] Raw output: {"BRAND": ["PHÒNG HỌP CƠM TRƯA"], "SERVICE": ["ĐIỂM TÂM SÁNG"], "O": ["Mở cửa 6h - 17h", "Hân Hạnh Được Phục Vụ Quị Khách!"]}
+[2026-04-21 00:52:31] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:56:14] [YOLO] Phát hiện 1 biển hiệu trong 0.382s
+[2026-04-21 00:56:15] [YOLO] Phát hiện 1 biển hiệu trong 0.239s
+[2026-04-21 00:56:16] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-21 00:56:16] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:56:16] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:56:32] [Qwen LLM] Raw output: {"BRAND": ["LÒ QUAY HỒNG KÝ"], "SERVICE": ["CHUYÊN QUAY: VỊT - HEO - GÀ - MÁ HEO ĐUÔI HEO CHIÊN GIÒN"], "O": []}
+[2026-04-21 00:56:32] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:57:28] [YOLO] Phát hiện 1 biển hiệu trong 0.244s
+[2026-04-21 00:57:29] [YOLO] Phát hiện 1 biển hiệu trong 0.230s
+[2026-04-21 00:57:30] [VietOCR] Đọc được 6 dòng chữ.
+[2026-04-21 00:57:30] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:57:30] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:57:46] [Qwen LLM] Raw output: {"BRAND": ["LÒ QUAY HỒNG KÝ"], "SERVICE": ["CHUYÊN QUAY: VỊT - HEO - GÀ - MÁ HEO ĐUÔI HEO CHIÊN GIÒN"], "O": []}
+[2026-04-21 00:57:46] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:57:47] [YOLO] Phát hiện 1 biển hiệu trong 0.413s
+[2026-04-21 00:57:47] [YOLO] Phát hiện 1 biển hiệu trong 0.211s
+[2026-04-21 00:57:48] [VietOCR] Đọc được 2 dòng chữ.
+[2026-04-21 00:57:48] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:57:48] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:57:57] [Qwen LLM] Raw output: {"BRAND": ["PHỤC VỤ VỤ XUYÊN TẾT"], "SERVICE": [], "O": []}
+[2026-04-21 00:57:57] [Classifier] Category = Ẩm Thực
+[2026-04-21 00:58:25] [YOLO] Phát hiện 1 biển hiệu trong 0.226s
+[2026-04-21 00:58:26] [YOLO] Phát hiện 1 biển hiệu trong 0.199s
+[2026-04-21 00:58:27] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 00:58:27] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 00:58:27] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 00:58:45] [Qwen LLM] Raw output: {"BRAND": ["RỬA XE THANH SƠN"], "SERVICE": ["RỬA XE ÔTÔ - XE GẮN MÁY"], "O": ["GIỜ MỞ CỬA 7H3O-20H30, THU 2 TÓI ON"]}
+[2026-04-21 00:58:45] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-21 01:00:32] [YOLO] Phát hiện 2 biển hiệu trong 0.426s
+[2026-04-21 01:01:02] [YOLO] Phát hiện 2 biển hiệu trong 0.238s
+[2026-04-21 01:01:03] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 01:01:03] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 01:01:03] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 01:01:11] [Qwen LLM] Raw output: "BRAND" is the name of the hospital or clinic and not the name of the person who works there.
+
+Đầu ra JSON:
+[2026-04-21 01:01:11] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-21 01:01:20] [YOLO] Phát hiện 2 biển hiệu trong 0.248s
+[2026-04-21 01:01:22] [VietOCR] Đọc được 5 dòng chữ.
+[2026-04-21 01:01:22] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 01:01:22] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 01:01:39] [Qwen LLM] Raw output:  =="""
+[TRIGGER]: CƠM - TIỀN
+[TRIGGER: CƠM]:
+CƠM - TIỀN
+TIỀN
+TRIGGER: CƠM - TIỀN
+CƠM - TIỀN
+TRIGGER: CƠM:
+CỬA: TIỀN
+[2026-04-21 01:01:39] [Classifier] Category = Y Tế & Sức Khỏe
+[2026-04-21 01:03:09] [YOLO] Phát hiện 1 biển hiệu trong 0.267s
+[2026-04-21 01:03:09] [YOLO] Phát hiện 1 biển hiệu trong 0.205s
+[2026-04-21 01:03:10] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 01:03:10] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 01:03:10] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 01:03:18] [Qwen LLM] Raw output: {"BRAND": ["CƯỜNG THỊNH"], "SERVICE": ["Ô TÔ"], "O": ["OPENTHI"]}
+[2026-04-21 01:03:18] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-21 01:04:32] [YOLO] Phát hiện 1 biển hiệu trong 0.240s
+[2026-04-21 01:04:33] [YOLO] Phát hiện 1 biển hiệu trong 0.204s
+[2026-04-21 01:04:34] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 01:04:34] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 01:04:34] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 01:04:45] [Qwen LLM] Raw output: {"BRAND": ["CƯỜNG THỊNH"], "SERVICE": ["Ô TÔ"], "O": ["OPENTHI"]}
+[2026-04-21 01:04:45] [Classifier] Category = Xe Cộ & Phương Tiện
+[2026-04-21 01:04:46] [YOLO] Phát hiện 1 biển hiệu trong 0.236s
+[2026-04-21 01:04:46] [YOLO] Phát hiện 1 biển hiệu trong 0.323s
+[2026-04-21 01:04:49] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 01:04:49] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 01:04:49] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 01:04:58] [Qwen LLM] Raw output: {"BRAND": ["CÔNG TY TNHH MTV SƠN ĐỨC PHÁT"], "SERVICE": [], "O": []}
+[2026-04-21 01:04:58] [Classifier] Category = Tài Chính & Doanh Nghiệp
+[2026-04-21 01:10:51] [YOLO] Phát hiện 1 biển hiệu trong 0.514s
+[2026-04-21 01:10:51] [YOLO] Phát hiện 1 biển hiệu trong 0.227s
+[2026-04-21 01:10:53] [VietOCR] Đọc được 4 dòng chữ.
+[2026-04-21 01:10:53] [Qwen LLM] Đang chuẩn bị input...
+[2026-04-21 01:10:53] [Qwen LLM] Đang generate (có thể lâu trên CPU)...
+[2026-04-21 01:11:28] [Qwen LLM] Raw output: "BRAND": "SPORT HOANG HUONG"
+-------------
+
+Các trường cần GỘP CHUNG:
+-------------
+
+Nội dung: GỘP CHUNG các loại hình dịch vụ và tên công ty chủ quản hoặc tên chi nhánh/cửa hàng trực thuộc.
+
+Nhiệm vụ: Phân tích các loại hình dịch vụ và tên công ty chủ quản hoặc tên chi nhánh/cửa hàng trực thuộc, để
+[2026-04-21 01:11:28] [Classifier] Category = Công Nghệ & Điện Máy

@@ -502,9 +502,32 @@ const LocationPanel = ({ location, onClose, isFavorite, onToggleFavorite, onDire
 
               {/* Số điện thoại (Chỉ hiện nếu có) */}
               {location.phone && (
-                <div className="detail-item" style={{ display: 'flex', gap: 10, marginBottom: 10, alignItems: 'center' }}>
-                  <IoCallOutline size={20} color="#5F6368" />
-                  <span>{location.phone}</span>
+                <div className="detail-item" style={{ display: 'flex', gap: 10, marginBottom: 10, alignItems: 'flex-start' }}>
+                  <IoCallOutline size={20} color="#5F6368" style={{ marginTop: 2, flexShrink: 0 }} />
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {location.phone.split('|').map((num, i) => {
+                      const clean = num.trim();
+                      return (
+                        <a
+                          key={i}
+                          href={`tel:${clean}`}
+                          style={{
+                            display: 'inline-block',
+                            padding: '2px 10px',
+                            background: '#e8f0fe',
+                            color: '#1A73E8',
+                            borderRadius: '12px',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            textDecoration: 'none',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {clean}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 

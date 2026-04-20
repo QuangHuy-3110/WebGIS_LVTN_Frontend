@@ -254,8 +254,8 @@ const CreateStoreModal = ({ onClose }) => {
             ...prev,
             // Tên cửa hàng ← BRAND
             name:    !prev.name.trim()    ? (ci.brand?.[0]   || prev.name)    : prev.name,
-            // Điện thoại ← PHONE
-            phone:   !prev.phone.trim()   ? (ci.phone?.[0]   || prev.phone)   : prev.phone,
+            // Điện thoại ← PHONE (API trả về string "0xxx | 0yyy", không phải array)
+            phone:   !prev.phone.trim()   ? (typeof ci.phone === 'string' ? ci.phone : (ci.phone?.[0] || '')) || prev.phone : prev.phone,
             // Email ← EMAIL
             email:   !prev.email.trim()   ? (ci.email?.[0]   || prev.email)   : prev.email,
             // Địa chỉ — ưu tiên: địa chỉ trên biển hiệu > suy luận từ GPS
@@ -315,10 +315,15 @@ const CreateStoreModal = ({ onClose }) => {
         const fd = new FormData();
         fd.append('image', files[0]);
         setIsAnalyzing(true);
+        // AbortController với timeout 5 phút — đủ để Qwen CPU chạy xong
+        const controller = new AbortController();
+        const timeoutId  = setTimeout(() => controller.abort(), 5 * 60 * 1000);
         try {
             const resp   = await fetch('http://127.0.0.1:8000/api/utils/quick-upload/', {
-                method: 'POST', body: fd,
+                method: 'POST', body: fd, signal: controller.signal,
             });
+            clearTimeout(timeoutId);
+            if (!resp.ok) throw new Error(`Server trả về lỗi ${resp.status}`);
             const result = await resp.json();
 
             if (result.multiple_signs && result.signs?.length > 1) {
@@ -328,7 +333,13 @@ const CreateStoreModal = ({ onClose }) => {
                 applyOcrData(result);
             }
         } catch (err) {
-            console.error('Upload error:', err);
+            clearTimeout(timeoutId);
+            if (err.name === 'AbortError') {
+                alert('⏰ Phân tích AI quá 5 phút, vui lòng thử lại. (Server AI có thể đang bị quá tải)');
+            } else {
+                console.error('Upload error:', err);
+                alert('⚠️ Lỗi kết nối tới server: ' + err.message + '\nVui lòng kiểm tra server AI (port 5050) và thử lại.');
+            }
         } finally {
             setIsAnalyzing(false);
         }
